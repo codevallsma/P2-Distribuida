@@ -22,4 +22,8 @@ token-based mutual exclusion. Among the processes invoked by ProcessA, a Lamport
 for mutual exclusion. Among the processes invoked by ProcessB, a Ricart and Agrawala policy will have to be implemented
 for mutual exclusion.
 
+<br>Visual representation of the exercise:<br>
+
+![Visual diagram of the exercise](https://github.com/codevallsma/P2-Distribuida/blob/main/images/ExerciseDiagram.png)
+
 This project was built together with my great collegue and friend @JCarri14
