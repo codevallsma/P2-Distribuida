@@ -7,11 +7,19 @@ You need to design and implement a distributed application. This application mus
 ProcessA | ProcessB
 ------------ | -------------
 Must invoke 3 lightweight processes: <br> ProcessLWA1<br> ProcessLWA2<br> ProcessLWA3.<br> | Must invoke 2 processes: ProcessLWB1<br> ProcessLWB2.
-<br>  Each lightweight process must live in a loop
+<br>
+
+
+Each lightweight process must live in a loop
 infinity that will consist of displaying its identifier on the screen for 10 times while waiting 1 second at a time
 and time.
-<br><br>Both heavyweight processes will run on the same machine, so all lightweight processes will compete
+
+<br>
+
+Both heavyweight processes will run on the same machine, so all lightweight processes will compete
 by the same share: the screen. A policy will need to be implemented between the two heavyweight processes
 token-based mutual exclusion. Among the processes invoked by ProcessA, a Lamport policy will have to be implemented
 for mutual exclusion. Among the processes invoked by ProcessB, a Ricart and Agrawala policy will have to be implemented
-for mutual exclusion
+for mutual exclusion.
+
+This project was built together with my great collegue and friend @JCarri14
