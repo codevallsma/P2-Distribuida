@@ -1,3 +1,5 @@
+package Lamport;
+
 import java.util.ArrayList;
 
 public class DirectClock {
@@ -11,19 +13,13 @@ public class DirectClock {
 
     public void addNewNode(int nodeId){
         //adding the nodeValue to the new node of the array
-        clock.add(nodeId,LamportNode.INFINITY);
+        clock.add(nodeId, LamportNode.INFINITY);
     }
 
     public ArrayList<Integer> getClock() {
         return clock;
     }
 
-    public int deleteNode(int nodeId){
-        //if a node is deleted, we have to decrement our id by one
-        if(myId!=0 && myId>nodeId) myId--;
-        clock.remove(nodeId);
-        return myId;
-    }
     public int getValue(int index){
         return clock.get(index);
     }

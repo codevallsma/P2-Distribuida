@@ -2,17 +2,15 @@ package ClassesToSend;
 
 import java.io.Serializable;
 
-public class Message<T> implements Serializable {
+public class Message implements Serializable {
     private String tag;
     private int src;
     private int timestamp;
-    private T content;
 
-    public Message(String tag, int src, int timestamp, T content) {
+    public Message(String tag, int src, int timestamp) {
         this.tag = tag;
         this.src = src;
         this.timestamp = timestamp;
-        this.content = content;
     }
 
     public String getTag() {
@@ -37,13 +35,5 @@ public class Message<T> implements Serializable {
 
     public void setTimestamp(int timestamp) {
         this.timestamp = timestamp;
-    }
-
-    public T getContent() {
-        return content;
-    }
-
-    public void setContent(T content) {
-        this.content = content;
     }
 }
