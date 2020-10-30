@@ -1,11 +1,10 @@
 package Lamport;
 
-import ClassesToSend.Message;
+import Model.Message;
 import Interfaces.Callback;
 import Interfaces.LamportInterface;
 import JsonParse.JsonParser;
 import JsonParse.Node;
-import JsonParse.ParseOperation;
 import Network.DedicatedConnection;
 
 import java.io.IOException;

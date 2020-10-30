@@ -1,8 +1,7 @@
 package Network;
 
-import ClassesToSend.Message;
+import Model.Message;
 import Interfaces.Callback;
-import JsonParse.JsonParser;
 import JsonParse.Node;
 
 import java.io.*;

@@ -1,4 +1,4 @@
-package ClassesToSend;
+package Model;
 
 import java.io.Serializable;
 
