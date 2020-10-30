@@ -1,19 +1,17 @@
 package Lamport;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class DirectClock {
     private ArrayList<Integer> clock;
     private int myId;
 
     public DirectClock(int myId, int numConnectedNodes) {
-        this.clock = new ArrayList<Integer>(numConnectedNodes);
+        this.clock = new ArrayList<Integer>(Collections.nCopies(numConnectedNodes, 0));
         this.myId = myId;
-    }
+        this.clock.set(myId,1);
 
-    public void addNewNode(int nodeId){
-        //adding the nodeValue to the new node of the array
-        clock.add(nodeId, LamportNode.INFINITY);
     }
 
     public ArrayList<Integer> getClock() {

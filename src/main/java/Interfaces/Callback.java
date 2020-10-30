@@ -2,7 +2,6 @@ package Interfaces;
 
 import ClassesToSend.Message;
 
-public interface Callback<T> {
+public interface Callback {
     void handleMsg(Message msg);
-    void onNewNode(Message msg);
 }

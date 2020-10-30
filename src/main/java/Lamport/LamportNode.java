@@ -12,9 +12,12 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Vector;
+import java.util.stream.Collectors;
 
-public class LamportNode extends Thread implements Callback<Integer>, LamportInterface<Integer> {
+public class LamportNode extends Thread implements Callback, LamportInterface<Integer> {
     private DirectClock v;
     private ArrayList<Integer> q;
     private Vector<DedicatedConnection> dedicatedConnections;
@@ -22,15 +25,21 @@ public class LamportNode extends Thread implements Callback<Integer>, LamportInt
     private ServerSocket serverSocket;
     private Node nodeInfo;
     private int myId;
-    private boolean isRunning;
     //the max number for integer is 2147483647
     public static final int INFINITY = 2147483647;
     private JsonParser nodeNetwork;
+    private List<Integer> dependencyList;
+    private int numNodes;
 
     public LamportNode(JsonParser nodeNetwork, Integer myId) {
         this.nodeNetwork= nodeNetwork;
         this.myId= myId;
         this.nodeInfo = nodeNetwork.getNodes().get(myId);
+        this.numNodes=nodeNetwork.getNodes().size();
+        dedicatedConnections = new Vector<>();
+        dependencyList= nodeNetwork.getNodes().stream().filter(e -> e.getConnectedTo().contains(myId)).map(Node::getNodeId).collect(Collectors.toList());
+        v = new DirectClock(myId,numNodes);
+        q = new ArrayList<>(Collections.nCopies(numNodes, INFINITY));
     }
 
     @Override
@@ -112,16 +121,6 @@ public class LamportNode extends Thread implements Callback<Integer>, LamportInt
             //notifyHeavyWeight();
         }
     }
-    @Override
-    public void onNewNode(Message msg) {
-        if(this.q.size() <= msg.getSrc()){
-            //the new node with the new index has to fit in our arraylist
-            this.q.ensureCapacity(msg.getSrc() +1);
-            this.v.getClock().ensureCapacity(msg.getSrc() +1);
-        }
-        this.v.addNewNode(msg.getSrc());
-        this.q.set(msg.getSrc(),LamportNode.INFINITY);
-    }
 
     @Override
     public synchronized void releaseCS(){
@@ -131,17 +130,14 @@ public class LamportNode extends Thread implements Callback<Integer>, LamportInt
     }
     @Override
     public void startServer(){
-        startListeningThread();
-        connectToServersThread();
-    }
-    public void connectToServersThread(){
-        Runnable service2 = new Runnable() {
+        Runnable connectToServersRunnable = new Runnable() {
             public void run() {
                 connectToServers();
             }
         };
-        new Thread(service2).start();
+        startListeningThread(connectToServersRunnable);
     }
+
     private synchronized void connectToNode(Node connectedNodeInfo) {
         DedicatedConnection ds= new DedicatedConnection(nodeInfo, connectedNodeInfo, this);
         dedicatedConnections.add(ds);
@@ -155,10 +151,10 @@ public class LamportNode extends Thread implements Callback<Integer>, LamportInt
     }
 
     @Override
-    public void startListeningThread() {
+    public void startListeningThread(Runnable connectToServersRunnable) {
         Runnable service2 = new Runnable() {
             public void run() {
-                startListening();
+                startListening(connectToServersRunnable);
             }
         };
         new Thread(service2).start();
@@ -168,23 +164,26 @@ public class LamportNode extends Thread implements Callback<Integer>, LamportInt
             dc.sendTextAndObject(msg.getTag(), msg);
         }
     }
+    public boolean isReady(){
+        return dedicatedConnections.size()+1 == numNodes;
+    }
     /**
      * This function manages all the connections made by clients
      */
-    private void startListening() {
+    private void startListening(Runnable connectToServersRunnable) {
         try {
             serverSocket = new ServerSocket(nodeInfo.getPort());
-            isRunning = true;
+            int nodesToConnect = dependencyList.size();
 
-            while (isRunning) {
+            while (nodesToConnect>0) {
                 //System.out.println("Waiting for a client...");
                 Socket socket = serverSocket.accept();
-                //System.out.println("Client connected to JsonParse.Node " + nodeInfo.getName());
                 DedicatedConnection dServer = new DedicatedConnection(socket, dedicatedConnections, nodeInfo, this);
                 dedicatedConnections.add(dServer);
-                dServer.startServerConnection();
+                dServer.start();
+                nodesToConnect--;
             }
-
+            connectToServersRunnable.run();
 
         } catch (IOException e) {
             System.err.println(e.getMessage());

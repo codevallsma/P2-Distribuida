@@ -2,6 +2,7 @@ package Network;
 
 import ClassesToSend.Message;
 import Interfaces.Callback;
+import JsonParse.JsonParser;
 import JsonParse.Node;
 
 import java.io.*;
@@ -39,9 +40,17 @@ public class DedicatedConnection extends Thread {
      * @param dedicatedConnections
      */
     public DedicatedConnection(Socket socket, Vector<DedicatedConnection> dedicatedConnections, Node ourNode, Callback nodeCallback) {
-        this.socket = socket;
-        this.ourNode = ourNode;
-        this.dedicatedConnections = dedicatedConnections;
+        try{
+            this.socket = socket;
+            this.ourNode = ourNode;
+            this.dedicatedConnections = dedicatedConnections;
+            callback = nodeCallback;oos = new ObjectOutputStream(socket.getOutputStream());
+            ois = new ObjectInputStream(socket.getInputStream());
+            dos = new DataOutputStream(socket.getOutputStream());
+            dis = new DataInputStream(socket.getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -119,12 +128,7 @@ public class DedicatedConnection extends Thread {
     private void managedInputMessage(String messsage) throws IOException, ClassNotFoundException {
         Message objectResponse;
         objectResponse = (Message)ois.readObject();
-        if ("ADD_CONNECTION".equals(messsage)) {
-            callback.onNewNode(objectResponse);
-        } else {
-            callback.handleMsg(objectResponse);
-        }
-
+        callback.handleMsg(objectResponse);
     }
 
     /**
