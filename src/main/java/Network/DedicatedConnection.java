@@ -1,7 +1,7 @@
 package Network;
 
+import Interfaces.NetworkCallback;
 import Model.Message;
-import Interfaces.Callback;
 import DataParser.Node;
 
 import java.io.*;
@@ -28,7 +28,7 @@ public class DedicatedConnection extends Thread {
 
     private int connectionId;
     // Callback
-    private Callback callback;
+    private NetworkCallback callback;
 
     // Logic
     private boolean isRunning;
@@ -38,7 +38,7 @@ public class DedicatedConnection extends Thread {
      *  @param socket
      * @param dedicatedConnections
      */
-    public DedicatedConnection(Socket socket, Vector<DedicatedConnection> dedicatedConnections, Node ourNode, Callback nodeCallback) {
+    public DedicatedConnection(Socket socket, Vector<DedicatedConnection> dedicatedConnections, Node ourNode, NetworkCallback nodeCallback) {
         try{
             this.socket = socket;
             this.ourNode = ourNode;
@@ -55,7 +55,7 @@ public class DedicatedConnection extends Thread {
     /**
      * Constructor #2
      */
-    public DedicatedConnection(Node ourNode, Node infoConnectedNode, Callback nodeCallback)  {
+    public DedicatedConnection(Node ourNode, Node infoConnectedNode, NetworkCallback nodeCallback)  {
         this.ourNode = ourNode;
         this.connectedNode = infoConnectedNode;
         this.callback = nodeCallback;
@@ -127,7 +127,7 @@ public class DedicatedConnection extends Thread {
     private void managedInputMessage(String messsage) throws IOException, ClassNotFoundException {
         Message objectResponse;
         objectResponse = (Message)ois.readObject();
-        callback.handleMsg(objectResponse);
+        callback.onMessageReceived(objectResponse);
     }
 
     /**

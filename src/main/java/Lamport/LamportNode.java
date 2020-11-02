@@ -1,10 +1,9 @@
 package Lamport;
 
 import Model.Message;
-import Interfaces.Callback;
 import Interfaces.LamportInterface;
-import JsonParse.JsonParser;
-import JsonParse.Node;
+import DataParser.Data;
+import DataParser.Node;
 import Network.DedicatedConnection;
 
 import java.io.IOException;
@@ -16,21 +15,23 @@ import java.util.List;
 import java.util.Vector;
 import java.util.stream.Collectors;
 
-public class LamportNode extends Thread implements Callback, LamportInterface<Integer> {
-    private DirectClock v;
+public class LamportNode extends Thread implements LamportInterface {
+    public static final int INFINITY = 2147483647;
+
     private ArrayList<Integer> q;
     private Vector<DedicatedConnection> dedicatedConnections;
+
     // Communication
+    private DirectClock v;
     private ServerSocket serverSocket;
     private Node nodeInfo;
     private int myId;
-    //the max number for integer is 2147483647
-    public static final int INFINITY = 2147483647;
-    private JsonParser nodeNetwork;
+
+    private Data nodeNetwork;
     private List<Integer> dependencyList;
     private int numNodes;
 
-    public LamportNode(JsonParser nodeNetwork, Integer myId) {
+    public LamportNode(Data nodeNetwork, Integer myId) {
         this.nodeNetwork= nodeNetwork;
         this.myId= myId;
         this.nodeInfo = nodeNetwork.getNodes().get(myId);
@@ -127,7 +128,7 @@ public class LamportNode extends Thread implements Callback, LamportInterface<In
         Message msg = new Message("RELEASE", myId, v.getValue(myId));
         this.sendBroadcastMessage(msg);
     }
-    @Override
+
     public void startServer(){
         Runnable connectToServersRunnable = new Runnable() {
             public void run() {
@@ -138,7 +139,7 @@ public class LamportNode extends Thread implements Callback, LamportInterface<In
     }
 
     private synchronized void connectToNode(Node connectedNodeInfo) {
-        DedicatedConnection ds= new DedicatedConnection(nodeInfo, connectedNodeInfo, this);
+        DedicatedConnection ds= new DedicatedConnection(nodeInfo, connectedNodeInfo, null);
         dedicatedConnections.add(ds);
         ds.startServerConnection();
     }
@@ -149,7 +150,6 @@ public class LamportNode extends Thread implements Callback, LamportInterface<In
         }
     }
 
-    @Override
     public void startListeningThread(Runnable connectToServersRunnable) {
         Runnable service2 = new Runnable() {
             public void run() {
@@ -158,6 +158,8 @@ public class LamportNode extends Thread implements Callback, LamportInterface<In
         };
         new Thread(service2).start();
     }
+
+
     private synchronized void sendBroadcastMessage(Message msg) {
         for (DedicatedConnection dc : dedicatedConnections) {
             dc.sendTextAndObject(msg.getTag(), msg);
@@ -177,7 +179,7 @@ public class LamportNode extends Thread implements Callback, LamportInterface<In
             while (nodesToConnect>0) {
                 //System.out.println("Waiting for a client...");
                 Socket socket = serverSocket.accept();
-                DedicatedConnection dServer = new DedicatedConnection(socket, dedicatedConnections, nodeInfo, this);
+                DedicatedConnection dServer = new DedicatedConnection(socket, dedicatedConnections, nodeInfo, null);
                 dedicatedConnections.add(dServer);
                 dServer.start();
                 nodesToConnect--;
