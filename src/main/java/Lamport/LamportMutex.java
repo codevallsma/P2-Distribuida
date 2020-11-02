@@ -27,24 +27,6 @@ public class LamportMutex implements LamportInterface {
         q = new ArrayList<>(Collections.nCopies(numNodes, INFINITY));
     }
 
-
-    public void doSomething(){
-        while(true){
-            //waitHeavyWeight();
-            requestCS();
-            for (int i=0; i<10; i++){
-                if(!okCS()) {
-                    accessCriticalZone();
-                    Utils.timeWait(1000);
-                } else {
-                    requestCS();
-                }
-            }
-            releaseCS();
-            //notifyHeavyWeight();
-        }
-    }
-
     /**
      * The function we use to create a request
      */
@@ -105,7 +87,7 @@ public class LamportMutex implements LamportInterface {
     }
 
     public boolean isReady(){
-        return networkManager.getConnectionsSize() + 1 == numNodes;
+        return networkManager != null && networkManager.getConnectionsSize() + 1 == numNodes;
     }
 
 

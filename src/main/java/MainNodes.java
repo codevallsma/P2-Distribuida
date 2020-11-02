@@ -1,6 +1,7 @@
 import DataParser.Data;
 import DataParser.Parser;
 import Lamport.LamportNode;
+import Processes.LightweightProcess;
 
 public class MainNodes {
     public static long getPID() {
@@ -10,12 +11,11 @@ public class MainNodes {
     }
     public static void main(String[] args) {
         System.out.println("It's eric modafaka bitch " + getPID());
-        /*int nodeId = Integer.parseInt(args[0]);
+        int nodeId = Integer.parseInt(args[0]);
         Data nodeNetwork = Parser.parseJson();
-        LamportNode h = new LamportNode(nodeNetwork,nodeId);
-        h.startServer();*/
-        /*while(!h.isReady());
-
-        h.doSomething();*/
+        LightweightProcess process = new LightweightProcess(nodeId, nodeNetwork);
+        process.start();
+        while(!process.isReady());
+        process.doSomething();
     }
 }

@@ -6,6 +6,7 @@ import Interfaces.NetworkCallback;
 import Lamport.LamportMutex;
 import Model.Message;
 import Network.NetworkManager;
+import Utils.Utils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,11 +36,29 @@ public class LightweightProcess implements NetworkCallback {
         this.lamportMutex = new LamportMutex(myId, numNodes);
     }
 
-    /* *************************************************************************** */
-    /* ************************** PUBLIC FUNCTIONS ******************************* */
-    /* *************************************************************************** */
-    public synchronized Node getNodeByID(int id) {
-        return nodeNetwork.getNodes().get(id);
+    public void start() {
+        this.networkManager.startServer();
+    }
+
+    public boolean isReady() {
+        return lamportMutex.isReady();
+    }
+
+    public void doSomething(){
+        while(true){
+            //waitHeavyWeight();
+            this.lamportMutex.requestCS();
+            for (int i=0; i<10; i++){
+                if(!this.lamportMutex.okCS()) {
+                    this.lamportMutex.accessCriticalZone();
+                    Utils.timeWait(1000);
+                } else {
+                    this.lamportMutex.requestCS();
+                }
+            }
+            this.lamportMutex.releaseCS();
+            //notifyHeavyWeight();
+        }
     }
 
     /* *************************************************************************** */
@@ -47,7 +66,7 @@ public class LightweightProcess implements NetworkCallback {
     /* *************************************************************************** */
 
     @Override
-    public void onMessageReceived(Message msg) {
+    public synchronized void onMessageReceived(Message msg) {
 
     }
 }
