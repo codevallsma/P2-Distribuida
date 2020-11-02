@@ -139,7 +139,7 @@ public class LamportNode extends Thread implements LamportInterface {
     }
 
     private synchronized void connectToNode(Node connectedNodeInfo) {
-        DedicatedConnection ds= new DedicatedConnection(nodeInfo, connectedNodeInfo, null);
+        DedicatedConnection ds= new DedicatedConnection(nodeInfo, null, connectedNodeInfo, null);
         dedicatedConnections.add(ds);
         ds.startServerConnection();
     }

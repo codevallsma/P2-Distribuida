@@ -55,10 +55,12 @@ public class DedicatedConnection extends Thread {
     /**
      * Constructor #2
      */
-    public DedicatedConnection(Node ourNode, Node infoConnectedNode, NetworkCallback nodeCallback)  {
+    public DedicatedConnection(Node ourNode, Vector<DedicatedConnection> dedicatedConnections, Node infoConnectedNode, NetworkCallback nodeCallback)  {
         this.ourNode = ourNode;
         this.connectedNode = infoConnectedNode;
         this.callback = nodeCallback;
+        this.dedicatedConnections = dedicatedConnections;
+
         if (connectedNode == null) {
             System.out.println("AQUI TAMBE CONNECTED NODE NULL");
         }

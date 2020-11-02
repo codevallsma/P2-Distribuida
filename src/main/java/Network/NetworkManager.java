@@ -95,7 +95,7 @@ public class NetworkManager {
     }
 
     private synchronized void connectToNode(Node connectedNodeInfo) {
-        DedicatedConnection ds= new DedicatedConnection(nodeData, connectedNodeInfo, callback);
+        DedicatedConnection ds= new DedicatedConnection(nodeData, connections, connectedNodeInfo, callback);
         connections.add(ds);
         ds.startServerConnection();
     }
