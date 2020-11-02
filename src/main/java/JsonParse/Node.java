@@ -1,4 +1,4 @@
-package DataParser;
+package JsonParse;
 
 import java.util.HashMap;
 import java.util.List;
@@ -59,12 +59,10 @@ public class Node {
     public void setConnectedTo(List<Integer> connectedTo) {
         this.connectedTo = connectedTo;
     }
-
     @JsonProperty("nodeId")
     public Integer getNodeId() {
         return nodeId;
     }
-
     @JsonProperty("nodeId")
     public void setNodeId(Integer nodeId) {
         this.nodeId = nodeId;
