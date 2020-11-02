@@ -1,10 +1,8 @@
 package Lamport;
 
 import Interfaces.LamportInterface;
-import Interfaces.NetworkCallback;
 import Model.Message;
 import Network.NetworkManager;
-import Utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;

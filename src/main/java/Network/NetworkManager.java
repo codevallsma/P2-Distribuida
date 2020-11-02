@@ -36,6 +36,7 @@ public class NetworkManager {
         this.nodeNetwork = nodeNetwork;
         this.numNodesToConnect = numNodesToConnect;
         this.callback = callback;
+        this.connections = new Vector<>();
     }
 
     public synchronized void sendBroadcastMessage(Message msg) {

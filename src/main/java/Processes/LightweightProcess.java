@@ -67,6 +67,6 @@ public class LightweightProcess implements NetworkCallback {
 
     @Override
     public synchronized void onMessageReceived(Message msg) {
-
+        lamportMutex.handleMsg(msg);
     }
 }
