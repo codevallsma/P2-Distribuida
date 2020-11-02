@@ -1,11 +1,12 @@
 package Interfaces;
 
-public interface LamportInterface<T> {
-    boolean isGreater(int index1, int index2, int value2);
-    boolean okCS();
-    void startListeningThread(Runnable connectToServersRunnable);
-    void releaseCS();
+import Model.Message;
+
+public interface LamportInterface {
     void requestCS();
+    void releaseCS();
+    boolean okCS();
+    boolean isGreater(int index1, int index2, int value2);
     void accessCriticalZone();
-    void startServer();
+    void handleMsg(Message msg);
 }
