@@ -3,8 +3,10 @@ package Network;
 import Interfaces.NetworkCallback;
 import Model.Message;
 import DataParser.Node;
+import Utils.*;
 
 import java.io.*;
+import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.Vector;
@@ -70,20 +72,26 @@ public class DedicatedConnection extends Thread {
      * Function that sets communication channels ready and starts thread process
      */
     public void startServerConnection() {
-
-        try {
-            InetAddress ip = InetAddress.getByName(connectedNode.getIp());
-            this.socket = new Socket(ip, connectedNode.getPort());
-            oos = new ObjectOutputStream(socket.getOutputStream());
-            ois = new ObjectInputStream(socket.getInputStream());
-            dos = new DataOutputStream(socket.getOutputStream());
-            dis = new DataInputStream(socket.getInputStream());
-            isRunning = true;
-            start();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            stopServerConnection();
+        boolean connected = false;
+        while(!connected) {
+            Utils.timeWait(5000);
+            try {
+                InetAddress ip = InetAddress.getByName(connectedNode.getIp());
+                System.out.println("Peta desde " + ourNode.getNodeId() + "cap a " + connectedNode.getNodeId());
+                this.socket = new Socket(ip, connectedNode.getPort());
+                connected = true;
+                oos = new ObjectOutputStream(socket.getOutputStream());
+                ois = new ObjectInputStream(socket.getInputStream());
+                dos = new DataOutputStream(socket.getOutputStream());
+                dis = new DataInputStream(socket.getInputStream());
+                isRunning = true;
+                start();
+            } catch (ConnectException exception){
+                connected = false;
+            } catch (IOException e) {
+                e.printStackTrace();
+                stopServerConnection();
+            }
         }
     }
 

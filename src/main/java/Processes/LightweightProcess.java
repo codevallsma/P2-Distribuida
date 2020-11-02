@@ -44,7 +44,8 @@ public class LightweightProcess implements NetworkCallback {
     }
 
     public void doSomething(){
-        while(true){
+        boolean isRunning = true;
+        while(isRunning){
             //waitHeavyWeight();
             this.lamportMutex.requestCS();
             for (int i=0; i<10; i++){
@@ -56,6 +57,8 @@ public class LightweightProcess implements NetworkCallback {
                 }
             }
             this.lamportMutex.releaseCS();
+            this.networkManager.stopServer();
+            isRunning = false;
             //notifyHeavyWeight();
         }
     }

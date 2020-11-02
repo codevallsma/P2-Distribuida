@@ -62,12 +62,16 @@ public class NetworkManager {
     }
 
     public void startServer(){
+        isRunning=true;
         Runnable connectToServersRunnable = new Runnable() {
             public void run() {
                 connectToServers();
             }
         };
         startListeningThread(connectToServersRunnable);
+    }
+    public void stopServer(){
+        isRunning = false;
     }
 
     /**
@@ -81,6 +85,7 @@ public class NetworkManager {
             while (nodesToConnect>0) {
                 //System.out.println("Waiting for a client...");
                 Socket socket = serverSocket.accept();
+                System.out.println("New connection from node "+ nodeData.getNodeId());
                 DedicatedConnection dServer = new DedicatedConnection(socket, connections, nodeData, callback);
                 mutexConnections.acquire();
                 connections.add(dServer);
@@ -89,7 +94,7 @@ public class NetworkManager {
                 nodesToConnect--;
             }
             connectToServersRunnable.run();
-
+            while (isRunning);
         } catch (IOException e) {
             System.err.println(e.getMessage());
         } catch (InterruptedException e) {
