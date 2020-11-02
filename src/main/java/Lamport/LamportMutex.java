@@ -18,9 +18,10 @@ public class LamportMutex implements LamportInterface {
 
     private NetworkManager networkManager;
 
-    public LamportMutex(int myId, int numNodes) {
+    public LamportMutex(int myId, int numNodes, NetworkManager networkManager) {
         this.myId= myId;
         this.numNodes = numNodes;
+        this.networkManager = networkManager;
         v = new DirectClock(myId,numNodes);
         q = new ArrayList<>(Collections.nCopies(numNodes, INFINITY));
     }

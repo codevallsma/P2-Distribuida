@@ -16,7 +16,6 @@ public class MainNodes {
         LightweightProcess process = new LightweightProcess(nodeId, nodeNetwork);
         process.start();
         while(!process.isReady());
-        System.out.println("Ready past");
         process.doSomething();
     }
 }

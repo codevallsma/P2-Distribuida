@@ -27,8 +27,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Lamport/LamportNode.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2952">
-              <caret line="181" column="98" selection-start-line="181" selection-start-column="78" selection-end-line="181" selection-end-column="98" />
+            <state relative-caret-position="96">
+              <caret line="131" column="27" selection-start-line="131" selection-start-column="16" selection-end-line="131" selection-end-column="27" />
               <folding>
                 <element signature="docComment;method#okCS#0;class#LamportNode#0" />
                 <element signature="method#okCS#0;class#LamportNode#0" />
@@ -45,8 +45,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Network/DedicatedConnection.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1503">
-              <caret line="108" selection-start-line="108" selection-end-line="108" />
+            <state relative-caret-position="162">
+              <caret line="149" column="8" selection-start-line="149" selection-start-column="8" selection-end-line="149" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -54,15 +54,14 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Processes/LightweightProcess.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="34" column="40" lean-forward="true" selection-start-line="34" selection-start-column="40" selection-end-line="34" selection-end-column="40" />
+            <state relative-caret-position="123">
+              <caret line="48" column="30" selection-start-line="48" selection-start-column="30" selection-end-line="48" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1151#1152#0" expanded="true" />
                 <element signature="e#1200#1201#0" expanded="true" />
                 <element signature="e#1223#1224#0" expanded="true" />
                 <element signature="e#1241#1242#0" expanded="true" />
-                <element signature="method#doSomething#0;class#LightweightProcess#0" />
                 <element signature="e#2142#2143#0" expanded="true" />
                 <element signature="e#2182#2183#0" expanded="true" />
               </folding>
@@ -73,8 +72,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Lamport/LamportMutex.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="816">
-              <caret line="55" column="13" lean-forward="true" selection-start-line="55" selection-start-column="13" selection-end-line="55" selection-end-column="13" />
+            <state relative-caret-position="123">
+              <caret line="36" column="28" selection-start-line="36" selection-start-column="28" selection-end-line="36" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#handleMsg#0;class#LamportMutex#0" />
@@ -109,16 +108,14 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/Network/NetworkManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="332">
-              <caret line="97" column="71" selection-start-line="97" selection-start-column="71" selection-end-line="97" selection-end-column="71" />
+            <state relative-caret-position="24">
+              <caret line="34" column="33" selection-start-line="34" selection-start-column="33" selection-end-line="34" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1236#1237#0" expanded="true" />
-                <element signature="e#1308#1309#0" expanded="true" />
-                <element signature="e#1492#1493#0" expanded="true" />
-                <element signature="e#1542#1543#0" expanded="true" />
-                <element signature="e#3320#3321#0" expanded="true" />
-                <element signature="e#3354#3355#0" expanded="true" />
+                <element signature="e#1713#1714#0" expanded="true" />
+                <element signature="e#1785#1786#0" expanded="true" />
+                <element signature="e#1965#1966#0" expanded="true" />
+                <element signature="e#2015#2016#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -136,7 +133,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/MainLamport.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="392">
+            <state relative-caret-position="280">
               <caret line="52" column="1" selection-start-line="52" selection-start-column="1" selection-end-line="52" selection-end-column="1" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -149,8 +146,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/MainNodes.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="15" column="52" selection-start-line="15" selection-start-column="52" selection-end-line="15" selection-end-column="52" />
+            <state relative-caret-position="178">
+              <caret line="18" selection-start-line="18" selection-end-line="18" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -203,13 +200,13 @@
         <option value="$PROJECT_DIR$/src/main/java/Interfaces/NetworkCallback.java" />
         <option value="$PROJECT_DIR$/src/main/java/Utils/Utils.java" />
         <option value="$PROJECT_DIR$/src/main/resources/LamportOldVersion" />
-        <option value="$PROJECT_DIR$/src/main/java/Lamport/LamportNode.java" />
-        <option value="$PROJECT_DIR$/src/main/java/MainNodes.java" />
         <option value="$PROJECT_DIR$/src/main/java/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Lamport/LamportNode.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Network/DedicatedConnection.java" />
         <option value="$PROJECT_DIR$/src/main/java/Lamport/LamportMutex.java" />
         <option value="$PROJECT_DIR$/src/main/java/Processes/LightweightProcess.java" />
+        <option value="$PROJECT_DIR$/src/main/java/MainNodes.java" />
         <option value="$PROJECT_DIR$/src/main/java/Network/NetworkManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Network/DedicatedConnection.java" />
       </list>
     </option>
   </component>
@@ -415,7 +412,7 @@
       <workItem from="1604080620787" duration="6552000" />
       <workItem from="1604095527591" duration="2151000" />
       <workItem from="1604169999879" duration="522000" />
-      <workItem from="1604337721932" duration="5289000" />
+      <workItem from="1604337721932" duration="6540000" />
     </task>
     <task id="LOCAL-00001" summary="Feat: Added main.">
       <created>1603142942433</created>
@@ -477,10 +474,11 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15059000" />
+    <option name="totallyTimeSpent" value="16310000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="2576" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12519872" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -492,7 +490,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32995495" />
       <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.38907468" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.48049054" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.38015607" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -610,10 +608,17 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Network/NetworkManager.java</url>
-          <line>76</line>
+          <url>file://$PROJECT_DIR$/src/main/java/Network/DedicatedConnection.java</url>
+          <line>141</line>
           <properties />
-          <option name="timeStamp" value="2" />
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <condition expression="nodeData.getNodeId() == 0" language="JAVA" />
+          <url>file://$PROJECT_DIR$/src/main/java/Network/NetworkManager.java</url>
+          <line>45</line>
+          <properties />
+          <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -758,19 +763,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Lamport/LamportMutex.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="816">
-          <caret line="55" column="13" lean-forward="true" selection-start-line="55" selection-start-column="13" selection-end-line="55" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#handleMsg#0;class#LamportMutex#0" />
-            <element signature="e#2597#2598#0" expanded="true" />
-            <element signature="e#2697#2698#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
@@ -783,8 +775,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Lamport/LamportNode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2952">
-          <caret line="181" column="98" selection-start-line="181" selection-start-column="78" selection-end-line="181" selection-end-column="98" />
+        <state relative-caret-position="96">
+          <caret line="131" column="27" selection-start-line="131" selection-start-column="16" selection-end-line="131" selection-end-column="27" />
           <folding>
             <element signature="docComment;method#okCS#0;class#LamportNode#0" />
             <element signature="method#okCS#0;class#LamportNode#0" />
@@ -797,26 +789,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Processes/LightweightProcess.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="34" column="40" lean-forward="true" selection-start-line="34" selection-start-column="40" selection-end-line="34" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1151#1152#0" expanded="true" />
-            <element signature="e#1200#1201#0" expanded="true" />
-            <element signature="e#1223#1224#0" expanded="true" />
-            <element signature="e#1241#1242#0" expanded="true" />
-            <element signature="method#doSomething#0;class#LightweightProcess#0" />
-            <element signature="e#2142#2143#0" expanded="true" />
-            <element signature="e#2182#2183#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/MainLamport.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
+        <state relative-caret-position="280">
           <caret line="52" column="1" selection-start-line="52" selection-start-column="1" selection-end-line="52" selection-end-column="1" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -825,10 +800,39 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Lamport/LamportMutex.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="123">
+          <caret line="36" column="28" selection-start-line="36" selection-start-column="28" selection-end-line="36" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#handleMsg#0;class#LamportMutex#0" />
+            <element signature="e#2597#2598#0" expanded="true" />
+            <element signature="e#2697#2698#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Processes/LightweightProcess.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="123">
+          <caret line="48" column="30" selection-start-line="48" selection-start-column="30" selection-end-line="48" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1151#1152#0" expanded="true" />
+            <element signature="e#1200#1201#0" expanded="true" />
+            <element signature="e#1223#1224#0" expanded="true" />
+            <element signature="e#1241#1242#0" expanded="true" />
+            <element signature="e#2142#2143#0" expanded="true" />
+            <element signature="e#2182#2183#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/MainNodes.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="15" column="52" selection-start-line="15" selection-start-column="52" selection-end-line="15" selection-end-column="52" />
+        <state relative-caret-position="178">
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -837,23 +841,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Network/DedicatedConnection.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1503">
-          <caret line="108" selection-start-line="108" selection-end-line="108" />
+        <state relative-caret-position="162">
+          <caret line="149" column="8" selection-start-line="149" selection-start-column="8" selection-end-line="149" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Network/NetworkManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="332">
-          <caret line="97" column="71" selection-start-line="97" selection-start-column="71" selection-end-line="97" selection-end-column="71" />
+        <state relative-caret-position="24">
+          <caret line="34" column="33" selection-start-line="34" selection-start-column="33" selection-end-line="34" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1236#1237#0" expanded="true" />
-            <element signature="e#1308#1309#0" expanded="true" />
-            <element signature="e#1492#1493#0" expanded="true" />
-            <element signature="e#1542#1543#0" expanded="true" />
-            <element signature="e#3320#3321#0" expanded="true" />
-            <element signature="e#3354#3355#0" expanded="true" />
+            <element signature="e#1713#1714#0" expanded="true" />
+            <element signature="e#1785#1786#0" expanded="true" />
+            <element signature="e#1965#1966#0" expanded="true" />
+            <element signature="e#2015#2016#0" expanded="true" />
           </folding>
         </state>
       </provider>

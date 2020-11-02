@@ -40,9 +40,16 @@ public class NetworkManager {
     }
 
     public synchronized void sendBroadcastMessage(Message msg) {
-        for (DedicatedConnection dc : connections) {
-            dc.sendTextAndObject(msg.getTag(), msg);
+        try {
+            mutexConnections.acquire();
+            for (DedicatedConnection dc : connections) {
+                dc.sendTextAndObject(msg.getTag(), msg);
+            }
+            mutexConnections.release();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+
     }
 
     public void startListeningThread(Runnable connectToServersRunnable) {
@@ -75,7 +82,9 @@ public class NetworkManager {
                 //System.out.println("Waiting for a client...");
                 Socket socket = serverSocket.accept();
                 DedicatedConnection dServer = new DedicatedConnection(socket, connections, nodeData, callback);
+                mutexConnections.acquire();
                 connections.add(dServer);
+                mutexConnections.release();
                 dServer.start();
                 nodesToConnect--;
             }
@@ -83,6 +92,8 @@ public class NetworkManager {
 
         } catch (IOException e) {
             System.err.println(e.getMessage());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         } finally {
             if (serverSocket != null && !serverSocket.isClosed()) {
                 try {
@@ -96,8 +107,14 @@ public class NetworkManager {
 
     private synchronized void connectToNode(Node connectedNodeInfo) {
         DedicatedConnection ds= new DedicatedConnection(nodeData, connections, connectedNodeInfo, callback);
-        connections.add(ds);
-        ds.startServerConnection();
+        try {
+            mutexConnections.acquire();
+            connections.add(ds);
+            mutexConnections.release();
+            ds.startServerConnection();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private void connectToServers(){
@@ -107,6 +124,14 @@ public class NetworkManager {
     }
 
     public int getConnectionsSize() {
-        return connections != null ? connections.size():0;
+        try {
+            mutexConnections.acquire();
+            int res = connections != null ? connections.size():0;
+            mutexConnections.release();
+            return res;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }
