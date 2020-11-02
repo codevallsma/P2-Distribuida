@@ -1,5 +1,7 @@
 package Interfaces;
 
-public interface NetworkCallback {
+import Model.Message;
 
+public interface NetworkCallback {
+    void onMessageReceived(Message msg);
 }

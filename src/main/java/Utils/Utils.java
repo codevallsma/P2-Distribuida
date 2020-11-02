@@ -1,5 +1,7 @@
 package Utils;
 
+import static java.lang.Thread.sleep;
+
 public class Utils {
 
     public static long getPID() {
@@ -8,4 +10,11 @@ public class Utils {
         return Long.parseLong(processName.split("@")[0]);
     }
 
+    public static void timeWait(int duration) {
+        try {
+            sleep(duration);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }
