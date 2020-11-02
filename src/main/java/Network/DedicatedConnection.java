@@ -2,7 +2,7 @@ package Network;
 
 import Model.Message;
 import Interfaces.Callback;
-import JsonParse.Node;
+import DataParser.Node;
 
 import java.io.*;
 import java.net.InetAddress;
@@ -156,7 +156,7 @@ public class DedicatedConnection extends Thread {
 
     // GETTERS AND SETTERS
     public String getConnectedNodeName() {
-        //System.out.println("JsonParse.Node Name: " + connectedNode.getName());
+        //System.out.println("DataParser.Node Name: " + connectedNode.getName());
         return connectedNode != null ? String.valueOf(connectedNode.getNodeId()) :"";
     }
 
