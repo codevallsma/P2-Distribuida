@@ -31,7 +31,7 @@ public class LightweightProcess implements NetworkCallback {
         this.numNodes=nodeNetwork.getNodes().size();
         dependencyList= nodeNetwork.getNodes().stream().filter(e -> e.getConnectedTo().contains(myId)).map(Node::getNodeId).collect(Collectors.toList());
 
-        this.networkManager = new NetworkManager(nodeInfo, dependencyList.size(),this);
+        this.networkManager = new NetworkManager(nodeInfo, nodeNetwork, dependencyList.size(),this);
         this.lamportMutex = new LamportMutex(myId, numNodes);
     }
 
