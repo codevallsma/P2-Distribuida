@@ -75,7 +75,7 @@ public class DedicatedConnection extends Thread {
         boolean connected = false;
 
         while(!connected) {
-            Utils.timeWait(1000);
+            Utils.timeWait(500);
             try {
                 InetAddress ip = InetAddress.getByName(connectedNode.getIp());
                 this.socket = new Socket(ip, connectedNode.getPort());
@@ -88,10 +88,10 @@ public class DedicatedConnection extends Thread {
                 start();
             } catch (ConnectException exception){
                 System.out.println("Peta desde " + ourNode.getNodeId() + "cap a " + connectedNode.getNodeId());
-                //connected = false;
+                connected = false;
             } catch (IOException e) {
                 e.printStackTrace();
-                //stopServerConnection();
+                stopServerConnection();
             }
         }
     }
@@ -151,8 +151,8 @@ public class DedicatedConnection extends Thread {
             dos.writeUTF(textToSend);
         } catch (IOException e) {
             System.out.println("Enviamen de text fallit");
-            //isRunning = false;
-            //e.printStackTrace();
+            isRunning = false;
+            e.printStackTrace();
         }
     }
 
@@ -162,8 +162,8 @@ public class DedicatedConnection extends Thread {
             oos.writeObject(objectToSend);
         } catch (IOException e) {
             System.out.println("Enviamen de text i objecte fallit");
-            //isRunning = false;
-            //e.printStackTrace();
+            isRunning = false;
+            e.printStackTrace();
         }
     }
 
@@ -173,4 +173,7 @@ public class DedicatedConnection extends Thread {
         return connectedNode != null ? String.valueOf(connectedNode.getNodeId()) :"";
     }
 
+    public void setRunningTrue() {
+        isRunning = true;
+    }
 }

@@ -36,9 +36,7 @@ public class LightweightProcess implements NetworkCallback {
     }
 
     public void start() {
-        if (this.networkManager.start()) {
-            doSomething();
-        }
+        this.networkManager.start();
     }
 
     public boolean isReady() {
@@ -61,7 +59,7 @@ public class LightweightProcess implements NetworkCallback {
             }
             this.lamportMutex.releaseCS();
             this.networkManager.stopServer();
-            //isRunning = false;
+            isRunning = false;
             //notifyHeavyWeight();
         }
     }

@@ -67,6 +67,14 @@ public class NetworkManager {
 
     public void stopServer(){
         isRunning = false;
+        if (serverSocket != null && !serverSocket.isClosed()) {
+            try {
+                serverSocket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     private synchronized void connectToNode(Node connectedNodeInfo) {
@@ -135,11 +143,13 @@ public class NetworkManager {
                 while (nodesToConnect > 0) {
                     //System.out.println("Waiting for a client...");
                     Socket socket = serverSocket.accept();
+                    System.out.println("Soc el node " + nodeData.getNodeId() + " i sem conecten del port " +socket.getRemoteSocketAddress());
                     System.out.println("New connection from node "+ nodeData.getNodeId());
                     DedicatedConnection dServer = new DedicatedConnection(socket, connections, nodeData, callback);
                     mutexConnections.acquire();
                     connections.add(dServer);
                     mutexConnections.release();
+                    dServer.setRunningTrue();
                     dServer.start();
                     nodesToConnect--;
                 }
@@ -147,14 +157,6 @@ public class NetworkManager {
                 System.err.println(e.getMessage());
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            } finally {
-                if (serverSocket != null && !serverSocket.isClosed()) {
-                    try {
-                        serverSocket.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
             }
             return true;
         }
