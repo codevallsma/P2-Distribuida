@@ -6,7 +6,7 @@ public interface LamportInterface {
     void requestCS();
     void releaseCS();
     boolean okCS();
-    boolean isGreater(int index1, int index2, int value2);
+    boolean isGreater(int index1, int index2, int value1, int value2);
     void accessCriticalZone();
     void handleMsg(Message msg);
 }

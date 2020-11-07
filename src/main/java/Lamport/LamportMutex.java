@@ -50,9 +50,9 @@ public class LamportMutex implements LamportInterface {
      */
     public boolean okCS() {
         for(int i =0; i < q.size(); i++){
-            if(this.isGreater(myId, i, this.q.get(i))){
+            if(this.isGreater(myId, i, this.q.get(myId), this.q.get(i))){
                 return false;
-            } else if (this.isGreater(myId, i, this.v.getValue(i))){
+            } else if (this.isGreater(myId, i, this.v.getValue(myId), this.v.getValue(i))){
                 return false;
             }
         }
@@ -60,9 +60,9 @@ public class LamportMutex implements LamportInterface {
     }
 
 
-    public boolean isGreater(int index1, int index2, int value2) {
-        if(q.get(index2) == LamportNode.INFINITY) return false;
-        return q.get(index1).compareTo(value2) > 0 || q.get(index1).compareTo(value2) == 0 && (index1 > index2);
+    public boolean isGreater(int index1, int index2, int value1, int value2) {
+        if(value2 == LamportNode.INFINITY) return false;
+        return value1 > value2 || value1 == value2 && (index1 > index2);
     }
 
     @Override
