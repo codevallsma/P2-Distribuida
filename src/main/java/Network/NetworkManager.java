@@ -4,12 +4,16 @@ import DataParser.Data;
 import Interfaces.NetworkCallback;
 import DataParser.Node;
 import Model.Message;
+import Thread.ThreadPoolManager;
 import Processes.LightweightProcess;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
+import java.util.concurrent.Callable;
 import java.util.concurrent.Semaphore;
 
 import static java.lang.Thread.sleep;
@@ -39,6 +43,15 @@ public class NetworkManager {
         this.connections = new Vector<>();
     }
 
+    public boolean start() {
+        isRunning=true;
+        List<Callable> threads = new ArrayList<>();
+        threads.add(new ConnectThread(nodeData));
+        threads.add(new ListeningThread(nodeData, numNodesToConnect, connections, callback));
+        List<Object> res = ThreadPoolManager.manage(threads);
+        return true;
+    }
+
     public synchronized void sendBroadcastMessage(Message msg) {
         try {
             mutexConnections.acquire();
@@ -52,62 +65,8 @@ public class NetworkManager {
 
     }
 
-    public void startListeningThread(Runnable connectToServersRunnable) {
-        Runnable service2 = new Runnable() {
-            public void run() {
-                startListening(connectToServersRunnable);
-            }
-        };
-        new Thread(service2).start();
-    }
-
-    public void startServer(){
-        isRunning=true;
-        Runnable connectToServersRunnable = new Runnable() {
-            public void run() {
-                connectToServers();
-            }
-        };
-        startListeningThread(connectToServersRunnable);
-    }
     public void stopServer(){
         isRunning = false;
-    }
-
-    /**
-     * This function manages all the connections made by clients
-     */
-    private void startListening(Runnable connectToServersRunnable) {
-        try {
-            serverSocket = new ServerSocket(nodeData.getPort());
-            int nodesToConnect = this.numNodesToConnect;
-
-            while (nodesToConnect>0) {
-                //System.out.println("Waiting for a client...");
-                Socket socket = serverSocket.accept();
-                System.out.println("New connection from node "+ nodeData.getNodeId());
-                DedicatedConnection dServer = new DedicatedConnection(socket, connections, nodeData, callback);
-                mutexConnections.acquire();
-                connections.add(dServer);
-                mutexConnections.release();
-                dServer.start();
-                nodesToConnect--;
-            }
-            connectToServersRunnable.run();
-            while (isRunning);
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } finally {
-            if (serverSocket != null && !serverSocket.isClosed()) {
-                try {
-                    serverSocket.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 
     private synchronized void connectToNode(Node connectedNodeInfo) {
@@ -122,12 +81,6 @@ public class NetworkManager {
         }
     }
 
-    private void connectToServers(){
-        for (Integer nodeId: nodeData.getConnectedTo()) {
-            connectToNode(nodeNetwork.getNodes().get(nodeId));
-        }
-    }
-
     public int getConnectionsSize() {
         try {
             mutexConnections.acquire();
@@ -138,5 +91,72 @@ public class NetworkManager {
             e.printStackTrace();
         }
         return 0;
+    }
+
+
+    /******************************************************************************************** */
+    /*                                 PRIVATE INNER CLASSES                                      */
+    /******************************************************************************************** */
+    private class ConnectThread implements Callable {
+
+        private Node nodeData;
+
+        public ConnectThread(Node nodeData) {
+            this.nodeData = nodeData;
+        }
+
+        @Override
+        public Object call() throws Exception {
+            for (Integer nodeId: nodeData.getConnectedTo()) {
+                connectToNode(nodeNetwork.getNodes().get(nodeId));
+            }
+            return true;
+        }
+    }
+
+    private class ListeningThread implements Callable {
+
+        private Node nodeData;
+        private int nodesToConnect;
+        private Vector<DedicatedConnection> connections;
+        private NetworkCallback callback;
+
+        public ListeningThread(Node nodeData, int nodesToConnect, Vector<DedicatedConnection> connections, NetworkCallback callback) {
+            this.nodeData = nodeData;
+            this.nodesToConnect = nodesToConnect;
+            this.connections = connections;
+            this.callback = callback;
+        }
+
+        @Override
+        public Object call() {
+            try {
+                serverSocket = new ServerSocket(nodeData.getPort());
+                while (nodesToConnect > 0) {
+                    //System.out.println("Waiting for a client...");
+                    Socket socket = serverSocket.accept();
+                    System.out.println("New connection from node "+ nodeData.getNodeId());
+                    DedicatedConnection dServer = new DedicatedConnection(socket, connections, nodeData, callback);
+                    mutexConnections.acquire();
+                    connections.add(dServer);
+                    mutexConnections.release();
+                    dServer.start();
+                    nodesToConnect--;
+                }
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                if (serverSocket != null && !serverSocket.isClosed()) {
+                    try {
+                        serverSocket.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            return true;
+        }
     }
 }

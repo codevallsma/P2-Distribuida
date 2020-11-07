@@ -15,7 +15,7 @@ public class MainNodes {
         Data nodeNetwork = Parser.parseJson();
         LightweightProcess process = new LightweightProcess(nodeId, nodeNetwork);
         process.start();
-        while(!process.isReady());
+        while (!process.isReady());
         process.doSomething();
     }
 }
