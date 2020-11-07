@@ -1,6 +1,5 @@
 import DataParser.Data;
 import DataParser.Parser;
-import Lamport.LamportNode;
 import Processes.LightweightProcess;
 
 public class MainNodes {

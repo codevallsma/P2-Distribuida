@@ -46,7 +46,7 @@ public class LamportMutex implements LamportInterface {
 
     /**
      * This is our active wait to check
-     * @return: if returns false, we get permission to get the token
+     * @return: if returns true, we get permission to get the token
      */
     public boolean okCS() {
         for(int i =0; i < q.size(); i++){
@@ -61,7 +61,7 @@ public class LamportMutex implements LamportInterface {
 
 
     public boolean isGreater(int index1, int index2, int value1, int value2) {
-        if(value2 == LamportNode.INFINITY) return false;
+        if(value2 == LamportMutex.INFINITY) return false;
         return value1 > value2 || value1 == value2 && (index1 > index2);
     }
 
@@ -74,13 +74,14 @@ public class LamportMutex implements LamportInterface {
     public synchronized void handleMsg(Message msg) {
         int timestamp = msg.getTimestamp();
         v.receiveAction(msg.getSrc(), msg.getTimestamp());
+        System.out.println("Msg rebut: "+msg.getTag());
         switch (msg.getTag()){
             case "REQUEST":
                 this.q.set(msg.getSrc(), timestamp);
                 //send ack back
                 break;
             case "RELEASE":
-                this.q.set(msg.getSrc(), LamportNode.INFINITY);
+                this.q.set(msg.getSrc(), LamportMutex.INFINITY);
                 break;
         }
     }

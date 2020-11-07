@@ -50,7 +50,8 @@ public class LightweightProcess implements NetworkCallback {
             //waitHeavyWeight();
             this.lamportMutex.requestCS();
             for (int i=0; i<10; i++){
-                if(!this.lamportMutex.okCS()) {
+                System.out.println("Iteració "+ i +" , node = "+ nodeInfo.getNodeId());
+                if(this.lamportMutex.okCS()) {
                     this.lamportMutex.accessCriticalZone();
                     Utils.timeWait(1000);
                 } else {
