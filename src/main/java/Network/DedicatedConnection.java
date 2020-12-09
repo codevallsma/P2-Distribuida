@@ -64,7 +64,7 @@ public class DedicatedConnection extends Thread {
         this.dedicatedConnections = dedicatedConnections;
 
         if (connectedNode == null) {
-            System.out.println("AQUI TAMBE CONNECTED NODE NULL");
+            //System.out.println("AQUI TAMBE CONNECTED NODE NULL");
         }
     }
 
@@ -87,7 +87,7 @@ public class DedicatedConnection extends Thread {
                 isRunning = true;
                 start();
             } catch (ConnectException exception){
-                System.out.println("Peta desde " + ourNode.getNodeId() + "cap a " + connectedNode.getNodeId());
+                //System.out.println("Peta desde " + ourNode.getNodeId() + "cap a " + connectedNode.getNodeId());
                 connected = false;
             } catch (IOException e) {
                 e.printStackTrace();

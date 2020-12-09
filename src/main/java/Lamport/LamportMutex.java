@@ -3,6 +3,7 @@ package Lamport;
 import Interfaces.LamportInterface;
 import Model.Message;
 import Network.NetworkManager;
+import Utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,7 +36,10 @@ public class LamportMutex implements LamportInterface {
         Message msg = new Message("REQUEST",myId, this.q.get(myId));
         //broadcast
         this.networkManager.sendBroadcastMessage(msg);
-        while (!okCS());
+        while (!okCS()) {
+            //System.out.println("Hello");
+            Utils.timeWait(1000);
+        }
     }
 
     public synchronized void releaseCS(){
@@ -49,13 +53,17 @@ public class LamportMutex implements LamportInterface {
      * @return: if returns true, we get permission to get the token
      */
     public boolean okCS() {
+        //System.out.println("Q size: " + q.size());
+        //System.out.println("My value: " + this.q.get(myId));
         for(int i =0; i < q.size(); i++){
+            //System.out.println("compare value to: " + this.q.get(i));
             if(this.isGreater(myId, i, this.q.get(myId), this.q.get(i))){
                 return false;
             } else if (this.isGreater(myId, i, this.v.getValue(myId), this.v.getValue(i))){
                 return false;
             }
         }
+        //System.out.println("Return true of okCS()");
         return true;
     }
 
@@ -74,7 +82,7 @@ public class LamportMutex implements LamportInterface {
     public synchronized void handleMsg(Message msg) {
         int timestamp = msg.getTimestamp();
         v.receiveAction(msg.getSrc(), msg.getTimestamp());
-        System.out.println("Msg rebut: "+msg.getTag());
+        //System.out.println("Msg rebut: "+msg.getTag());
         switch (msg.getTag()){
             case "REQUEST":
                 this.q.set(msg.getSrc(), timestamp);

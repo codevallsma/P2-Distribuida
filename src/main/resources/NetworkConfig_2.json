@@ -1,0 +1,18 @@
+{
+  "nodes":[
+    {
+      "ip": "127.0.0.1",
+      "port": 55001,
+      "nodeId": 0,
+      "connectedTo": [
+        1
+      ]
+    },
+    {
+      "ip": "127.0.0.1",
+      "port": 55002,
+      "nodeId": 1,
+      "connectedTo": []
+    }
+  ]
+}
