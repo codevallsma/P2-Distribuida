@@ -58,10 +58,10 @@ public class LamportMutex implements LamportInterface {
         for(int i =0; i < q.size(); i++){
             if(i!=myId) {
                 //System.out.println("compare value to: " + this.q.get(i));
-                if (!this.isGreater(myId, i, this.q.get(myId), this.q.get(i))) {
-                    continue;
+                if (this.isGreater(myId, i, this.q.get(myId), this.q.get(i))) {
+                    return false;
                 } else {
-                    //if (this.isGreater(myId, i, this.v.getValue(myId), this.v.getValue(i)))
+                    if (this.isGreater(myId, i, this.q.get(myId), this.v.getValue(i)))
                         return false;
                 }
             }
@@ -79,6 +79,7 @@ public class LamportMutex implements LamportInterface {
     @Override
     public void accessCriticalZone() {
         System.out.println("Sóc el procés lightweight "+ this.myId);
+        Utils.timeWait(1000);
     }
 
     @Override
