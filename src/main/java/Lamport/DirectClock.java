@@ -32,7 +32,7 @@ public class DirectClock {
     }
 
     public void receiveAction(int sender, int sentValue){
-        this.clock.set(sender, Integer.max(sentValue, this.clock.get(myId)) );
+        this.clock.set(sender, Integer.max(sentValue, this.clock.get(sender)) );
         if(Integer.max(sentValue, this.clock.get(myId)) != LamportMutex.INFINITY){
             this.clock.set(myId, Integer.max(sentValue, this.clock.get(myId)) + 1 );
         }else{

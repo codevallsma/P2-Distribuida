@@ -9,7 +9,9 @@ public class MainLamport {
     static ArrayList<Process> processes = new ArrayList<>();
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        String[] commands = {"mvn exec:java -Dexec.mainClass=MainNodes -Dexec.args='2'",
+        //"mvn exec:java -Dexec.mainClass=MainNodes -Dexec.args='2'",
+        String[] commands = {
+                "mvn exec:java -Dexec.mainClass=MainNodes -Dexec.args='2'",
                 "mvn exec:java -Dexec.mainClass=MainNodes -Dexec.args='1'",
                 "mvn exec:java -Dexec.mainClass=MainNodes -Dexec.args='0'"};
         execute("mvn compile", true);
