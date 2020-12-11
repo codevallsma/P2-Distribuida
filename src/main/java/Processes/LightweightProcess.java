@@ -45,13 +45,14 @@ public class LightweightProcess implements NetworkCallback {
 
     public void doSomething(){
         Utils.timeWait(1000);
-        //System.out.println("He entrat i soc el node "+ nodeInfo.getNodeId());
-        for (int i=0; i<10; i++){
+        //while(true) {
             this.lamportMutex.requestCS();
-            System.out.println("Iteració "+ i +" , node = "+ nodeInfo.getNodeId());
-            this.lamportMutex.accessCriticalZone();
+            for (int i = 0; i < 10; i++) {
+                System.out.println("Iteració " + i + " , node = " + nodeInfo.getNodeId());
+                this.lamportMutex.accessCriticalZone();
+            }
             this.lamportMutex.releaseCS();
-        }
+        //}
         Utils.timeWait(5000);
         System.out.println("Ja he acabat i soc el node "+  nodeInfo.getNodeId());
         this.networkManager.stopServer();
