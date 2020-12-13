@@ -2,21 +2,37 @@ package Processes.HeavyWeight;
 
 import DataParser.Data;
 import DataParser.HeavyWeight;
+import DataParser.Node;
 import DataParser.Parser;
 import Interfaces.NetworkCallback;
 import Model.Message;
+import Mutex.LamportMutex;
 import Network.NetworkManager;
 import Utils.Utils;
 import Utils.Launch;
 
 import java.io.IOException;
+import java.util.stream.Collectors;
 
 public class HeavyweightProcess implements NetworkCallback {
 
     private NetworkManager networkManager;
-
+    private HeavyWeight hwData;
+    private int num_nodes;
     public HeavyweightProcess(Data data) {
         this.networkManager = networkManager;
+        num_nodes = data.getNodes().size();
+        hwData = data.getHeavyWeight();
+        if(hwData.getConnectToOther()){
+
+        }
+        this.myId= id;
+        this.nodeNetwork= networkInfo;
+        this.nodeInfo = nodeNetwork.getNodes().get(myId);
+        this.numNodes=nodeNetwork.getNodes().size();
+        dependencyList= nodeNetwork.getNodes().stream().filter(e -> e.getConnectedTo().contains(myId)).map(Node::getNodeId).collect(Collectors.toList());
+        this.networkManager = new NetworkManager(nodeInfo, nodeNetwork, num_nodes,this);
+        this.lamportMutex = new LamportMutex(myId, numNodes, this.networkManager);
     }
 
     /* *************************************************************************** */
@@ -27,18 +43,6 @@ public class HeavyweightProcess implements NetworkCallback {
 
     }
 
-    void launchLightWeightLamport() {
-        String[] commands= {
-                Utils.getCommand("MainNodes","'2', NetworkConfigLamport.json" ),
-                Utils.getCommand("MainNodes","'1', NetworkConfigLamport.json" ),
-                Utils.getCommand("MainNodes","'0', NetworkConfigLamport.json" )
-        };
-        try {
-            Launch.launchProcesses(commands);
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
     private void setNetworkManager(HeavyWeight data){
 
     }
@@ -60,7 +64,7 @@ public class HeavyweightProcess implements NetworkCallback {
         Data d = Parser.parseJson(args[0]);
         //heavyWeight lamport
         if (args[0].compareTo("Mutex") == 0) {
-            launchSons("MainLamport");
+            launchSons("MainLamoport");
             //HeavyweightProcess hwp = HeavyweightProcess();
         } else  {
             //heavyWeight ricardAgrawala

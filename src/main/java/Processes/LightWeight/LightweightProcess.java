@@ -1,6 +1,7 @@
 package Processes.LightWeight;
 
 import DataParser.Data;
+import DataParser.HeavyWeight;
 import DataParser.Node;
 import Interfaces.NetworkCallback;
 import Model.Message;
@@ -14,24 +15,26 @@ import java.util.stream.Collectors;
 public class LightweightProcess implements NetworkCallback {
 
     private NetworkManager networkManager;
+    private NetworkManager heavyWeightManager;
     private LamportMutex lamportMutex;
 
     // Comunication
     private int myId;
-    private Data nodeNetwork;
+    private HeavyWeight nodeNetwork;
     private Node nodeInfo;
 
 
     private List<Integer> dependencyList;
     private int numNodes;
 
-    public LightweightProcess(int id, Data networkInfo) {
+    public LightweightProcess(int id, HeavyWeight networkInfo) {
         this.myId= id;
         this.nodeNetwork= networkInfo;
         this.nodeInfo = nodeNetwork.getNodes().get(myId);
         this.numNodes=nodeNetwork.getNodes().size();
         dependencyList= nodeNetwork.getNodes().stream().filter(e -> e.getConnectedTo().contains(myId)).map(Node::getNodeId).collect(Collectors.toList());
         this.networkManager = new NetworkManager(nodeInfo, nodeNetwork, dependencyList.size(),this);
+        heavyWeightManager = new NetworkManager(networkInfo,networkInfo,1,this);
         this.lamportMutex = new LamportMutex(myId, numNodes, this.networkManager);
     }
 

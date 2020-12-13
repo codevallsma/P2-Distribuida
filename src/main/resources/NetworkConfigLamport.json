@@ -1,35 +1,59 @@
 {
-  "heavyWeight": {
-    "ip": "127.0.0.1",
-    "port": 55000,
-    "name": "HeavyWeight Lamport",
-    "dst_ip": "127.0.0.1",
-    "dst_port": 44000,
-    "connectToOther": true
-  },
-  "nodes":[
+  "HeavyWeights":[
     {
-      "ip": "127.0.0.1",
-      "port": 55000,
-      "nodeId": 0,
-      "connectedTo": [
-        1,
-        2
+     "type": "Lamport",
+     "ip": "127.0.0.1",
+     "port": 55000,
+     "name": "HeavyWeight Lamport",
+     "connectToOther": true,
+      "nodes":[
+        {
+          "ip": "127.0.0.1",
+          "port": 55001,
+          "nodeId": 0,
+          "connectedTo": [
+            1,
+            2
+          ]
+        },
+        {
+          "ip": "127.0.0.1",
+          "port": 55002,
+          "nodeId": 1,
+          "connectedTo": [
+            2
+          ]
+        },
+        {
+          "ip": "127.0.0.1",
+          "port": 55003,
+          "nodeId": 2,
+          "connectedTo": []
+        }
       ]
     },
     {
+      "type": "Ricard-Agrawala",
       "ip": "127.0.0.1",
-      "port": 55001,
-      "nodeId": 1,
-      "connectedTo": [
-        2
+      "port": 54000,
+      "name": "HeavyWeight Ricard-Agrawala",
+      "connectToOther": false,
+      "nodes":[
+        {
+          "ip": "127.0.0.1",
+          "port": 54001,
+          "nodeId": 0,
+          "connectedTo": [
+            1
+          ]
+        },
+        {
+          "ip": "127.0.0.1",
+          "port": 54002,
+          "nodeId": 1,
+          "connectedTo": []
+        }
       ]
-    },
-    {
-      "ip": "127.0.0.1",
-      "port": 55002,
-      "nodeId": 2,
-      "connectedTo": []
     }
   ]
 }

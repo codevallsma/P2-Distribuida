@@ -1,6 +1,7 @@
 package Network;
 
 import DataParser.Data;
+import DataParser.HeavyWeight;
 import Interfaces.NetworkCallback;
 import DataParser.Node;
 import Model.Message;
@@ -23,8 +24,9 @@ public class NetworkManager {
 
     // General info
     private final Node nodeData;
-    private final Data nodeNetwork;
+    private final HeavyWeight nodeNetwork;
     private Vector<DedicatedConnection> connections;
+    private DedicatedConnection hwConnection;
     private int numNodesToConnect;
     private ServerSocket serverSocket;
 
@@ -34,7 +36,7 @@ public class NetworkManager {
     // Logic
     private boolean isRunning;
 
-    public NetworkManager(Node nodeData, Data nodeNetwork, int numNodesToConnect, NetworkCallback callback) {
+    public NetworkManager(Node nodeData, HeavyWeight nodeNetwork, int numNodesToConnect, NetworkCallback callback) {
         this.nodeData = nodeData;
         this.nodeNetwork = nodeNetwork;
         this.numNodesToConnect = numNodesToConnect;

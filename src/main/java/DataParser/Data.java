@@ -11,38 +11,27 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-        "heavyWeight",
-        "nodes"
+        "HeavyWeights"
 })
 
 public class Data {
-    @JsonProperty("heavyWeight")
-    private HeavyWeight heavyWeight;
-    @JsonProperty("nodes")
-    private List<Node> nodes = null;
+
+    @JsonProperty("HeavyWeights")
+    private List<HeavyWeight> heavyWeights = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-
-    @JsonProperty("heavyWeight")
-    public HeavyWeight getHeavyWeight() {
-        return heavyWeight;
+    @JsonProperty("HeavyWeights")
+    public List<HeavyWeight> getHeavyWeights() {
+        return heavyWeights;
     }
 
-    @JsonProperty("heavyWeight")
-    public void setHeavyWeight(HeavyWeight heavyWeight) {
-        this.heavyWeight = heavyWeight;
-    }
-    @JsonProperty("nodes")
-    public List<Node> getNodes() {
-        return nodes;
-    }
-
-    @JsonProperty("nodes")
-    public void setNodes(List<Node> nodes) {
-        this.nodes = nodes;
+    @JsonProperty("HeavyWeights")
+    public void setHeavyWeights(List<HeavyWeight> heavyWeights) {
+        this.heavyWeights = heavyWeights;
     }
 
     @JsonAnyGetter

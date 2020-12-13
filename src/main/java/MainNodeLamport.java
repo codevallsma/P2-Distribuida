@@ -1,6 +1,10 @@
 import DataParser.Data;
+import DataParser.HeavyWeight;
+import DataParser.Node;
 import DataParser.Parser;
 import Processes.LightWeight.LightweightProcess;
+
+import java.util.stream.Collectors;
 
 public class MainNodeLamport {
     public static long getPID() {
@@ -11,7 +15,8 @@ public class MainNodeLamport {
     public static void main(String[] args) {
         int nodeId = Integer.parseInt(args[0]);
         Data nodeNetwork = Parser.parseJson("NetworkConfigLamport.json");
-        LightweightProcess process = new LightweightProcess(nodeId, nodeNetwork);
+        HeavyWeight hw =nodeNetwork.getHeavyWeights().stream().filter(e -> e.getType().compareTo("Lamport")==0).findFirst().get();
+        LightweightProcess process = new LightweightProcess(nodeId,hw);
         process.start();
         while (!process.isReady());
         process.doSomethingLamport();
