@@ -1,8 +1,16 @@
 {
+  "heavyWeight": {
+    "ip": "127.0.0.1",
+    "port": 44000,
+    "name": "HeavyWeight RicardAgrawala",
+    "dst_ip": "127.0.0.1",
+    "dst_port": 55000,
+    "connectToOther": false
+  },
   "nodes":[
     {
       "ip": "127.0.0.1",
-      "port": 55000,
+      "port": 53000,
       "nodeId": 0,
       "connectedTo": [
         1,
@@ -11,7 +19,7 @@
     },
     {
       "ip": "127.0.0.1",
-      "port": 55001,
+      "port": 53001,
       "nodeId": 1,
       "connectedTo": [
         2
@@ -19,7 +27,7 @@
     },
     {
       "ip": "127.0.0.1",
-      "port": 55002,
+      "port": 53002,
       "nodeId": 2,
       "connectedTo": []
     }

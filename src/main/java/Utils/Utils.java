@@ -17,4 +17,7 @@ public class Utils {
             e.printStackTrace();
         }
     }
+    public static  String getCommand(String className, String args){
+        return "mvn exec:java -Dexec.mainClass=" + className + " -Dexec.args="+"\"" +args+ "\"";
+    }
 }

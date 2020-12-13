@@ -43,7 +43,7 @@ public class LightweightProcess implements NetworkCallback {
         return lamportMutex.isReady();
     }
 
-    public void doSomething(){
+    public void doSomethingLamport(){
         Utils.timeWait(1000);
         //while(true) {
             this.lamportMutex.requestCS();

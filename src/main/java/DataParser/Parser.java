@@ -22,12 +22,12 @@ public class Parser {
         }
     }
 
-    public static Data parseJson(){
+    public static Data parseJson(String filename){
         ObjectMapper mapper = new ObjectMapper();
         Data data = null;
         try {
             // JSON file to Java object
-            data = mapper.readValue(getFileFromResource("NetworkConfig.json"), Data.class);
+            data = mapper.readValue(getFileFromResource(filename), Data.class);
             System.out.println();
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
