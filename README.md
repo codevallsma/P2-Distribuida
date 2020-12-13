@@ -1,6 +1,6 @@
 # P2-Distribuida
 
-The mission of this repository is to implement and understand the Lamport and Ricart–Agrawala algorithms.<br>
+The mission of this repository is to implement and understand the Mutex and Ricart–Agrawala algorithms.<br>
 This is an exercise of the Distributed systems subject in computer engineering taught in La Salle University:<br> 
 You need to design and implement a distributed application. This application must have two heavyweight processes:
 
@@ -18,7 +18,7 @@ and time.
 
 Both heavyweight processes will run on the same machine, so all lightweight processes will compete
 by the same share: the screen. A policy will need to be implemented between the two heavyweight processes
-token-based mutual exclusion. Among the processes invoked by ProcessA, a Lamport policy will have to be implemented
+token-based mutual exclusion. Among the processes invoked by ProcessA, a Mutex policy will have to be implemented
 for mutual exclusion. Among the processes invoked by ProcessB, a Ricart and Agrawala policy will have to be implemented
 for mutual exclusion.
 

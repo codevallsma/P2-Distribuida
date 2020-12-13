@@ -1,9 +1,11 @@
-package Lamport;
+package Clock;
+
+import Mutex.LamportMutex;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class DirectClock {
+public class DirectClock implements Clock{
     private ArrayList<Integer> clock;
     private int myId;
 
@@ -11,7 +13,6 @@ public class DirectClock {
         this.clock = new ArrayList<Integer>(Collections.nCopies(numConnectedNodes, 0));
         this.myId = myId;
         this.clock.set(myId,1);
-
     }
 
     public ArrayList<Integer> getClock() {

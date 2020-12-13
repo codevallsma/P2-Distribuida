@@ -1,4 +1,4 @@
-package Lamport;
+package Mutex;
 
 import Model.Message;
 import Interfaces.Callback;

@@ -3,8 +3,8 @@ package Processes;
 import DataParser.Data;
 import DataParser.Node;
 import Interfaces.NetworkCallback;
-import Lamport.LamportMutex;
 import Model.Message;
+import Mutex.LamportMutex;
 import Network.NetworkManager;
 import Utils.Utils;
 

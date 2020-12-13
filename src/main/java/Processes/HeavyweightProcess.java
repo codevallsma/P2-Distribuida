@@ -6,6 +6,7 @@ import DataParser.Parser;
 import Interfaces.NetworkCallback;
 import Model.Message;
 import Network.NetworkManager;
+import Utils.Utils;
 
 import java.io.IOException;
 
@@ -27,9 +28,9 @@ public class HeavyweightProcess implements NetworkCallback {
 
     void launchLightWeightLamport() {
         String[] commands= {
-                ProcessArgument.getCommand("MainNodes","'2', NetworkConfigLamport.json" ),
-                ProcessArgument.getCommand("MainNodes","'1', NetworkConfigLamport.json" ),
-                ProcessArgument.getCommand("MainNodes","'0', NetworkConfigLamport.json" )
+                Utils.getCommand("MainNodes","'2', NetworkConfigLamport.json" ),
+                Utils.getCommand("MainNodes","'1', NetworkConfigLamport.json" ),
+                Utils.getCommand("MainNodes","'0', NetworkConfigLamport.json" )
         };
         try {
             LaunchProcesses.launchProcesses(commands);
@@ -42,7 +43,7 @@ public class HeavyweightProcess implements NetworkCallback {
     }
     private static void launchSons(String className){
         try {
-            String[] command = {ProcessArgument.getCommand(className, "")};
+            String[] command = {Utils.getCommand(className, "")};
             LaunchProcesses.launchProcesses(command);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
@@ -57,9 +58,9 @@ public class HeavyweightProcess implements NetworkCallback {
 
         Data d = Parser.parseJson(args[0]);
         //heavyWeight lamport
-        if (args[0].compareTo("Lamport") == 0) {
+        if (args[0].compareTo("Mutex") == 0) {
             launchSons("MainLamport");
-            HeavyweightProcess hwp = HeavyweightProcess()
+            //HeavyweightProcess hwp = HeavyweightProcess();
         } else  {
             //heavyWeight ricardAgrawala
             launchSons("MainRicardAgrawala");
