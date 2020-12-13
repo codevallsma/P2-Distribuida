@@ -1,6 +1,6 @@
 import DataParser.Data;
 import DataParser.Parser;
-import Processes.LightweightProcess;
+import Processes.LightWeight.LightweightProcess;
 
 public class MainNodeLamport {
     public static long getPID() {

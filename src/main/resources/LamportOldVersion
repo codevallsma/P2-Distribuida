@@ -211,7 +211,7 @@ import DataParser.Data;
 import Interfaces.NetworkCallback;
 import DataParser.Node;
 import Model.Message;
-import Processes.LightweightProcess;
+import Processes.LightWeight.LightweightProcess;
 
 import java.io.IOException;
 import java.net.ServerSocket;

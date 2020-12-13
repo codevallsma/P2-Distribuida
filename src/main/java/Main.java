@@ -1,4 +1,4 @@
-import Processes.LaunchProcesses;
+import Utils.Launch;
 import Utils.Utils;
 import java.io.IOException;
 
@@ -7,7 +7,7 @@ public class Main {
         //heavyWeight lamport
         try {
             String[] command= { Utils.getCommand("MainLamport","")};
-            LaunchProcesses.launchProcesses(command);
+            Launch.launchProcesses(command);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }

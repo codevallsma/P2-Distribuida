@@ -4,8 +4,7 @@ import DataParser.Data;
 import Interfaces.NetworkCallback;
 import DataParser.Node;
 import Model.Message;
-import Thread.ThreadPoolManager;
-import Processes.LightweightProcess;
+import Utils.ThreadPoolManager;
 
 import java.io.IOException;
 import java.net.ServerSocket;

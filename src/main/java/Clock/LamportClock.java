@@ -17,7 +17,7 @@ public class LamportClock implements Clock{
 
     public int requestAction() {
         ticks++;
-        return ticks;
+        return ticks; // may not be used, but need to return something anyway
     }
 
     public void receiveAction(int src, int receivedValue) {

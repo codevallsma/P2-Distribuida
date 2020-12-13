@@ -1,4 +1,4 @@
-package Processes;
+package Processes.HeavyWeight;
 
 import DataParser.Data;
 import DataParser.HeavyWeight;
@@ -7,6 +7,7 @@ import Interfaces.NetworkCallback;
 import Model.Message;
 import Network.NetworkManager;
 import Utils.Utils;
+import Utils.Launch;
 
 import java.io.IOException;
 
@@ -33,7 +34,7 @@ public class HeavyweightProcess implements NetworkCallback {
                 Utils.getCommand("MainNodes","'0', NetworkConfigLamport.json" )
         };
         try {
-            LaunchProcesses.launchProcesses(commands);
+            Launch.launchProcesses(commands);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -44,7 +45,7 @@ public class HeavyweightProcess implements NetworkCallback {
     private static void launchSons(String className){
         try {
             String[] command = {Utils.getCommand(className, "")};
-            LaunchProcesses.launchProcesses(command);
+            Launch.launchProcesses(command);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }

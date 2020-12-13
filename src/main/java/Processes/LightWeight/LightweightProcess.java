@@ -1,4 +1,4 @@
-package Processes;
+package Processes.LightWeight;
 
 import DataParser.Data;
 import DataParser.Node;
@@ -66,4 +66,5 @@ public class LightweightProcess implements NetworkCallback {
     public synchronized void onMessageReceived(Message msg) {
         lamportMutex.handleMsg(msg);
     }
+
 }

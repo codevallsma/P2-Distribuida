@@ -1,4 +1,4 @@
-package Processes;
+package Utils;
 
 import Utils.OsCheck;
 
@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class LaunchProcesses {
+public class Launch {
     static ArrayList<Process> processes = new ArrayList<>();
 
     public static void launchProcesses(String[] commands) throws IOException, InterruptedException {

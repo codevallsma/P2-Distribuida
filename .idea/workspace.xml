@@ -5,19 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="82822f8e-c25e-4606-abf6-32b297a2304f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/AccessControl/LamportClock.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Mutex/RAMutex.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Lamport/DirectClock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/AccessControl/DirectClock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Lamport/LamportMutex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Mutex/LamportMutex.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Clock/LamportClock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Clock/LamportClock.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MainNodeLamport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MainNodeLamport.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Network/NetworkManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/NetworkManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Processes/HeavyweightProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Processes/HeavyweightProcess.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Processes/LaunchProcesses.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utils/Launch.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Processes/LightweightProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Processes/LightweightProcess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Processes/ProcessArgument.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Utils/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utils/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/LamportOldVersion" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/LamportOldVersion" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Thread/ThreadPoolManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utils/ThreadPoolManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -247,7 +242,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607645225900</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="FEAT: Optimized Clock's &amp; Mutex's classes by implementing an abstract class respectively">
+      <created>1607885504946</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1607885504946</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -265,7 +267,8 @@
     <MESSAGE value="Feat: OKCS Joan mode" />
     <MESSAGE value="Feat: OKCS now works with the traditional method." />
     <MESSAGE value="FEAT: Lamport algorithm finished" />
-    <option name="LAST_COMMIT_MESSAGE" value="FEAT: Lamport algorithm finished" />
+    <MESSAGE value="FEAT: Optimized Clock's &amp; Mutex's classes by implementing an abstract class respectively" />
+    <option name="LAST_COMMIT_MESSAGE" value="FEAT: Optimized Clock's &amp; Mutex's classes by implementing an abstract class respectively" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -279,11 +282,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/Network/DedicatedConnection.java</url>
           <line>119</line>
           <option name="timeStamp" value="35" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Mutex/LamportMutex.java</url>
-          <line>70</line>
-          <option name="timeStamp" value="60" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Mutex/LamportMutex.java</url>
