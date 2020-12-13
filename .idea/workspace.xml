@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82822f8e-c25e-4606-abf6-32b297a2304f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Clock/LamportClock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Clock/LamportClock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Network/NetworkManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/NetworkManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Processes/HeavyweightProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Processes/HeavyweightProcess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Processes/LaunchProcesses.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utils/Launch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Processes/LightweightProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Processes/LightweightProcess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Thread/ThreadPoolManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utils/ThreadPoolManager.java" afterDir="false" />
-    </list>
+    <list default="true" id="82822f8e-c25e-4606-abf6-32b297a2304f" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -249,7 +240,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607885504946</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="FEAT: Refactoring LightweightProces classes, implemented main Lightweight class to be extended from other classes.">
+      <created>1607886920621</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1607886920621</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -268,7 +266,8 @@
     <MESSAGE value="Feat: OKCS now works with the traditional method." />
     <MESSAGE value="FEAT: Lamport algorithm finished" />
     <MESSAGE value="FEAT: Optimized Clock's &amp; Mutex's classes by implementing an abstract class respectively" />
-    <option name="LAST_COMMIT_MESSAGE" value="FEAT: Optimized Clock's &amp; Mutex's classes by implementing an abstract class respectively" />
+    <MESSAGE value="FEAT: Refactoring LightweightProces classes, implemented main Lightweight class to be extended from other classes." />
+    <option name="LAST_COMMIT_MESSAGE" value="FEAT: Refactoring LightweightProces classes, implemented main Lightweight class to be extended from other classes." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
