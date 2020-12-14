@@ -13,7 +13,7 @@ import java.util.Collections;
 
 public abstract class CustomMutex {
     public static final int INFINITY = 2147483647;
-    protected DirectClock clock;
+    protected Clock clock;
     protected ArrayList<Integer> q;
     protected int myId;
     protected int numNodes;
@@ -22,7 +22,7 @@ public abstract class CustomMutex {
     CustomMutex(int myId, int numNodes, ClockType type, NetworkManager networkManager) {
         this.myId = myId;
         this.numNodes = numNodes;
-        this.clock =new DirectClock(myId,numNodes);
+        this.clock = type == ClockType.DIRECT_CLOCK ? new DirectClock(myId,numNodes): new LamportClock();
         this.networkManager = networkManager;
         q = new ArrayList<>(Collections.nCopies(numNodes, INFINITY));
     }

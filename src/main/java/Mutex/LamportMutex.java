@@ -1,4 +1,5 @@
 package Mutex;
+import Clock.Clock;
 import Clock.ClockType;
 import Clock.DirectClock;
 import Interfaces.LamportInterface;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class LamportMutex extends CustomMutex implements LamportInterface {
-    private DirectClock v;
+    private Clock v;
     public LamportMutex(int myId, int numNodes, NetworkManager networkManager) {
         super(myId, numNodes, ClockType.DIRECT_CLOCK ,networkManager);
         this.v = this.clock;
@@ -19,6 +20,7 @@ public class LamportMutex extends CustomMutex implements LamportInterface {
     /**
      * The function we use to create a request
      */
+    @Override
     public void requestCS() {
         //updating our clock of requests to the new value
         q.set(myId,v.requestAction());
@@ -30,7 +32,7 @@ public class LamportMutex extends CustomMutex implements LamportInterface {
             Utils.timeWait(1000);
         }
     }
-
+    @Override
     public synchronized void releaseCS(){
         q.set(myId, INFINITY);
         Message msg = new Message("RELEASE", myId, v.getValue(myId));
@@ -59,13 +61,13 @@ public class LamportMutex extends CustomMutex implements LamportInterface {
         return true;
     }
 
-
+    @Override
     public boolean isGreater(int myIdIndex, int otherIndex, int value1, int value2) {
         if(value2 == LamportMutex.INFINITY) return false;
         return value1 > value2 || value1 == value2 && (myIdIndex > otherIndex);
     }
 
-
+    @Override
     public synchronized void handleMsg(Message msg) {
         int timestamp = msg.getTimestamp();
         v.receiveAction(msg.getSrc(), msg.getTimestamp());
