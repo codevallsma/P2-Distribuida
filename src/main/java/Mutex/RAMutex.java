@@ -7,19 +7,21 @@ import Network.NetworkManager;
 import Utils.Utils;
 
 import java.util.LinkedList;
+import java.util.concurrent.Semaphore;
 
 public class RAMutex extends CustomMutex {
     public static final int INFINITY = 2147483647;
     private Clock v;
     private int myts;
     private int numOkay = 0;
-
+    private final Semaphore okay;
 
 
     public RAMutex(int id, int numNodes, NetworkManager manager) {
         super(id, numNodes, ClockType.LAMPORT_CLOCK, manager);
         myts = INFINITY;
         this.v = clock;
+        okay = new Semaphore(numNodes-1);
     }
 
     @Override
@@ -35,6 +37,11 @@ public class RAMutex extends CustomMutex {
             Utils.timeWait(500);
         }
         numOkay = 0;
+        try {
+            okay.acquire();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
     @Override
     public synchronized void releaseCS() {
@@ -63,6 +70,7 @@ public class RAMutex extends CustomMutex {
                 }
                 break;
             case "OKAY":
+                okay.release();
                 numOkay++;
                 break;
         }
