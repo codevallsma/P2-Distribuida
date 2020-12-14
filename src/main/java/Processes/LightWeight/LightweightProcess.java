@@ -76,4 +76,9 @@ public class LightweightProcess implements NetworkCallback {
         this.lamportMutex.handleMsg(msg);
     }
 
+    @Override
+    public void onInitService(boolean init) {
+
+    }
+
 }

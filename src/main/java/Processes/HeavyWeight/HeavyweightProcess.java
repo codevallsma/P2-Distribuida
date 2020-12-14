@@ -1,38 +1,43 @@
 package Processes.HeavyWeight;
 
-import DataParser.Data;
-import DataParser.HeavyWeight;
-import DataParser.Node;
-import DataParser.Parser;
+import DataParser.*;
 import Interfaces.NetworkCallback;
 import Model.Message;
 import Mutex.LamportMutex;
-import Network.NetworkManager;
+import Network.DedicatedConnection;
+import NewNetwork.NetworkManager;
 import Utils.Utils;
 import Utils.Launch;
 
 import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Vector;
+import java.util.concurrent.Callable;
 import java.util.stream.Collectors;
 
 public class HeavyweightProcess implements NetworkCallback {
 
-    private NetworkManager networkManager;
-    private HeavyWeight hwData;
-    private int num_nodes;
-    public HeavyweightProcess(Data data) {
-        this.networkManager = networkManager;
-        /*num_nodes = data.getHeavyWeights().get(0).size();
-        hwData = data.getHeavyWeight();
-        if(hwData.getConnectToOther()){
+    private int myId;
+    private HeavyWeight ourData;
+    private HeavyWeight connectedTo;
 
-        }
-        this.myId= id;
-        this.nodeNetwork= networkInfo;
-        this.nodeInfo = nodeNetwork.getNodes().get(myId);
-        this.numNodes=nodeNetwork.getNodes().size();
-        dependencyList= nodeNetwork.getNodes().stream().filter(e -> e.getConnectedTo().contains(myId)).map(Node::getNodeId).collect(Collectors.toList());
-        this.networkManager = new NetworkManager(nodeInfo, nodeNetwork, num_nodes,this);
-        this.lamportMutex = new LamportMutex(myId, numNodes, this.networkManager);*/
+    // Communication
+    private NetworkManager networkManager;
+    private int numNodes;
+
+    public HeavyweightProcess(int id, HeavyWeight data, HeavyWeight connectedTo, NetworkManager networkManager) {
+        this.myId = id;
+        this.ourData = data;
+        this.connectedTo = connectedTo;
+        this.networkManager = networkManager;
+        this.numNodes = data.getNodes().size();
+    }
+
+    public void initBaseConnections() {
+        this.networkManager.connectToHeavyWeight(connectedTo);
+        this.networkManager;
+
     }
 
     /* *************************************************************************** */
@@ -43,9 +48,11 @@ public class HeavyweightProcess implements NetworkCallback {
 
     }
 
-    private void setNetworkManager(HeavyWeight data){
+    @Override
+    public void onInitService(boolean init) {
 
     }
+
     private static void launchSons(String className){
         try {
             String[] command = {Utils.getCommand(className, "")};

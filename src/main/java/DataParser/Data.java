@@ -16,13 +16,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({
         "HeavyWeights"
 })
-
 public class Data {
 
     @JsonProperty("HeavyWeights")
     private List<HeavyWeight> heavyWeights = null;
-    @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("HeavyWeights")
     public List<HeavyWeight> getHeavyWeights() {
@@ -33,15 +30,4 @@ public class Data {
     public void setHeavyWeights(List<HeavyWeight> heavyWeights) {
         this.heavyWeights = heavyWeights;
     }
-
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-    }
-
 }

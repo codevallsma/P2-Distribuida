@@ -1,0 +1,54 @@
+{
+  "HeavyWeights":[
+    {
+     "type": "Lamport",
+     "ip": "127.0.0.1",
+     "port": 55000,
+     "name": "HeavyWeight Lamport",
+     "connectToOther": true,
+      "nodes":[
+        {
+          "ip": "127.0.0.1",
+          "port": 55001,
+          "nodeId": 0,
+          "name": "A1",
+          "connectedTo": [
+            1
+          ]
+        },
+        {
+          "ip": "127.0.0.1",
+          "port": 55002,
+          "nodeId": 1,
+          "name": "A2",
+          "connectedTo": []
+        }
+      ]
+    },
+    {
+      "type": "Ricard-Agrawala",
+      "ip": "127.0.0.1",
+      "port": 54000,
+      "name": "HeavyWeight Ricard-Agrawala",
+      "connectToOther": false,
+      "nodes":[
+        {
+          "ip": "127.0.0.1",
+          "port": 54001,
+          "nodeId": 0,
+          "name": "B1",
+          "connectedTo": [
+            1
+          ]
+        },
+        {
+          "ip": "127.0.0.1",
+          "port": 54002,
+          "nodeId": 1,
+          "name": "B2",
+          "connectedTo": []
+        }
+      ]
+    }
+  ]
+}
