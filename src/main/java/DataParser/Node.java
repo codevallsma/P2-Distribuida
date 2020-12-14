@@ -3,13 +3,9 @@ package DataParser;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import com.fasterxml.jackson.annotation.*;
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Node {
 
     @JsonProperty("name")
@@ -25,7 +21,6 @@ public class Node {
     public String getName() {
         return name;
     }
-
     @JsonProperty("name")
     public void setName(String name) {
         this.name = name;
@@ -51,4 +46,10 @@ public class Node {
         this.port = port;
     }
 
+    @JsonCreator
+    public Node(@JsonProperty("name")String name, @JsonProperty("ip") String ip,  @JsonProperty("port") Integer port) {
+        this.name = name;
+        this.ip = ip;
+        this.port = port;
+    }
 }
