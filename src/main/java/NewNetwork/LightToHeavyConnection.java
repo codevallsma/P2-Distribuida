@@ -42,14 +42,16 @@ public class LightToHeavyConnection extends Connection {
             case "SESSION-CONFIRMED":
                 // to be implemented
                 break;
-            case "HEAVYWEIGHT-REPLY":
-                // to be implemented
-                // when
-                break;
             case "SERVICE-START":
                 callback.onInitService(true);
                 break;
+            case "MESSAGE-RECEIVED":
+                break;
         }
     }
+
+
+
+
 
 }

@@ -51,9 +51,6 @@ public class HeavyToHeavyConnection extends Connection {
             case "TOKEN-REQUEST":
                 // to be implemented
                 break;
-            case "TOKEN-REPLY":
-                // to be implemented
-                break;
             case "TOKEN-ASSIGNATION":
                 // to be implemented
                 break;

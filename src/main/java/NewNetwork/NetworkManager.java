@@ -4,6 +4,7 @@ import DataParser.HeavyWeight;
 import DataParser.LightWeight;
 import DataParser.Node;
 import Interfaces.NetworkCallback;
+import Model.Message;
 import Network.DedicatedConnection;
 import Utils.ThreadPoolManager;
 
@@ -52,6 +53,9 @@ public class NetworkManager {
         List<Object> res = ThreadPoolManager.manage(threads);
         return true;
     }
+    public void startListening() {
+        //new ListeningThread(nodeData, numNodesToConnect, connections, callback);
+    }
 
     public void stopServer(){
         isRunning = false;
@@ -65,11 +69,11 @@ public class NetworkManager {
 
     }
 
-    public void connectToHeavyWeight() {
+    public void connectToHeavyWeight(Node heavyweight) {
         if (ourNode instanceof HeavyWeight) {
-            heavyWeightConnection = HeavyToHeavyConnection.getInstance(ourNode, nodeNetwork, callback);
+            heavyWeightConnection = HeavyToHeavyConnection.getInstance(ourNode, heavyweight, callback);
         } else {
-            heavyWeightConnection = LightToHeavyConnection.getInstance(ourNode, nodeNetwork, callback);
+            heavyWeightConnection = LightToHeavyConnection.getInstance(ourNode, heavyweight, callback);
         }
         new Thread(new Runnable() {
             @Override
@@ -101,8 +105,27 @@ public class NetworkManager {
         }
     }
 
+    public synchronized void sendBroadcastMessage(Message msg) {
+        try {
+            mutexConnections.acquire();
+            for (Connection dc : connections) {
+                dc.sendTextAndObject(msg.getTag(), msg);
+            }
+            mutexConnections.release();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public void notifyHeavyWeight() {
-        // to be implemented
+        if (heavyWeightConnection != null) {
+            if (ourNode instanceof LightWeight) {
+                heavyWeightConnection.sendText("SERVICE-EXECUTED");
+            } else {
+                heavyWeightConnection.sendText("TOKEN-ASSIGNATION");
+            }
+        }
     }
 
     /******************************************************************************************** */
@@ -110,6 +133,18 @@ public class NetworkManager {
     /******************************************************************************************** */
     public void setNodesToConnect(int nodesToConnect) {
         this.nodesToConnect = nodesToConnect;
+    }
+
+    public int getConnectionsSize() {
+        try {
+            mutexConnections.acquire();
+            int res = connections != null ? connections.size():0;
+            mutexConnections.release();
+            return res;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     /******************************************************************************************** */
