@@ -14,12 +14,16 @@ public class LightToLightConnection extends Connection {
 
     private List<Connection> dedicatedConnections;
 
+    public static LightToLightConnection getInstance(Node ourNode, List<Connection> dedicatedConnections, Node infoConnectedNode, NetworkCallback nodeCallback) {
+        return new LightToLightConnection(ourNode, dedicatedConnections, infoConnectedNode, nodeCallback);
+    }
+
     public LightToLightConnection(Socket socket, List<Connection> dedicatedConnections, Node ourNode, NetworkCallback nodeCallback) {
         super(socket, ourNode, nodeCallback);
         this.dedicatedConnections = dedicatedConnections;
     }
 
-    public LightToLightConnection(Node ourNode, List<Connection> dedicatedConnections, Node infoConnectedNode, NetworkCallback nodeCallback) {
+    private LightToLightConnection(Node ourNode, List<Connection> dedicatedConnections, Node infoConnectedNode, NetworkCallback nodeCallback) {
         super(ourNode, infoConnectedNode, nodeCallback);
         this.dedicatedConnections = dedicatedConnections;
     }

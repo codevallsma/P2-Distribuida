@@ -9,11 +9,15 @@ import java.net.Socket;
 
 public class HeavyToHeavyConnection extends Connection {
 
+    public static HeavyToHeavyConnection getInstance(Node ourNode, Node infoConnectedNode, NetworkCallback nodeCallback) {
+        return new HeavyToHeavyConnection(ourNode, infoConnectedNode, nodeCallback);
+    }
+
     public HeavyToHeavyConnection(Socket socket, Node ourNode, NetworkCallback nodeCallback) {
         super(socket, ourNode, nodeCallback);
     }
 
-    public HeavyToHeavyConnection(Node ourNode, Node infoConnectedNode, NetworkCallback nodeCallback) {
+    private HeavyToHeavyConnection(Node ourNode, Node infoConnectedNode, NetworkCallback nodeCallback) {
         super(ourNode, infoConnectedNode, nodeCallback);
     }
 

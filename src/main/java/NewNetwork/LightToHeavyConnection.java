@@ -8,11 +8,15 @@ import java.net.Socket;
 
 public class LightToHeavyConnection extends Connection {
 
+    public static LightToHeavyConnection getInstance(Node ourNode, Node infoConnectedNode, NetworkCallback nodeCallback) {
+        return new LightToHeavyConnection(ourNode, infoConnectedNode, nodeCallback);
+    }
+
     public LightToHeavyConnection(Socket socket, Node ourNode, NetworkCallback nodeCallback) {
         super(socket, ourNode, nodeCallback);
     }
 
-    public LightToHeavyConnection(Node ourNode, Node infoConnectedNode, NetworkCallback nodeCallback) {
+    private LightToHeavyConnection(Node ourNode, Node infoConnectedNode, NetworkCallback nodeCallback) {
         super(ourNode, infoConnectedNode, nodeCallback);
     }
 
@@ -40,6 +44,7 @@ public class LightToHeavyConnection extends Connection {
                 break;
             case "HEAVYWEIGHT-REPLY":
                 // to be implemented
+                // when
                 break;
             case "SERVICE-START":
                 // to be implemented

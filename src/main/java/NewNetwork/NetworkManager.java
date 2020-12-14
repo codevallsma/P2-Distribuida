@@ -48,7 +48,6 @@ public class NetworkManager {
     public boolean start() {
         isRunning=true;
         List<Callable> threads = new ArrayList<>();
-        //threads.add(new ConnectThread(nodeData));
         //threads.add(new ListeningThread(nodeData, numNodesToConnect, connections, callback));
         List<Object> res = ThreadPoolManager.manage(threads);
         return true;
@@ -68,19 +67,35 @@ public class NetworkManager {
 
     public void connectToHeavyWeight() {
         if (ourNode instanceof HeavyWeight) {
-            // to be implemented
+            heavyWeightConnection = HeavyToHeavyConnection.getInstance(ourNode, nodeNetwork, callback);
         } else {
-            // to be implemented
+            heavyWeightConnection = LightToHeavyConnection.getInstance(ourNode, nodeNetwork, callback);
         }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                heavyWeightConnection.initConnection();
+            }
+        }).start();
     }
 
     public void connectToNode(Node node) {
-        Connection ds = new LightToLightConnection(ourNode, connections, node, callback);
+        Connection ds;
+        if (node instanceof HeavyWeight) {
+            ds = LightToHeavyConnection.getInstance(ourNode, node, callback);
+        } else {
+            ds = LightToLightConnection.getInstance(ourNode, connections, node, callback);
+        }
         try {
             mutexConnections.acquire();
             connections.add(ds);
             mutexConnections.release();
-            ds.initConnection();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    ds.initConnection();
+                }
+            }).start();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

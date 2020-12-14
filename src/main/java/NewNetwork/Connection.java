@@ -11,6 +11,13 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.Vector;
 
+enum ConnectionType {
+    LIGHT_TO_LIGHT,
+    LIGHT_TO_WEIGHT,
+    WEIGHT_TO_LIGHT,
+    WEIGHT_TO_WEIGHT,
+}
+
 /**
  * This class stores and manages all the information of each single user connected to the backend
  */
