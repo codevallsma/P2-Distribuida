@@ -15,10 +15,10 @@ public class HeavyWeight extends Node{
     private Boolean connectToOther;
 
     @JsonProperty("nodes")
-    private List<Node> nodes = null;
+    private List<LightWeight> nodes = null;
 
     @JsonCreator
-    HeavyWeight( @JsonProperty("name") String name, @JsonProperty("ip") String ip, @JsonProperty("port") Integer port,  @JsonProperty("type")String type, @JsonProperty("connectToOther") Boolean connectToOther, @JsonProperty("connectedTo") List<Node> nodes )
+    HeavyWeight( @JsonProperty("name") String name, @JsonProperty("ip") String ip, @JsonProperty("port") Integer port,  @JsonProperty("type")String type, @JsonProperty("connectToOther") Boolean connectToOther, @JsonProperty("connectedTo") List<LightWeight> nodes )
     {
         super(name,ip, port);
         this.type = type;
@@ -47,12 +47,12 @@ public class HeavyWeight extends Node{
     }
 
     @JsonProperty("nodes")
-    public List<Node> getNodes() {
+    public List<LightWeight> getNodes() {
         return nodes;
     }
 
     @JsonProperty("nodes")
-    public void setNodes(List<Node> nodes) {
+    public void setNodes(List<LightWeight> nodes) {
         this.nodes = nodes;
     }
 }

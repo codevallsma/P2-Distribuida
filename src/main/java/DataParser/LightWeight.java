@@ -5,20 +5,23 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import java.util.ArrayList;
 import java.util.List;
+
 
 public class LightWeight extends Node{
     @JsonProperty("nodeId")
     private Integer nodeId;
 
     @JsonProperty("connectedTo")
-    private List<Integer> connectedTo = null;
+    private List<Integer> connectedTo = new ArrayList<>();
 
     @JsonCreator
     LightWeight( @JsonProperty("name") String name, @JsonProperty("ip") String ip, @JsonProperty("port") Integer port,  @JsonProperty("nodeId")Integer nodeId,@JsonProperty("connectedTo") List<Integer> connectedTo )
     {
         super(name,ip, port);
         this.nodeId = nodeId;
+        this.connectedTo = connectedTo;
     }
 
     @JsonProperty("nodeId")
