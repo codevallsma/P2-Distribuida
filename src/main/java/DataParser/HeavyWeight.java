@@ -3,21 +3,9 @@ package DataParser;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-        "type",
-        "ip",
-        "port",
-        "name",
-        "connectToOther",
-        "nodes"
-})
+
+import com.fasterxml.jackson.annotation.*;
+
 public class HeavyWeight extends Node{
 
     @JsonProperty("type")
@@ -27,7 +15,16 @@ public class HeavyWeight extends Node{
     private Boolean connectToOther;
 
     @JsonProperty("nodes")
-    private List<Node> nodes = null;
+    private List<LightWeight> nodes = null;
+
+    @JsonCreator
+    HeavyWeight( @JsonProperty("name") String name, @JsonProperty("ip") String ip, @JsonProperty("port") Integer port,  @JsonProperty("type")String type, @JsonProperty("connectToOther") Boolean connectToOther, @JsonProperty("connectedTo") List<LightWeight> nodes )
+    {
+        super(name,ip, port);
+        this.type = type;
+        this.nodes = nodes;
+        this.connectToOther = connectToOther;
+    }
 
     @JsonProperty("type")
     public String getType() {
@@ -50,12 +47,12 @@ public class HeavyWeight extends Node{
     }
 
     @JsonProperty("nodes")
-    public List<Node> getNodes() {
+    public List<LightWeight> getNodes() {
         return nodes;
     }
 
     @JsonProperty("nodes")
-    public void setNodes(List<Node> nodes) {
+    public void setNodes(List<LightWeight> nodes) {
         this.nodes = nodes;
     }
 }
