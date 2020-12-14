@@ -61,8 +61,6 @@ public class LightweightProcess implements NetworkCallback {
             }
             this.lamportMutex.releaseCS();
         //}
-        Utils.timeWait(5000);
-        System.out.println("Ja he acabat i soc el node "+  nodeInfo.getName());
         this.networkManager.stopServer();
     }
 
@@ -71,8 +69,7 @@ public class LightweightProcess implements NetworkCallback {
     /* *************************************************************************** */
 
     @Override
-    public synchronized void onMessageReceived(Message msg) {
-        System.err.println("He rebut algo + "+ msg.getTag());
+    public void onMessageReceived(Message msg) {
         this.lamportMutex.handleMsg(msg);
     }
 

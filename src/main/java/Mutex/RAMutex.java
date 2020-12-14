@@ -4,6 +4,7 @@ import Clock.Clock;
 import Clock.ClockType;
 import Model.Message;
 import Network.NetworkManager;
+import Utils.Utils;
 
 import java.util.LinkedList;
 
@@ -27,13 +28,13 @@ public class RAMutex extends CustomMutex {
         v.tick();
         myts = v.getValue(0);
         // Broadcast Message
-        System.err.println("requestMessage");
         Message msg = new Message("REQUEST", myId, myts);
         networkManager.sendBroadcastMessage(msg);
         numOkay = 0;
         while (numOkay < numNodes -1 ) {
-            //wait
+            Utils.timeWait(500);
         }
+        numOkay = 0;
     }
     @Override
     public synchronized void releaseCS() {
@@ -41,7 +42,7 @@ public class RAMutex extends CustomMutex {
         while (!q.isEmpty()) {
             int pid = ((LinkedList<Integer>)q).removeFirst();
             //TODO: index is useless
-            this.networkManager.sendMessageToDedicatedConnection(pid, v.getValue(0));
+            this.networkManager.sendMessageToDedicatedConnection(this.myId,pid, v.getValue(0));
             //networkManager.
         }
     }
@@ -50,25 +51,19 @@ public class RAMutex extends CustomMutex {
     public void handleMsg(Message m) {
         int timeStamp = m.getTimestamp();
         v.receiveAction(m.getSrc(), timeStamp);
-        System.err.println("missatge arribat");
         switch (m.getTag()) {
             case "REQUEST":
-                System.err.println("request");
                 if ((myts == INFINITY)
                         || (timeStamp < myts)
                         || ((timeStamp == myts) && (m.getSrc() < myId))) {
-                    this.networkManager.sendMessageToDedicatedConnection(m.getSrc(), v.getValue(0));
+                    this.networkManager.sendMessageToDedicatedConnection(this.myId,m.getSrc(), v.getValue(0));
                     //sendMsg();
                 } else {
                     q.add(m.getSrc());
                 }
                 break;
             case "OKAY":
-                System.err.println("OKEYMAKEY");
                 numOkay++;
-                if (numOkay == numNodes -1) {
-                    notify();
-                }
                 break;
         }
 

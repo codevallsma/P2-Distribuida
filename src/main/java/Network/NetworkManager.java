@@ -84,8 +84,9 @@ public class NetworkManager {
         }
 
     }
-    public synchronized void sendMessageToDedicatedConnection(int nodeId, int queueValue){
-        connections.stream().filter(e-> e.getsrcId() == nodeId).findFirst().get().sendTextAndObject("OKAY",queueValue);
+    public synchronized void sendMessageToDedicatedConnection(int myId, int nodeId, int queueValue){
+        Message m = new Message("OKAY",myId, queueValue);
+        connections.stream().filter(e-> e.getsrcId() == nodeId).findFirst().get().sendTextAndObject("OKAY",m);
     }
 
     public void stopServer(){

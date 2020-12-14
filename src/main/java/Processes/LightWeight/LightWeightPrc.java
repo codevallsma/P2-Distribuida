@@ -37,9 +37,9 @@ public class LightWeightPrc implements NetworkCallback {
         this.numNodes=parentInfo.getNodes().size();
         this.initService = false;
         this.networkManager = new NetworkManager(nodeInfo, parentInfo,this);
-        this.mutex = mutexType == MutexType.LAMPORT ?
+        /*this.mutex = mutexType == MutexType.LAMPORT ?
                 new LamportMutex(myId, numNodes, networkManager) :
-                new RAMutex(myId, numNodes, networkManager);
+                new RAMutex(myId, numNodes, networkManager);*/
     }
 
     public void initBaseConnections() {
