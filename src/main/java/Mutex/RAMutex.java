@@ -10,7 +10,6 @@ public class RAMutex extends CustomMutex {
     public static final int INFINITY = 2147483647;
 
     private int myts;
-    private LinkedList<Integer> pendingQ = new LinkedList<Integer>();
     private int numOkay = 0;
 
 
@@ -20,7 +19,7 @@ public class RAMutex extends CustomMutex {
         myts = INFINITY;
     }
 
-
+    @Override
     public synchronized void requestCS() {
         // Clock update
         clock.tick();
@@ -33,29 +32,32 @@ public class RAMutex extends CustomMutex {
             //wait
         }
     }
-
+    @Override
     public synchronized void releaseCS() {
         myts = INFINITY;
-        while (!pendingQ.isEmpty()) {
-            int pid = pendingQ.removeFirst();
+        while (!q.isEmpty()) {
+            int pid = ((LinkedList<Integer>)q).removeFirst();
+            //TODO: index is useless
+            this.networkManager.sendMessageToDedicatedConnection(pid, clock.getValue(0));
             //networkManager.
         }
     }
 
-
+    @Override
     public synchronized void handleMsg(Message m) {
         int timeStamp = m.getTimestamp();
         clock.receiveAction(m.getSrc(), timeStamp);
 
         switch (m.getTag()) {
             case "REQUEST":
-                /*if ((myts == INFINITY)
+                if ((myts == INFINITY)
                         || (timeStamp < myts)
-                        || ((timeStamp == myts) && (m.getSrc() < myID))) {
+                        || ((timeStamp == myts) && (m.getSrc() < myId))) {
+                    this.networkManager.sendMessageToDedicatedConnection(m.getSrc(), clock.getValue(0));
                     //sendMsg();
                 } else {
-                    pendingQ.add(m.getSrc());
-                }*/
+                    q.add(m.getSrc());
+                }
                 break;
             case "OKAY":
                 numOkay++;

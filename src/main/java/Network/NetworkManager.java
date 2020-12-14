@@ -29,7 +29,7 @@ public class NetworkManager {
 
     // Connections
     private Vector<DedicatedConnection> connections;
-    private DedicatedConnection hwConnection;
+    private List<DedicatedConnection> hwConnection;
     private int numNodesToConnect;
 
     // Communication
@@ -48,7 +48,21 @@ public class NetworkManager {
         this.callback = callback;
         this.connections = new Vector<>();
     }
-
+    public NetworkManager(Node nodeData, HeavyWeight nodeNetwork, List<HeavyWeight> hwToConnect, int numNodesToConnect, NetworkCallback callback) {
+        this.nodeData = nodeData;
+        this.nodeNetwork = nodeNetwork;
+        this.numNodesToConnect = numNodesToConnect;
+        this.callback = callback;
+        this.connections = new Vector<>();
+        hwConnection = new ArrayList<>();
+        // if our node is a lightweight, we need to connect to the heavyweight
+        if(nodeData instanceof LightWeight){
+            for (HeavyWeight hw:
+                 hwToConnect) {
+                connectToNode(hw);
+            }
+        }
+    }
     public boolean start() {
         isRunning=true;
         List<Callable> threads = new ArrayList<>();
@@ -70,6 +84,9 @@ public class NetworkManager {
         }
 
     }
+    public synchronized void sendMessageToDedicatedConnection(int nodeId, int queueValue){
+        connections.stream().filter(e->((LightWeight)e.getOurNode()).getNodeId() == nodeId).findFirst().get().sendTextAndObject("OKAY",queueValue);
+    }
 
     public void stopServer(){
         isRunning = false;
@@ -80,15 +97,18 @@ public class NetworkManager {
                 e.printStackTrace();
             }
         }
-
     }
 
     private synchronized void connectToNode(Node connectedNodeInfo) {
         DedicatedConnection ds= new DedicatedConnection(nodeData, connections, connectedNodeInfo, callback);
         try {
-            mutexConnections.acquire();
-            connections.add(ds);
-            mutexConnections.release();
+            if(connectedNodeInfo instanceof LightWeight) {
+                mutexConnections.acquire();
+                connections.add(ds);
+                mutexConnections.release();
+            } else {
+                hwConnection.add(ds);
+            }
             ds.startServerConnection();
         } catch (InterruptedException e) {
             e.printStackTrace();

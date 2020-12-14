@@ -10,11 +10,13 @@ import Utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 public abstract class CustomMutex {
     public static final int INFINITY = 2147483647;
     protected Clock clock;
-    protected ArrayList<Integer> q;
+    protected List<Integer> q;
     protected int myId;
     protected int numNodes;
     protected NetworkManager networkManager;
@@ -24,7 +26,7 @@ public abstract class CustomMutex {
         this.numNodes = numNodes;
         this.clock = type == ClockType.DIRECT_CLOCK ? new DirectClock(myId,numNodes): new LamportClock();
         this.networkManager = networkManager;
-        q = new ArrayList<>(Collections.nCopies(numNodes, INFINITY));
+        q = type == ClockType.DIRECT_CLOCK ? new ArrayList<>(Collections.nCopies(numNodes, INFINITY)): new LinkedList<Integer>();
     }
 
     public abstract void requestCS();
