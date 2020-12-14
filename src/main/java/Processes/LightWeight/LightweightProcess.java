@@ -79,4 +79,14 @@ public class LightweightProcess implements NetworkCallback {
 
     }
 
+    @Override
+    public void onTokenAssigned() {
+        //...
+    }
+
+    @Override
+    public void onNodeFinished() {
+        //..
+    }
+
 }

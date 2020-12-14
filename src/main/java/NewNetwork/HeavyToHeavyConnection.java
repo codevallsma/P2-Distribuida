@@ -13,7 +13,11 @@ public class HeavyToHeavyConnection extends Connection {
         return new HeavyToHeavyConnection(ourNode, infoConnectedNode, nodeCallback);
     }
 
-    public HeavyToHeavyConnection(Socket socket, Node ourNode, NetworkCallback nodeCallback) {
+    public static HeavyToHeavyConnection getInstance(Socket socket, Node ourNode, NetworkCallback nodeCallback) {
+        return new HeavyToHeavyConnection(socket, ourNode, nodeCallback);
+    }
+
+    private HeavyToHeavyConnection(Socket socket, Node ourNode, NetworkCallback nodeCallback) {
         super(socket, ourNode, nodeCallback);
     }
 
@@ -24,7 +28,7 @@ public class HeavyToHeavyConnection extends Connection {
     @Override
     protected void onRunningProcess() throws IOException, ClassNotFoundException {
         if (((HeavyWeight)ourNode).getConnectToOther()) {
-            sendText("SESSION-IN");
+            sendText("HEAVYWEIGHT-REQUEST");
         }
         String incomingText;
         while (isRunning) {

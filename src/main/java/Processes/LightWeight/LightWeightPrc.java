@@ -98,5 +98,15 @@ public class LightWeightPrc implements NetworkCallback {
         this.initService = init;
     }
 
+    @Override
+    public void onTokenAssigned() {
+        // ...
+    }
+
+    @Override
+    public void onNodeFinished() {
+        //...
+    }
+
 
 }

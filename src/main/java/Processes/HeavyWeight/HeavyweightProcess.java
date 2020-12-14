@@ -3,18 +3,11 @@ package Processes.HeavyWeight;
 import DataParser.*;
 import Interfaces.NetworkCallback;
 import Model.Message;
-import Mutex.LamportMutex;
-import Network.DedicatedConnection;
 import NewNetwork.NetworkManager;
 import Utils.Utils;
 import Utils.Launch;
 
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.Vector;
-import java.util.concurrent.Callable;
-import java.util.stream.Collectors;
 
 public class HeavyweightProcess implements NetworkCallback {
 
@@ -26,18 +19,41 @@ public class HeavyweightProcess implements NetworkCallback {
     private NetworkManager networkManager;
     private int numNodes;
 
-    public HeavyweightProcess(int id, HeavyWeight data, HeavyWeight connectedTo, NetworkManager networkManager) {
+    // Token & Logic
+    private boolean hasToken;
+    private int finishedNodes;
+
+    public HeavyweightProcess(int id, HeavyWeight data, HeavyWeight connectedTo, boolean hasToken, NetworkManager networkManager) {
         this.myId = id;
         this.ourData = data;
         this.connectedTo = connectedTo;
         this.networkManager = networkManager;
         this.numNodes = data.getNodes().size();
+        this.hasToken = hasToken;
+        this.finishedNodes = 0;
     }
 
     public void initBaseConnections() {
-        this.networkManager.connectToHeavyWeight(connectedTo);
-        this.networkManager;
+        this.networkManager.startListening();
+        if (ourData.getConnectToOther()) {
+            this.networkManager.connectToHeavyWeight(connectedTo);
+        }
+    }
 
+    public void doSomething() {
+        Utils.timeWait(1000);
+        //while(true) {
+            while(!hasToken) {
+                Utils.timeWait(1000);
+            }
+            this.networkManager.sendBroadcastMessage("SERVICE-START");
+            while (finishedNodes < numNodes) {
+                Utils.timeWait(1000);
+            }
+            finishedNodes = 0;
+            hasToken = false;
+            this.networkManager.notifyHeavyWeight();
+        //}
     }
 
     /* *************************************************************************** */
@@ -45,13 +61,24 @@ public class HeavyweightProcess implements NetworkCallback {
     /* *************************************************************************** */
     @Override
     public void onMessageReceived(Message msg) {
-
+        // ...
     }
 
     @Override
     public void onInitService(boolean init) {
-
+        // ...
     }
+
+    @Override
+    public void onTokenAssigned() {
+        this.hasToken = true;
+    }
+
+    @Override
+    public void onNodeFinished() {
+        this.finishedNodes++;
+    }
+
 
     private static void launchSons(String className){
         try {
@@ -71,7 +98,7 @@ public class HeavyweightProcess implements NetworkCallback {
         Data d = Parser.parseJson(args[0]);
         //heavyWeight lamport
         if (args[0].compareTo("Mutex") == 0) {
-            launchSons("MainLamoport");
+            launchSons("MainLamport");
             //HeavyweightProcess hwp = HeavyweightProcess();
         } else  {
             //heavyWeight ricardAgrawala

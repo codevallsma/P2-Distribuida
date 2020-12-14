@@ -1,5 +1,6 @@
 package NewNetwork;
 
+import DataParser.LightWeight;
 import Interfaces.NetworkCallback;
 import Model.Message;
 import DataParser.Node;
@@ -87,6 +88,12 @@ public abstract class Connection extends Thread {
                 dos = new DataOutputStream(socket.getOutputStream());
                 dis = new DataInputStream(socket.getInputStream());
                 isRunning = true;
+
+                if ((ourNode instanceof LightWeight)) {
+                    dos.writeUTF("LIGHTWEIGHT");
+                } else {
+                    dos.writeUTF("HEAVYWEIGHT");
+                }
                 start();
             } catch (ConnectException exception){
                 //System.out.println("Peta desde " + ourNode.getNodeId() + "cap a " + connectedNode.getNodeId());
