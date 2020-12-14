@@ -2,6 +2,8 @@ package Processes.LightWeight;
 
 import DataParser.HeavyWeight;
 import DataParser.LightWeight;
+import Interfaces.NetworkCallback;
+import Model.Message;
 import Mutex.LamportMutex;
 import Mutex.MutexType;
 

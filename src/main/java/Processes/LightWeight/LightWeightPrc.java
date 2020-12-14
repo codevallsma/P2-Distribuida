@@ -24,6 +24,7 @@ public class LightWeightPrc implements NetworkCallback {
 
     // Comunication
     protected NetworkManager networkManager;
+    protected boolean initService;
     protected CustomMutex mutex;
 
     protected List<Integer> dependencyList;
@@ -35,13 +36,14 @@ public class LightWeightPrc implements NetworkCallback {
         this.nodeInfo = nodeInfo;
         this.parentInfo = parentInfo;
         this.numNodes=parentInfo.getNodes().size();
+        this.initService = false;
         this.networkManager = new NetworkManager(nodeInfo, parentInfo,this);
         //this.mutex = mutexType == MutexType.LAMPORT ?
         //        new LamportMutex(myId, numNodes, networkManager) :
         //        new RAMutex(myId, numNodes, networkManager);
     }
 
-    protected void initBaseConnections() {
+    public void initBaseConnections() {
         dependencyList= parentInfo.getNodes().stream()
                 .filter( e -> ((LightWeight)e).getConnectedTo().contains(myId))
                 .map((Node t) -> ((LightWeight)t).getNodeId())
@@ -58,13 +60,19 @@ public class LightWeightPrc implements NetworkCallback {
 
     public void doSomething(){
         Utils.timeWait(1000);
+        initService = true; // While not having heavyweight
         //while(true) {
+            while (!initService) {
+             Utils.timeWait(1000);
+            }
             this.mutex.requestCS();
             for (int i = 0; i < 10; i++) {
                 System.out.println("Iteració " + i + " , node = " + nodeInfo.getName());
                 this.mutex.accessCriticalZone();
             }
             this.mutex.releaseCS();
+            this.initService = false;
+            this.networkManager.notifyHeavyWeight();
         //}
         Utils.timeWait(2000);
         System.out.println("Ja he acabat i soc el node "+  nodeInfo.getName());
@@ -78,6 +86,11 @@ public class LightWeightPrc implements NetworkCallback {
     @Override
     public synchronized void onMessageReceived(Message msg) {
         mutex.handleMsg(msg);
+    }
+
+    @Override
+    public void onInitService(boolean init) {
+        this.initService = init;
     }
 
 

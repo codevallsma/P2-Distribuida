@@ -5,10 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="82822f8e-c25e-4606-abf6-32b297a2304f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/DataParser/HeavyWeight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DataParser/HeavyWeight.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DataParser/LightWeight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DataParser/LightWeight.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DataParser/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DataParser/Node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Network/ConnectionHeavyWeight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/ConnectionHeavyWeight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DataParser/Data.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DataParser/Data.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Interfaces/NetworkCallback.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Interfaces/NetworkCallback.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/NewNetwork/HeavyToHeavyConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/NewNetwork/HeavyToHeavyConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/NewNetwork/LightToHeavyConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/NewNetwork/LightToHeavyConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/NewNetwork/NetworkManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/NewNetwork/NetworkManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Processes/HeavyWeight/HeavyweightProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Processes/HeavyWeight/HeavyweightProcess.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Processes/LightWeight/LamportLightWeight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Processes/LightWeight/LamportLightWeight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Processes/LightWeight/LightWeightPrc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Processes/LightWeight/LightWeightPrc.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,6 +75,7 @@
       <recent name="" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="Interfaces" />
       <recent name="" />
       <recent name="Network" />
       <recent name="Thread" />
@@ -102,19 +108,6 @@
       <option name="MAIN_CLASS_NAME" value="MainNodes" />
       <module name="P2" />
       <option name="PROGRAM_PARAMETERS" value="0" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -175,7 +168,7 @@
       <workItem from="1606860956056" duration="18000" />
       <workItem from="1607872805251" duration="5544000" />
       <workItem from="1607897750930" duration="4170000" />
-      <workItem from="1607934899580" duration="2988000" />
+      <workItem from="1607934899580" duration="4951000" />
     </task>
     <task id="LOCAL-00001" summary="Feat: Added main.">
       <created>1603142942433</created>
@@ -289,7 +282,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607937391753</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="FIX: data parser @JsonProperty added to missing functions">
+      <created>1607938192421</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1607938192421</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -312,7 +312,8 @@
     <MESSAGE value="FEAT: New Network Manager implementation, along with optimized dedicated connection classes." />
     <MESSAGE value="FEAT: New Network Manager implementation, along with optimized dedicated connection classes + added &quot;name&quot; parameter to node model" />
     <MESSAGE value="FEAT: Deeper implementation of NetworkManager, added enum to distinguish connection type" />
-    <option name="LAST_COMMIT_MESSAGE" value="FEAT: Deeper implementation of NetworkManager, added enum to distinguish connection type" />
+    <MESSAGE value="FIX: data parser @JsonProperty added to missing functions" />
+    <option name="LAST_COMMIT_MESSAGE" value="FIX: data parser @JsonProperty added to missing functions" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

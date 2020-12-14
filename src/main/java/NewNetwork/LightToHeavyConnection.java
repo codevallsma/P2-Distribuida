@@ -47,7 +47,7 @@ public class LightToHeavyConnection extends Connection {
                 // when
                 break;
             case "SERVICE-START":
-                // to be implemented
+                callback.onInitService(true);
                 break;
         }
     }
