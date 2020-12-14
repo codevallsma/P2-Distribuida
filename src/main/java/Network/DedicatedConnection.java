@@ -31,7 +31,7 @@ public class DedicatedConnection extends Thread {
     private int connectionId;
     // Callback
     private NetworkCallback callback;
-
+    private int srcId;
     // Logic
     private boolean isRunning;
 
@@ -138,6 +138,7 @@ public class DedicatedConnection extends Thread {
     private void managedInputMessage(String messsage) throws IOException, ClassNotFoundException {
         Message objectResponse;
         objectResponse = (Message)ois.readObject();
+        this.srcId = objectResponse.getSrc();
         callback.onMessageReceived(objectResponse);
     }
 
@@ -175,5 +176,9 @@ public class DedicatedConnection extends Thread {
 
     public void setRunningTrue() {
         isRunning = true;
+    }
+
+    public int getsrcId() {
+        return this.srcId;
     }
 }

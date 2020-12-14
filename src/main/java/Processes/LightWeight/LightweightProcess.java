@@ -6,7 +6,9 @@ import DataParser.LightWeight;
 import DataParser.Node;
 import Interfaces.NetworkCallback;
 import Model.Message;
+import Mutex.CustomMutex;
 import Mutex.LamportMutex;
+import Mutex.RAMutex;
 import Network.NetworkManager;
 import Utils.Utils;
 
@@ -17,7 +19,7 @@ public class LightweightProcess implements NetworkCallback {
 
     private NetworkManager networkManager;
     private NetworkManager heavyWeightManager;
-    private LamportMutex lamportMutex;
+    private CustomMutex lamportMutex;
 
     // Comunication
     private int myId;
@@ -28,7 +30,7 @@ public class LightweightProcess implements NetworkCallback {
     private List<Integer> dependencyList;
     private int numNodes;
 
-    public LightweightProcess(int id, HeavyWeight networkInfo) {
+    public LightweightProcess(int id, HeavyWeight networkInfo, List<HeavyWeight> hwToConnect) {
         this.myId= id;
         this.nodeNetwork= networkInfo;
         this.nodeInfo = nodeNetwork.getNodes().get(myId);
@@ -38,8 +40,7 @@ public class LightweightProcess implements NetworkCallback {
                 .map((Node t) -> ((LightWeight)t).getNodeId())
                 .collect(Collectors.toList());
         this.networkManager = new NetworkManager(nodeInfo, nodeNetwork, dependencyList.size(),this);
-        heavyWeightManager = new NetworkManager(networkInfo,networkInfo,1,this);
-        //this.lamportMutex = new LamportMutex(myId, numNodes, this.networkManager);
+        this.lamportMutex = networkInfo.getType().compareTo("Lamport") == 0 ? new LamportMutex(myId, numNodes, this.networkManager) : new RAMutex(myId, numNodes, this.networkManager);
     }
 
     public void start() {
@@ -71,7 +72,8 @@ public class LightweightProcess implements NetworkCallback {
 
     @Override
     public synchronized void onMessageReceived(Message msg) {
-        lamportMutex.handleMsg(msg);
+        System.err.println("He rebut algo + "+ msg.getTag());
+        this.lamportMutex.handleMsg(msg);
     }
 
     @Override

@@ -82,10 +82,4 @@ public class LamportMutex extends CustomMutex implements LamportInterface {
                 break;
         }
     }
-
-    public boolean isReady(){
-        return networkManager != null && networkManager.getConnectionsSize() + 1 == numNodes;
-    }
-
-
 }

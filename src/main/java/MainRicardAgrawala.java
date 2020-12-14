@@ -1,15 +1,17 @@
-import DataParser.Data;
-import DataParser.Parser;
-import Processes.LightWeight.LightweightProcess;
+import Utils.Launch;
+
+import java.io.IOException;
 
 public class MainRicardAgrawala {
-    public static void main(String[] args) {
-        //System.out.println("It's eric modafaka bitch " + getPID());
-        int nodeId = Integer.parseInt(args[0]);
-        Data nodeNetwork = Parser.parseJson("NetworkConfigRicardAgrawala.json");
-        LightweightProcess process = new LightweightProcess(nodeId, nodeNetwork);
-        process.start();
-        while (!process.isReady());
-        process.doSomethingLamport();
+
+    public static void main(String[] args){
+        String[] commands = {
+                "mvn exec:java -Dexec.mainClass=MainNodeRicardAgrawala -Dexec.args='1'",
+                "mvn exec:java -Dexec.mainClass=MainNodeRicardAgrawala -Dexec.args='0'"};
+        try {
+            Launch.launchProcesses(commands);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
