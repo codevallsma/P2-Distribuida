@@ -37,4 +37,7 @@ public abstract class CustomMutex {
         System.out.println("Sóc el procés lightweight "+ this.myId);
         Utils.timeWait(1000);
     }
+    public boolean isReady(){
+        return networkManager != null && networkManager.getConnectionsSize() + 1 == numNodes;
+    }
 }

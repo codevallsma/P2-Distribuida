@@ -4,6 +4,7 @@ import DataParser.Node;
 import DataParser.Parser;
 import Processes.LightWeight.LightweightProcess;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class MainNodeLamport {
@@ -16,7 +17,8 @@ public class MainNodeLamport {
         int nodeId = Integer.parseInt(args[0]);
         Data nodeNetwork = Parser.parseJson("NetworkConfigLamport.json");
         HeavyWeight hw =nodeNetwork.getHeavyWeights().stream().filter(e -> e.getType().compareTo("Lamport")==0).findFirst().get();
-        LightweightProcess process = new LightweightProcess(nodeId,hw);
+        List<HeavyWeight> hwToCoonnect = nodeNetwork.getHeavyWeights().stream().filter(e -> e.getType().compareTo("Lamport")!=0).collect(Collectors.toList());
+        LightweightProcess process = new LightweightProcess(nodeId,hw, hwToCoonnect);
         process.start();
         while (!process.isReady());
         process.doSomethingLamport();

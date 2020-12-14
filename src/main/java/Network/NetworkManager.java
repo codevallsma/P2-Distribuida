@@ -85,7 +85,7 @@ public class NetworkManager {
 
     }
     public synchronized void sendMessageToDedicatedConnection(int nodeId, int queueValue){
-        connections.stream().filter(e->((LightWeight)e.getOurNode()).getNodeId() == nodeId).findFirst().get().sendTextAndObject("OKAY",queueValue);
+        connections.stream().filter(e-> e.getsrcId() == nodeId).findFirst().get().sendTextAndObject("OKAY",queueValue);
     }
 
     public void stopServer(){

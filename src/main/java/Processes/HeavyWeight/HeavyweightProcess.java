@@ -21,7 +21,7 @@ public class HeavyweightProcess implements NetworkCallback {
     private int num_nodes;
     public HeavyweightProcess(Data data) {
         this.networkManager = networkManager;
-        num_nodes = data.getNodes().size();
+        /*num_nodes = data.getHeavyWeights().get(0).size();
         hwData = data.getHeavyWeight();
         if(hwData.getConnectToOther()){
 
@@ -32,7 +32,7 @@ public class HeavyweightProcess implements NetworkCallback {
         this.numNodes=nodeNetwork.getNodes().size();
         dependencyList= nodeNetwork.getNodes().stream().filter(e -> e.getConnectedTo().contains(myId)).map(Node::getNodeId).collect(Collectors.toList());
         this.networkManager = new NetworkManager(nodeInfo, nodeNetwork, num_nodes,this);
-        this.lamportMutex = new LamportMutex(myId, numNodes, this.networkManager);
+        this.lamportMutex = new LamportMutex(myId, numNodes, this.networkManager);*/
     }
 
     /* *************************************************************************** */
