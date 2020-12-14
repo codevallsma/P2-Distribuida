@@ -21,26 +21,32 @@ public class Node {
     @JsonProperty("port")
     private Integer port;
 
+    @JsonProperty("name")
     public String getName() {
         return name;
     }
 
+    @JsonProperty("name")
     public void setName(String name) {
         this.name = name;
     }
 
+    @JsonProperty("ip")
     public String getIp() {
         return ip;
     }
 
+    @JsonProperty("ip")
     public void setIp(String ip) {
         this.ip = ip;
     }
 
+    @JsonProperty("port")
     public Integer getPort() {
         return port;
     }
 
+    @JsonProperty("port")
     public void setPort(Integer port) {
         this.port = port;
     }

@@ -29,26 +29,32 @@ public class HeavyWeight extends Node{
     @JsonProperty("nodes")
     private List<Node> nodes = null;
 
+    @JsonProperty("type")
     public String getType() {
         return type;
     }
 
+    @JsonProperty("type")
     public void setType(String type) {
         this.type = type;
     }
 
+    @JsonProperty("connectToOther")
     public Boolean getConnectToOther() {
         return connectToOther;
     }
 
+    @JsonProperty("connectToOther")
     public void setConnectToOther(Boolean connectToOther) {
         this.connectToOther = connectToOther;
     }
 
+    @JsonProperty("nodes")
     public List<Node> getNodes() {
         return nodes;
     }
 
+    @JsonProperty("nodes")
     public void setNodes(List<Node> nodes) {
         this.nodes = nodes;
     }

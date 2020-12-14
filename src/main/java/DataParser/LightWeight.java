@@ -21,18 +21,22 @@ public class LightWeight extends Node{
     @JsonProperty("connectedTo")
     private List<Integer> connectedTo = null;
 
+    @JsonProperty("nodeId")
     public Integer getNodeId() {
         return nodeId;
     }
 
+    @JsonProperty("nodeId")
     public void setNodeId(Integer nodeId) {
         this.nodeId = nodeId;
     }
 
+    @JsonProperty("connectedTo")
     public List<Integer> getConnectedTo() {
         return connectedTo;
     }
 
+    @JsonProperty("connectedTo")
     public void setConnectedTo(List<Integer> connectedTo) {
         this.connectedTo = connectedTo;
     }
