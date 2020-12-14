@@ -2,6 +2,7 @@ package Network;
 
 import DataParser.Data;
 import DataParser.HeavyWeight;
+import DataParser.LightWeight;
 import Interfaces.NetworkCallback;
 import DataParser.Node;
 import Model.Message;
@@ -25,9 +26,13 @@ public class NetworkManager {
     // General info
     private final Node nodeData;
     private final HeavyWeight nodeNetwork;
+
+    // Connections
     private Vector<DedicatedConnection> connections;
     private DedicatedConnection hwConnection;
     private int numNodesToConnect;
+
+    // Communication
     private ServerSocket serverSocket;
 
     // Callback
@@ -116,7 +121,7 @@ public class NetworkManager {
 
         @Override
         public Object call() throws Exception {
-            for (Integer nodeId: nodeData.getConnectedTo()) {
+            for (Integer nodeId: ((LightWeight) nodeData).getConnectedTo()) {
                 connectToNode(nodeNetwork.getNodes().get(nodeId));
             }
             return true;
@@ -144,8 +149,8 @@ public class NetworkManager {
                 while (nodesToConnect > 0) {
                     //System.out.println("Waiting for a client...");
                     Socket socket = serverSocket.accept();
-                    System.out.println("Soc el node " + nodeData.getNodeId() + " i sem conecten del port " +socket.getRemoteSocketAddress());
-                    System.out.println("New connection from node "+ nodeData.getNodeId());
+                    System.out.println("Soc el node " + nodeData.getName() + " i sem conecten del port " +socket.getRemoteSocketAddress());
+                    System.out.println("New connection from node "+ nodeData.getName());
                     DedicatedConnection dServer = new DedicatedConnection(socket, connections, nodeData, callback);
                     mutexConnections.acquire();
                     connections.add(dServer);

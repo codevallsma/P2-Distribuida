@@ -11,6 +11,7 @@
           "ip": "127.0.0.1",
           "port": 55001,
           "nodeId": 0,
+          "name": "A1",
           "connectedTo": [
             1,
             2
@@ -20,6 +21,7 @@
           "ip": "127.0.0.1",
           "port": 55002,
           "nodeId": 1,
+          "name": "A2",
           "connectedTo": [
             2
           ]
@@ -28,6 +30,7 @@
           "ip": "127.0.0.1",
           "port": 55003,
           "nodeId": 2,
+          "name": "A3",
           "connectedTo": []
         }
       ]
@@ -43,6 +46,7 @@
           "ip": "127.0.0.1",
           "port": 54001,
           "nodeId": 0,
+          "name": "B1",
           "connectedTo": [
             1
           ]
@@ -51,6 +55,7 @@
           "ip": "127.0.0.1",
           "port": 54002,
           "nodeId": 1,
+          "name": "B2",
           "connectedTo": []
         }
       ]

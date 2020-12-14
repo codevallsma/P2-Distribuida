@@ -170,7 +170,7 @@ public class DedicatedConnection extends Thread {
     // GETTERS AND SETTERS
     public String getConnectedNodeName() {
         //System.out.println("DataParser.Node Name: " + connectedNode.getName());
-        return connectedNode != null ? String.valueOf(connectedNode.getNodeId()) :"";
+        return connectedNode != null ? String.valueOf(connectedNode.getName()) :"";
     }
 
     public void setRunningTrue() {

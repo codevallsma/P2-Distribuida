@@ -2,6 +2,7 @@ package Processes.LightWeight;
 
 import DataParser.Data;
 import DataParser.HeavyWeight;
+import DataParser.LightWeight;
 import DataParser.Node;
 import Interfaces.NetworkCallback;
 import Model.Message;
@@ -32,7 +33,10 @@ public class LightweightProcess implements NetworkCallback {
         this.nodeNetwork= networkInfo;
         this.nodeInfo = nodeNetwork.getNodes().get(myId);
         this.numNodes=nodeNetwork.getNodes().size();
-        dependencyList= nodeNetwork.getNodes().stream().filter(e -> e.getConnectedTo().contains(myId)).map(Node::getNodeId).collect(Collectors.toList());
+        dependencyList= nodeNetwork.getNodes().stream()
+                .filter( e -> ((LightWeight)e).getConnectedTo().contains(myId))
+                .map((Node t) -> ((LightWeight)t).getNodeId())
+                .collect(Collectors.toList());
         this.networkManager = new NetworkManager(nodeInfo, nodeNetwork, dependencyList.size(),this);
         heavyWeightManager = new NetworkManager(networkInfo,networkInfo,1,this);
         this.lamportMutex = new LamportMutex(myId, numNodes, this.networkManager);
@@ -51,13 +55,13 @@ public class LightweightProcess implements NetworkCallback {
         //while(true) {
             this.lamportMutex.requestCS();
             for (int i = 0; i < 10; i++) {
-                System.out.println("Iteració " + i + " , node = " + nodeInfo.getNodeId());
+                System.out.println("Iteració " + i + " , node = " + nodeInfo.getName());
                 this.lamportMutex.accessCriticalZone();
             }
             this.lamportMutex.releaseCS();
         //}
         Utils.timeWait(5000);
-        System.out.println("Ja he acabat i soc el node "+  nodeInfo.getNodeId());
+        System.out.println("Ja he acabat i soc el node "+  nodeInfo.getName());
         this.networkManager.stopServer();
     }
 

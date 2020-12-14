@@ -8,7 +8,7 @@ import Model.Message;
 import Network.NetworkManager;
 import Utils.Utils;
 
-public class CustomMutex {
+public abstract class CustomMutex {
     public static final int INFINITY = 2147483647;
 
     // Local params
@@ -28,7 +28,7 @@ public class CustomMutex {
         this.networkManager = networkManager;
     }
 
-    public void requestCS() {
+    public synchronized void requestCS() {
         // ...
     }
 

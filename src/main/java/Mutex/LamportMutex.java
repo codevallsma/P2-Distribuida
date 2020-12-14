@@ -22,7 +22,7 @@ public class LamportMutex extends CustomMutex implements LamportInterface {
      * The function we use to create a request
      */
     @Override
-    public void requestCS() {
+    public synchronized void requestCS() {
         //updating our clock of requests to the new value
         q.set(myId, clock.requestAction());
         Message msg = new Message("REQUEST",myId, this.q.get(myId));

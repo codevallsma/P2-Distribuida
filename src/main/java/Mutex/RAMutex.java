@@ -20,6 +20,7 @@ public class RAMutex extends CustomMutex {
         myts = INFINITY;
     }
 
+    @Override
     public synchronized void requestCS() {
         // Clock update
         clock.tick();
@@ -33,6 +34,7 @@ public class RAMutex extends CustomMutex {
         }
     }
 
+    @Override
     public synchronized void releaseCS() {
         myts = INFINITY;
         while (!pendingQ.isEmpty()) {
@@ -41,6 +43,7 @@ public class RAMutex extends CustomMutex {
         }
     }
 
+    @Override
     public synchronized void handleMsg(Message m) {
         int timeStamp = m.getTimestamp();
         clock.receiveAction(m.getSrc(), timeStamp);
