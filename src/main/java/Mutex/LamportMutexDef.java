@@ -1,6 +1,6 @@
 package Mutex;
+
 import Clock.ClockType;
-import Clock.DirectClock;
 import Interfaces.LamportInterface;
 import Model.Message;
 import Network.NetworkManager;
@@ -9,19 +9,21 @@ import Utils.Utils;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class LamportMutex extends CustomMutex implements LamportInterface {
-    private DirectClock v;
-    public LamportMutex(int myId, int numNodes, NetworkManager networkManager) {
-        super(myId, numNodes, ClockType.DIRECT_CLOCK ,networkManager);
-        this.v = this.clock;
+public class LamportMutexDef extends CustomMutex implements LamportInterface {
+
+    private ArrayList<Integer> q;
+
+    public LamportMutexDef(int myId, int numNodes, NetworkManager networkManager) {
+        super(myId, numNodes, ClockType.DIRECT_CLOCK,networkManager);
+        q = new ArrayList<>(Collections.nCopies(numNodes, INFINITY ));
     }
 
     /**
      * The function we use to create a request
      */
-    public void requestCS() {
+    public synchronized void requestCS() {
         //updating our clock of requests to the new value
-        q.set(myId,v.requestAction());
+        q.set(myId, clock.requestAction());
         Message msg = new Message("REQUEST",myId, this.q.get(myId));
         //broadcast
         this.networkManager.sendBroadcastMessage(msg);
@@ -30,10 +32,10 @@ public class LamportMutex extends CustomMutex implements LamportInterface {
             Utils.timeWait(1000);
         }
     }
-
+    @Override
     public synchronized void releaseCS(){
         q.set(myId, INFINITY);
-        Message msg = new Message("RELEASE", myId, v.getValue(myId));
+        Message msg = new Message("RELEASE", myId, clock.getValue(myId));
         this.networkManager.sendBroadcastMessage(msg);
     }
 
@@ -50,7 +52,7 @@ public class LamportMutex extends CustomMutex implements LamportInterface {
                 if (this.isGreater(myId, i, this.q.get(myId), this.q.get(i))) {
                     return false;
                 } else {
-                    if (this.isGreater(myId, i, this.q.get(myId), this.v.getValue(i)))
+                    if (this.isGreater(myId, i, this.q.get(myId), this.clock.getValue(i)))
                         return false;
                 }
             }
@@ -61,14 +63,20 @@ public class LamportMutex extends CustomMutex implements LamportInterface {
 
 
     public boolean isGreater(int myIdIndex, int otherIndex, int value1, int value2) {
-        if(value2 == LamportMutex.INFINITY) return false;
+        if(value2 == LamportMutexDef.INFINITY) return false;
         return value1 > value2 || value1 == value2 && (myIdIndex > otherIndex);
+    }
+
+
+    public void accessCriticalZone() {
+        System.out.println("Sóc el procés lightweight "+ this.myId);
+        Utils.timeWait(1000);
     }
 
 
     public synchronized void handleMsg(Message msg) {
         int timestamp = msg.getTimestamp();
-        v.receiveAction(msg.getSrc(), msg.getTimestamp());
+        this.clock.receiveAction(msg.getSrc(), msg.getTimestamp());
         //System.out.println("Msg rebut: "+msg.getTag());
         switch (msg.getTag()){
             case "REQUEST":
@@ -76,7 +84,7 @@ public class LamportMutex extends CustomMutex implements LamportInterface {
                 //send ack back
                 break;
             case "RELEASE":
-                this.q.set(msg.getSrc(), LamportMutex.INFINITY);
+                this.q.set(msg.getSrc(), LamportMutexDef.INFINITY);
                 break;
         }
     }
