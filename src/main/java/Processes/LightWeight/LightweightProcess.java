@@ -39,7 +39,7 @@ public class LightweightProcess implements NetworkCallback {
                 .collect(Collectors.toList());
         this.networkManager = new NetworkManager(nodeInfo, nodeNetwork, dependencyList.size(),this);
         heavyWeightManager = new NetworkManager(networkInfo,networkInfo,1,this);
-        this.lamportMutex = new LamportMutex(myId, numNodes, this.networkManager);
+        //this.lamportMutex = new LamportMutex(myId, numNodes, this.networkManager);
     }
 
     public void start() {
@@ -72,6 +72,11 @@ public class LightweightProcess implements NetworkCallback {
     @Override
     public synchronized void onMessageReceived(Message msg) {
         lamportMutex.handleMsg(msg);
+    }
+
+    @Override
+    public void onInitService(boolean init) {
+
     }
 
 }

@@ -31,16 +31,15 @@ public class LightWeightPrc implements NetworkCallback {
     protected int numNodes;
 
     public LightWeightPrc(int id, LightWeight nodeInfo, HeavyWeight parentInfo, MutexType mutexType) {
-        // to be implemented
         this.myId = id;
         this.nodeInfo = nodeInfo;
         this.parentInfo = parentInfo;
         this.numNodes=parentInfo.getNodes().size();
         this.initService = false;
         this.networkManager = new NetworkManager(nodeInfo, parentInfo,this);
-        //this.mutex = mutexType == MutexType.LAMPORT ?
-        //        new LamportMutex(myId, numNodes, networkManager) :
-        //        new RAMutex(myId, numNodes, networkManager);
+        this.mutex = mutexType == MutexType.LAMPORT ?
+                new LamportMutex(myId, numNodes, networkManager) :
+                new RAMutex(myId, numNodes, networkManager);
     }
 
     public void initBaseConnections() {
@@ -49,13 +48,12 @@ public class LightWeightPrc implements NetworkCallback {
                 .map((Node t) -> ((LightWeight)t).getNodeId())
                 .collect(Collectors.toList());
 
-        this.networkManager.connectToHeavyWeight();
+        this.networkManager.connectToHeavyWeight(parentInfo);
         this.networkManager.setNodesToConnect(dependencyList.size());
 
         for (Integer nodeId: dependencyList) {
             this.networkManager.connectToNode(parentInfo.getNodes().get(nodeId));
         }
-
     }
 
     public void doSomething(){
@@ -67,16 +65,23 @@ public class LightWeightPrc implements NetworkCallback {
             }
             this.mutex.requestCS();
             for (int i = 0; i < 10; i++) {
-                System.out.println("Iteració " + i + " , node = " + nodeInfo.getName());
+                System.out.println("Iteració " + (i+1) + " , node = " + nodeInfo.getName());
                 this.mutex.accessCriticalZone();
             }
             this.mutex.releaseCS();
             this.initService = false;
             this.networkManager.notifyHeavyWeight();
         //}
-        Utils.timeWait(2000);
+        //Utils.timeWait(2000);
         System.out.println("Ja he acabat i soc el node "+  nodeInfo.getName());
         this.networkManager.stopServer();
+    }
+
+    public boolean isReady() {
+        if (this.mutex instanceof LamportMutex) {
+            return ((LamportMutex)this.mutex).isReady();
+        }
+        return true;
     }
 
     /* *************************************************************************** */
