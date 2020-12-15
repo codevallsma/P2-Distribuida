@@ -13,7 +13,6 @@ public class RAMutex extends CustomMutex {
     public static final int INFINITY = 2147483647;
     private Clock v;
     private int myts;
-    private int numOkay = 0;
     private final Semaphore okay;
 
 
@@ -21,7 +20,7 @@ public class RAMutex extends CustomMutex {
         super(id, numNodes, ClockType.LAMPORT_CLOCK, manager);
         myts = INFINITY;
         this.v = clock;
-        okay = new Semaphore(numNodes-1);
+        okay = new Semaphore(1);
     }
 
     @Override
@@ -32,12 +31,8 @@ public class RAMutex extends CustomMutex {
         // Broadcast Message
         Message msg = new Message("REQUEST", myId, myts);
         networkManager.sendBroadcastMessage(msg);
-        numOkay = 0;
-        while (numOkay < numNodes -1 ) {
-            Utils.timeWait(500);
-        }
-        numOkay = 0;
         try {
+            for (int i=0; i<numNodes;i++)
             okay.acquire();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -71,7 +66,6 @@ public class RAMutex extends CustomMutex {
                 break;
             case "OKAY":
                 okay.release();
-                numOkay++;
                 break;
         }
 
