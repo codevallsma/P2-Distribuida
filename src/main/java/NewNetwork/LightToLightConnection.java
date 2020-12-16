@@ -18,12 +18,12 @@ public class LightToLightConnection extends Connection {
         return new LightToLightConnection(ourNode, dedicatedConnections, infoConnectedNode, nodeCallback);
     }
 
-    public static LightToLightConnection getInstance(Socket socket, List<Connection> dedicatedConnections, Node ourNode, NetworkCallback nodeCallback) {
-        return new LightToLightConnection(socket, dedicatedConnections, ourNode, nodeCallback);
+    public static LightToLightConnection getInstance(Socket socket, boolean initStreams, List<Connection> dedicatedConnections, Node ourNode, NetworkCallback nodeCallback) {
+        return new LightToLightConnection(socket, initStreams, dedicatedConnections, ourNode, nodeCallback);
     }
 
-    private LightToLightConnection(Socket socket, List<Connection> dedicatedConnections, Node ourNode, NetworkCallback nodeCallback) {
-        super(socket, ourNode, nodeCallback);
+    private LightToLightConnection(Socket socket, boolean initStreams, List<Connection> dedicatedConnections, Node ourNode, NetworkCallback nodeCallback) {
+        super(socket, initStreams, ourNode, nodeCallback);
         this.dedicatedConnections = dedicatedConnections;
     }
 
@@ -47,6 +47,7 @@ public class LightToLightConnection extends Connection {
     protected void managedInputMessage(String message) throws IOException, ClassNotFoundException {
         Message objectResponse;
         objectResponse = (Message)ois.readObject();
+        System.out.println("(" + ourNode.getName() + ") Object response: " + objectResponse.getSrc());
         callback.onMessageReceived(objectResponse);
     }
 

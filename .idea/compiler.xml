@@ -6,8 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="P2-Distribuida" />
         <module name="P2" />
+        <module name="P2-Distribuida" />
       </profile>
     </annotationProcessing>
   </component>

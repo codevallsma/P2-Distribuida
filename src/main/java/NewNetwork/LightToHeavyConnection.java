@@ -13,12 +13,12 @@ public class LightToHeavyConnection extends Connection {
         return new LightToHeavyConnection(ourNode, infoConnectedNode, nodeCallback);
     }
 
-    public static LightToHeavyConnection getInstance(Socket socket, Node ourNode, NetworkCallback nodeCallback) {
-        return new LightToHeavyConnection(socket, ourNode, nodeCallback);
+    public static LightToHeavyConnection getInstance(Socket socket, boolean initStreams, Node ourNode, NetworkCallback nodeCallback) {
+        return new LightToHeavyConnection(socket, initStreams, ourNode, nodeCallback);
     }
 
-    private LightToHeavyConnection(Socket socket, Node ourNode, NetworkCallback nodeCallback) {
-        super(socket, ourNode, nodeCallback);
+    private LightToHeavyConnection(Socket socket, boolean initStreams, Node ourNode, NetworkCallback nodeCallback) {
+        super(socket, initStreams, ourNode, nodeCallback);
     }
 
     private LightToHeavyConnection(Node ourNode, Node infoConnectedNode, NetworkCallback nodeCallback) {

@@ -9,7 +9,7 @@
       "nodes":[
         {
           "ip": "127.0.0.1",
-          "port": 55001,
+          "port": 55007,
           "nodeId": 0,
           "name": "A1",
           "connectedTo": [
@@ -18,7 +18,7 @@
         },
         {
           "ip": "127.0.0.1",
-          "port": 55002,
+          "port": 55008,
           "nodeId": 1,
           "name": "A2",
           "connectedTo": []

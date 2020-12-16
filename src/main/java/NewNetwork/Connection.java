@@ -1,6 +1,7 @@
 package NewNetwork;
 
 import DataParser.LightWeight;
+import Interfaces.ConnectionCallback;
 import Interfaces.NetworkCallback;
 import Model.Message;
 import DataParser.Node;
@@ -27,6 +28,7 @@ public abstract class Connection extends Thread {
     // General info
     protected Node ourNode;
     protected Node connectedNode;
+    protected int dstId;
 
     // Communication
     protected Socket socket;
@@ -37,6 +39,7 @@ public abstract class Connection extends Thread {
 
     // Callback
     protected NetworkCallback callback;
+    protected boolean replied;
 
     // Logic
     protected boolean isRunning;
@@ -45,18 +48,24 @@ public abstract class Connection extends Thread {
      * Constructor of the dedicated server
      *  @param socket
      */
-    public Connection(Socket socket, Node ourNode, NetworkCallback nodeCallback) {
+    public Connection(Socket socket, boolean initStreams, Node ourNode, NetworkCallback nodeCallback) {
         try{
             this.socket = socket;
             this.ourNode = ourNode;
-            callback = nodeCallback;oos = new ObjectOutputStream(socket.getOutputStream());
-            ois = new ObjectInputStream(socket.getInputStream());
-            dos = new DataOutputStream(socket.getOutputStream());
-            dis = new DataInputStream(socket.getInputStream());
+            callback = nodeCallback;
+            this.replied = false;
+            if (initStreams) {
+                oos = new ObjectOutputStream(socket.getOutputStream());
+                dos = new DataOutputStream(socket.getOutputStream());
+                dis = new DataInputStream(socket.getInputStream());
+                ois = new ObjectInputStream(socket.getInputStream());
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
 
     /**
      * Constructor #2
@@ -65,37 +74,58 @@ public abstract class Connection extends Thread {
         this.ourNode = ourNode;
         this.connectedNode = connectedNode;
         this.callback = nodeCallback;
-
+        this.replied = false;
         if (connectedNode == null) {
             //System.out.println("AQUI TAMBE CONNECTED NODE NULL");
         }
     }
 
+    public void setStreams(ObjectOutputStream oos, DataOutputStream dos, DataInputStream dis, ObjectInputStream ois) {
+        this.oos = oos;
+        this.dos = dos;
+        this.dis = dis;
+        this.ois = ois;
+    }
+
     /**
      * Function that sets communication channels ready and starts thread process
      */
-    public void initConnection() {
+    public void initConnection(final ConnectionCallback callback) {
         boolean connected = false;
 
         while(!connected) {
-            Utils.timeWait(500);
             try {
                 InetAddress ip = InetAddress.getByName(connectedNode.getIp());
                 this.socket = new Socket(ip, connectedNode.getPort());
                 connected = true;
                 oos = new ObjectOutputStream(socket.getOutputStream());
-                ois = new ObjectInputStream(socket.getInputStream());
                 dos = new DataOutputStream(socket.getOutputStream());
                 dis = new DataInputStream(socket.getInputStream());
+                ois = new ObjectInputStream(socket.getInputStream());
                 isRunning = true;
 
-                if ((ourNode instanceof LightWeight)) {
+                dos.writeUTF("LIGHTWEIGHT");
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            if (dis.readUTF().equals("REPLY")) {
+                                replied = true;
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+                while (!replied) {
+                    Utils.timeWait(1000);
                     dos.writeUTF("LIGHTWEIGHT");
-                } else {
-                    dos.writeUTF("HEAVYWEIGHT");
                 }
+                //System.out.println("(" + ourNode.getName() + ") Connected to " + connectedNode.getName());
+                callback.onConnectionSuccess(this);
                 start();
             } catch (ConnectException exception){
+                System.out.println("(" + ourNode.getName() + ") No s'ha pogut establir connexió");
                 //System.out.println("Peta desde " + ourNode.getNodeId() + "cap a " + connectedNode.getNodeId());
                 connected = false;
             } catch (IOException e) {
@@ -123,6 +153,7 @@ public abstract class Connection extends Thread {
         } catch (Exception e) {
             onCatchingExceptions();
         } finally {
+            System.out.println("(" + ourNode.getName() + ") Closing...");
             onClosingProcess();
         }
     }
@@ -168,18 +199,21 @@ public abstract class Connection extends Thread {
         try {
             dos.writeUTF(textToSend);
         } catch (IOException e) {
-            System.out.println("Enviament de text fallit");
+            System.out.println("(" + ourNode.getName() + ") Enviament de text fallit");
             isRunning = false;
             e.printStackTrace();
         }
     }
 
-    public void sendTextAndObject(String text, Object objectToSend) {
+    public void sendTextAndObject(String text, Message objectToSend) {
         sendText(text);
+
         try {
-            oos.writeObject(objectToSend);
+            oos.flush();
+            this.oos.writeObject(objectToSend);
+            oos.flush();
         } catch (IOException e) {
-            System.out.println("Enviament de text i objecte fallit");
+            System.out.println("(" + ourNode.getName() + ") Enviament d'objecte fallit");
             isRunning = false;
             e.printStackTrace();
         }
@@ -188,4 +222,9 @@ public abstract class Connection extends Thread {
     public void setRunningTrue() {
         isRunning = true;
     }
+
+    public int getDstID() {
+        return this.dstId;
+    }
+
 }

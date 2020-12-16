@@ -9,7 +9,7 @@ import Model.Message;
 import Mutex.CustomMutex;
 import Mutex.LamportMutex;
 import Mutex.RAMutex;
-import Network.NetworkManager;
+import NewNetwork.NetworkManager;
 import Utils.Utils;
 
 import java.util.List;
@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 public class LightweightProcess implements NetworkCallback {
 
     private NetworkManager networkManager;
-    private NetworkManager heavyWeightManager;
     private CustomMutex lamportMutex;
 
     // Comunication
@@ -39,7 +38,7 @@ public class LightweightProcess implements NetworkCallback {
                 .filter( e -> ((LightWeight)e).getConnectedTo().contains(myId))
                 .map((Node t) -> ((LightWeight)t).getNodeId())
                 .collect(Collectors.toList());
-        this.networkManager = new NetworkManager(nodeInfo, nodeNetwork, dependencyList.size(),this);
+        //this.networkManager = new NetworkManager(nodeInfo, nodeNetwork, dependencyList.size(),this);
         this.lamportMutex = networkInfo.getType().compareTo("Lamport") == 0 ? new LamportMutex(myId, numNodes, this.networkManager) : new RAMutex(myId, numNodes, this.networkManager);
     }
 

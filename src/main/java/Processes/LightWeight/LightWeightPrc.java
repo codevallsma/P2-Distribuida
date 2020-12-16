@@ -1,6 +1,5 @@
 package Processes.LightWeight;
 
-import DataParser.Data;
 import DataParser.HeavyWeight;
 import DataParser.LightWeight;
 import DataParser.Node;
@@ -37,9 +36,9 @@ public class LightWeightPrc implements NetworkCallback {
         this.numNodes=parentInfo.getNodes().size();
         this.initService = false;
         this.networkManager = new NetworkManager(nodeInfo, parentInfo,this);
-        /*this.mutex = mutexType == MutexType.LAMPORT ?
+        this.mutex = mutexType == MutexType.LAMPORT ?
                 new LamportMutex(myId, numNodes, networkManager) :
-                new RAMutex(myId, numNodes, networkManager);*/
+                new RAMutex(myId, numNodes, networkManager);
     }
 
     public void initBaseConnections() {
@@ -48,10 +47,11 @@ public class LightWeightPrc implements NetworkCallback {
                 .map((Node t) -> ((LightWeight)t).getNodeId())
                 .collect(Collectors.toList());
 
-        this.networkManager.connectToHeavyWeight(parentInfo);
+        this.networkManager.startListening();
+        //this.networkManager.connectToHeavyWeight(parentInfo);
         this.networkManager.setNodesToConnect(dependencyList.size());
 
-        for (Integer nodeId: dependencyList) {
+        for (Integer nodeId: nodeInfo.getConnectedTo()) {
             this.networkManager.connectToNode(parentInfo.getNodes().get(nodeId));
         }
     }

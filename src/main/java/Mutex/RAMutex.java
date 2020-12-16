@@ -3,9 +3,8 @@ package Mutex;
 import Clock.Clock;
 import Clock.ClockType;
 import Model.Message;
-import Network.NetworkManager;
+import NewNetwork.NetworkManager;
 import Utils.Utils;
-
 import java.util.LinkedList;
 import java.util.concurrent.Semaphore;
 
@@ -29,6 +28,7 @@ public class RAMutex extends CustomMutex {
         v.tick();
         myts = v.getValue(0);
         // Broadcast Message
+        System.err.println("requestMessage");
         Message msg = new Message("REQUEST", myId, myts);
         networkManager.sendBroadcastMessage(msg);
         try {
@@ -44,7 +44,7 @@ public class RAMutex extends CustomMutex {
         while (!q.isEmpty()) {
             int pid = ((LinkedList<Integer>)q).removeFirst();
             //TODO: index is useless
-            this.networkManager.sendMessageToDedicatedConnection(this.myId,pid, v.getValue(0));
+            this.networkManager.sendMessageToDedicatedConnection(myId, pid, v.getValue(0));
             //networkManager.
         }
     }
@@ -58,7 +58,7 @@ public class RAMutex extends CustomMutex {
                 if ((myts == INFINITY)
                         || (timeStamp < myts)
                         || ((timeStamp == myts) && (m.getSrc() < myId))) {
-                    this.networkManager.sendMessageToDedicatedConnection(this.myId,m.getSrc(), v.getValue(0));
+                    this.networkManager.sendMessageToDedicatedConnection(myId, m.getSrc(), v.getValue(0));
                     //sendMsg();
                 } else {
                     q.add(m.getSrc());

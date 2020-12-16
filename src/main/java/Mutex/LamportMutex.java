@@ -4,7 +4,7 @@ import Clock.ClockType;
 import Clock.DirectClock;
 import Interfaces.LamportInterface;
 import Model.Message;
-import Network.NetworkManager;
+import NewNetwork.NetworkManager;
 import Utils.Utils;
 
 import java.util.ArrayList;
@@ -28,7 +28,6 @@ public class LamportMutex extends CustomMutex implements LamportInterface {
         //broadcast
         this.networkManager.sendBroadcastMessage(msg);
         while (!okCS()) {
-            //System.out.println("Hello");
             Utils.timeWait(1000);
         }
     }
@@ -44,7 +43,7 @@ public class LamportMutex extends CustomMutex implements LamportInterface {
      * @return: if returns true, we get permission to get the token
      */
     public boolean okCS() {
-        //System.out.println("Q size: " + q.size());
+        //System.out.println("(" + myId + ") Q size: " + q.size()) ;
         //System.out.println("My value: " + this.q.get(myId));
         for(int i =0; i < q.size(); i++){
             if(i!=myId) {
@@ -68,7 +67,7 @@ public class LamportMutex extends CustomMutex implements LamportInterface {
     }
 
     @Override
-    public synchronized void handleMsg(Message msg) {
+    public void handleMsg(Message msg) {
         int timestamp = msg.getTimestamp();
         v.receiveAction(msg.getSrc(), msg.getTimestamp());
         //System.out.println("Msg rebut: "+msg.getTag());

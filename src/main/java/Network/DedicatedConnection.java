@@ -45,7 +45,8 @@ public class DedicatedConnection extends Thread {
             this.socket = socket;
             this.ourNode = ourNode;
             this.dedicatedConnections = dedicatedConnections;
-            callback = nodeCallback;oos = new ObjectOutputStream(socket.getOutputStream());
+            callback = nodeCallback;
+            oos = new ObjectOutputStream(socket.getOutputStream());
             ois = new ObjectInputStream(socket.getInputStream());
             dos = new DataOutputStream(socket.getOutputStream());
             dis = new DataInputStream(socket.getInputStream());
@@ -157,10 +158,10 @@ public class DedicatedConnection extends Thread {
         }
     }
 
-    public void sendTextAndObject(String text, Object objectToSend) {
+    public void sendTextAndObject(String text, Message objectToSend) {
         sendText(text);
         try {
-            oos.writeObject(objectToSend);
+            this.oos.writeObject(objectToSend);
         } catch (IOException e) {
             System.out.println("Enviamen de text i objecte fallit");
             isRunning = false;

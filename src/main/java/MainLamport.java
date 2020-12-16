@@ -1,3 +1,4 @@
+import Utils.Launch;
 import Utils.OsCheck;
 
 import java.io.BufferedReader;
@@ -11,45 +12,9 @@ public class MainLamport {
     public static void main(String[] args) throws IOException, InterruptedException {
         //"mvn exec:java -Dexec.mainClass=MainNodes -Dexec.args='2'",
         String[] commands = {
-                "mvn exec:java -Dexec.mainClass=MainNodeLamport -Dexec.args='2'",
-                "mvn exec:java -Dexec.mainClass=MainNodeLamport -Dexec.args='1'",
-                "mvn exec:java -Dexec.mainClass=MainNodeLamport -Dexec.args='0'"};
-        execute("mvn compile", true);
-        for(String command : commands) {
-            execute(command, false);
-        }
-        for (Process p:
-                processes) {
-            p.waitFor();
-        }
-
-    }
-
-    public static void execute(String command, boolean wait) throws InterruptedException, IOException {
-        OsCheck.OSType ostype= OsCheck.getOperatingSystemType();
-        ProcessBuilder builder=new ProcessBuilder();
-        switch (ostype) {
-            case Windows:
-                builder= new ProcessBuilder("cmd.exe", "/c", command);
-                break;
-            case MacOS:
-            case Linux:
-                builder = new ProcessBuilder("bash", "-c",command);
-                break;
-            default:
-                break;
-        }
-
-        Process process = builder.inheritIO().start();
-        if(wait){
-            process.waitFor();
-        }else {
-            processes.add(process);
-        }
-        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-        String readline;
-        while ((readline = reader.readLine()) != null) {
-            System.out.println(readline);
-        }
+                "mvn exec:java -Dexec.mainClass=MainNodeLamportNeo -Dexec.args='2'",
+                "mvn exec:java -Dexec.mainClass=MainNodeLamportNeo -Dexec.args='1'",
+                "mvn exec:java -Dexec.mainClass=MainNodeLamportNeo -Dexec.args='0'"};
+        Launch.launchProcesses(commands);
     }
 }

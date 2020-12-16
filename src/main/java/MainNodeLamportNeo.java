@@ -3,8 +3,7 @@ import DataParser.HeavyWeight;
 import DataParser.LightWeight;
 import DataParser.Parser;
 import Mutex.MutexType;
-import Processes.LightWeight.LamportLightWeight;
-import Processes.LightWeight.LightweightProcess;
+import Processes.LightWeight.LightWeightPrc;
 
 public class MainNodeLamportNeo {
     public static long getPID() {
@@ -17,7 +16,7 @@ public class MainNodeLamportNeo {
         Data nodeNetwork = Parser.parseJson("NetworkConfigLamport.json");
         HeavyWeight hw =nodeNetwork.getHeavyWeights().stream().filter(e -> e.getType().compareTo("Lamport")==0).findFirst().get();
         LightWeight lw = (LightWeight) hw.getNodes().get(nodeId);
-        LamportLightWeight process = new LamportLightWeight(nodeId, lw, hw, MutexType.LAMPORT);
+        LightWeightPrc process = new LightWeightPrc(nodeId, lw, hw, MutexType.LAMPORT);
         process.initBaseConnections();
         while (!process.isReady());
         process.doSomething();
