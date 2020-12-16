@@ -163,6 +163,12 @@ public class NetworkManager implements ConnectionCallback {
         return 0;
     }
 
+    public boolean isHeavyWeightReady() {
+        boolean first_test = this.heavyWeightConnection != null;
+        boolean second_test = this.nodesConnected == this.nodesToConnect;
+        return first_test && second_test;
+    }
+
     /******************************************************************************************** */
     /*                               CONNECTION CALLBACK                                          */
     /******************************************************************************************** */

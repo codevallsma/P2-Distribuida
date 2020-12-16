@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="82822f8e-c25e-4606-abf6-32b297a2304f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/NewNetwork/Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/NewNetwork/Connection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/NewNetwork/LightToLightConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/NewNetwork/LightToLightConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/NewNetwork/NetworkManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/NewNetwork/NetworkManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Processes/HeavyWeight/HeavyweightProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Processes/HeavyWeight/HeavyweightProcess.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -193,7 +192,7 @@
       <workItem from="1607962496462" duration="9144000" />
       <workItem from="1608076297176" duration="8550000" />
       <workItem from="1608085107968" duration="499000" />
-      <workItem from="1608140075797" duration="4350000" />
+      <workItem from="1608140075797" duration="5444000" />
     </task>
     <task id="LOCAL-00001" summary="Feat: Added main.">
       <created>1603142942433</created>
@@ -349,7 +348,14 @@
       <option name="project" value="LOCAL" />
       <updated>1608141076627</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="FIX: reading object with ois error fixed">
+      <created>1608144513618</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1608144513618</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -390,7 +396,8 @@
     <MESSAGE value="FEAT: RICARD-AGRAWALA is now working" />
     <MESSAGE value="REFACTOR: Deleted unnecessary classes" />
     <MESSAGE value="Feat: new branch" />
-    <option name="LAST_COMMIT_MESSAGE" value="Feat: new branch" />
+    <MESSAGE value="FIX: reading object with ois error fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="FIX: reading object with ois error fixed" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

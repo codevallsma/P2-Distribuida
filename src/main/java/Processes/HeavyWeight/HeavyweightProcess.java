@@ -34,6 +34,7 @@ public class HeavyweightProcess implements NetworkCallback {
     }
 
     public void initBaseConnections() {
+        this.networkManager.setNodesToConnect(ourData.getNodes().size());
         this.networkManager.startListening();
         if (ourData.getConnectToOther()) {
             this.networkManager.connectToHeavyWeight(connectedTo);
@@ -77,6 +78,10 @@ public class HeavyweightProcess implements NetworkCallback {
     @Override
     public void onNodeFinished() {
         this.finishedNodes++;
+    }
+
+    public boolean isReady() {
+        return this.networkManager.isHeavyWeightReady();
     }
 
 
