@@ -49,14 +49,14 @@ public class HeavyToHeavyConnection extends Connection {
             case "HEAVYWEIGHT-REQUEST":
                 // to be implemented
                 break;
-            case "HEAVYWEIGHT-REPLY":
-                // to be implemented
+            case "HEAVYWEIGHT-READY":
+                this.callback.onHeavyReady();
                 break;
             case "TOKEN-REQUEST":
                 // to be implemented
                 break;
             case "TOKEN-ASSIGNATION":
-                // to be implemented
+                this.callback.onTokenAssigned();
                 break;
         }
     }

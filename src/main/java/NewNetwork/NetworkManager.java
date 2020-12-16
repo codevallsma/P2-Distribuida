@@ -134,6 +134,10 @@ public class NetworkManager implements ConnectionCallback {
         connections.stream().filter(e-> e.getDstID() == nodeId).findFirst().get().sendTextAndObject("OKAY",m);
     }
 
+    public void sendTextToHeavyWeight(String msg) {
+        this.heavyWeightConnection.sendText(msg);
+    }
+
     public void notifyHeavyWeight() {
         if (heavyWeightConnection != null) {
             if (ourNode instanceof LightWeight) {
@@ -233,6 +237,7 @@ public class NetworkManager implements ConnectionCallback {
                 if (isLightWeight) res = LightToHeavyConnection.getInstance(s, false, ourNode, callback);
                 else res = HeavyToHeavyConnection.getInstance(s, false, ourNode, callback);
             }
+            System.out.println("(" + ourNode.getName() + ") New connection accepted: " + msg);
             dos.writeUTF("REPLY");
             res.setStreams(oos, dos, dis, ois);
             return res;

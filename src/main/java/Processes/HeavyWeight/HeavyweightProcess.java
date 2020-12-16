@@ -11,7 +11,6 @@ import java.io.IOException;
 
 public class HeavyweightProcess implements NetworkCallback {
 
-    private int myId;
     private HeavyWeight ourData;
     private HeavyWeight connectedTo;
 
@@ -21,15 +20,16 @@ public class HeavyweightProcess implements NetworkCallback {
 
     // Token & Logic
     private boolean hasToken;
+    private boolean connectedIsReady;
     private int finishedNodes;
 
-    public HeavyweightProcess(int id, HeavyWeight data, HeavyWeight connectedTo, boolean hasToken, NetworkManager networkManager) {
-        this.myId = id;
+    public HeavyweightProcess(HeavyWeight data, HeavyWeight connectedTo, boolean hasToken) {
         this.ourData = data;
         this.connectedTo = connectedTo;
-        this.networkManager = networkManager;
+        this.networkManager = new NetworkManager(ourData, null, this);
         this.numNodes = data.getNodes().size();
         this.hasToken = hasToken;
+        this.connectedIsReady = false;
         this.finishedNodes = 0;
     }
 
@@ -42,8 +42,13 @@ public class HeavyweightProcess implements NetworkCallback {
     }
 
     public void doSomething() {
+        this.networkManager.sendTextToHeavyWeight("HEAVYWEIGHT-READY");
         Utils.timeWait(1000);
         //while(true) {
+            while (!connectedIsReady) {
+                Utils.timeWait(1000);
+                System.out.println("(" + ourData.getName() + ") Waiting for heavy to be ready...");
+            }
             while(!hasToken) {
                 Utils.timeWait(1000);
             }
@@ -73,6 +78,11 @@ public class HeavyweightProcess implements NetworkCallback {
     @Override
     public void onTokenAssigned() {
         this.hasToken = true;
+    }
+
+    @Override
+    public void onHeavyReady() {
+        this.connectedIsReady = true;
     }
 
     @Override

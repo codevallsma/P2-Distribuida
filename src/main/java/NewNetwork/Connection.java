@@ -106,7 +106,11 @@ public abstract class Connection extends Thread {
                 ois = new ObjectInputStream(socket.getInputStream());
                 isRunning = true;
 
-                dos.writeUTF("LIGHTWEIGHT");
+                if (ourNode instanceof LightWeight) {
+                    dos.writeUTF("LIGHTWEIGHT");
+                } else {
+                    dos.writeUTF("HEAVYWEIGHT");
+                }
                 dos.flush();
                 new Thread(new Runnable() {
                     @Override

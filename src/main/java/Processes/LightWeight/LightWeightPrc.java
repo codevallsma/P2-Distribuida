@@ -70,7 +70,7 @@ public class LightWeightPrc implements NetworkCallback {
             }
             this.mutex.releaseCS();
             this.initService = false;
-            this.networkManager.notifyHeavyWeight();
+            //this.networkManager.notifyHeavyWeight();
         //}
         //Utils.timeWait(2000);
         System.out.println("Ja he acabat i soc el node "+  nodeInfo.getName());
@@ -101,6 +101,11 @@ public class LightWeightPrc implements NetworkCallback {
     @Override
     public void onTokenAssigned() {
         // ...
+    }
+
+    @Override
+    public void onHeavyReady() {
+
     }
 
     @Override

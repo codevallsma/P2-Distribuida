@@ -18,7 +18,10 @@ public class MainNodeLamportNeo {
         LightWeight lw = (LightWeight) hw.getNodes().get(nodeId);
         LightWeightPrc process = new LightWeightPrc(nodeId, lw, hw, MutexType.LAMPORT);
         process.initBaseConnections();
-        while (!process.isReady());
+        while (!process.isReady()) {
+            System.out.println("Esperant a estar ready...");
+            Utils.Utils.timeWait(5000);
+        }
         process.doSomething();
     }
 }

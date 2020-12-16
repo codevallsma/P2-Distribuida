@@ -83,6 +83,11 @@ public class LightweightProcess implements NetworkCallback {
     }
 
     @Override
+    public void onHeavyReady() {
+
+    }
+
+    @Override
     public void onNodeFinished() {
         //..
     }
