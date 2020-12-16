@@ -80,9 +80,11 @@ public abstract class Connection extends Thread {
         }
     }
 
-    public void setStreams(ObjectOutputStream oos, DataOutputStream dos, DataInputStream dis, ObjectInputStream ois) {
+    public void setStreams(ObjectOutputStream oos, DataOutputStream dos, DataInputStream dis, ObjectInputStream ois) throws IOException {
         this.oos = oos;
+        this.oos.flush();
         this.dos = dos;
+        this.dos.flush();
         this.dis = dis;
         this.ois = ois;
     }
@@ -105,6 +107,7 @@ public abstract class Connection extends Thread {
                 isRunning = true;
 
                 dos.writeUTF("LIGHTWEIGHT");
+                dos.flush();
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -119,7 +122,7 @@ public abstract class Connection extends Thread {
                 }).start();
                 while (!replied) {
                     Utils.timeWait(1000);
-                    dos.writeUTF("LIGHTWEIGHT");
+                    //dos.writeUTF("LIGHTWEIGHT");
                 }
                 //System.out.println("(" + ourNode.getName() + ") Connected to " + connectedNode.getName());
                 callback.onConnectionSuccess(this);
@@ -205,11 +208,10 @@ public abstract class Connection extends Thread {
         }
     }
 
-    public void sendTextAndObject(String text, Message objectToSend) {
+    public synchronized void sendTextAndObject(String text, Message objectToSend) {
         sendText(text);
-
         try {
-            oos.flush();
+            //oos.flush();
             this.oos.writeObject(objectToSend);
             oos.flush();
         } catch (IOException e) {

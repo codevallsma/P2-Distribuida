@@ -46,9 +46,14 @@ public class LightToLightConnection extends Connection {
     @Override
     protected void managedInputMessage(String message) throws IOException, ClassNotFoundException {
         Message objectResponse;
-        objectResponse = (Message)ois.readObject();
-        System.out.println("(" + ourNode.getName() + ") Object response: " + objectResponse.getSrc());
+        try {
+        objectResponse = (Message) ois.readObject();
+        //System.out.println("(" + ourNode.getName() + ") Object response from " + connectedNode.getName() + ": " + objectResponse.getSrc());
         callback.onMessageReceived(objectResponse);
+        } catch  (Exception e) {
+            System.out.println("Excepcio en la lectura de l'objecte!");
+            e.printStackTrace();
+        }
     }
 
 }
