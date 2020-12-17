@@ -12,7 +12,7 @@ public class RAMutex extends CustomMutex {
     public static final int INFINITY = 2147483647;
     private Clock v;
     private int myts;
-    private final Semaphore okay;
+    private Semaphore okay;
 
 
     public RAMutex(int id, int numNodes, NetworkManager manager) {
@@ -46,6 +46,7 @@ public class RAMutex extends CustomMutex {
             this.networkManager.sendMessageToDedicatedConnection(myId, pid, v.getValue(0));
             //networkManager.
         }
+        okay = new Semaphore(1);
     }
 
     @Override
@@ -64,7 +65,6 @@ public class RAMutex extends CustomMutex {
                 }
                 break;
             case "OKAY":
-                okay.release();
                 okay.release();
                 break;
         }
