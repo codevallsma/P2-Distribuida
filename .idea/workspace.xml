@@ -6,8 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="82822f8e-c25e-4606-abf6-32b297a2304f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MainNodeLamportNeo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MainNodeLamportNeo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MainNodeRicardAgrawala.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MainNodeRicardAgrawala.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Mutex/CustomMutex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Mutex/CustomMutex.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Mutex/LamportMutex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Mutex/LamportMutex.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/NewNetwork/Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/NewNetwork/Connection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/NewNetwork/HeavyToHeavyConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/NewNetwork/HeavyToHeavyConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/NewNetwork/HeavyToLightConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/NewNetwork/HeavyToLightConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/NewNetwork/LightToHeavyConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/NewNetwork/LightToHeavyConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/NewNetwork/NetworkManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/NewNetwork/NetworkManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Processes/HeavyWeight/HeavyweightProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Processes/HeavyWeight/HeavyweightProcess.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Processes/LightWeight/LightWeightPrc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Processes/LightWeight/LightWeightPrc.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -77,7 +85,7 @@
       <recent name="Thread" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.MainRicardAgrawala">
+  <component name="RunManager" selected="Application.MainHeavyWeight">
     <configuration name="MainHeavyWeight" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="MainHeavyWeight" />
       <module name="P2-Distribuida" />
@@ -152,10 +160,10 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.MainRicardAgrawala" />
-        <item itemvalue="Application.MainNodeRicardAgrawala" />
         <item itemvalue="Application.MainLamport" />
+        <item itemvalue="Application.MainRicardAgrawala" />
         <item itemvalue="Application.MainHeavyWeight" />
+        <item itemvalue="Application.MainNodeRicardAgrawala" />
         <item itemvalue="Application.MainNodeLamportNeo" />
       </list>
     </recent_temporary>
@@ -207,7 +215,7 @@
       <workItem from="1608076297176" duration="8550000" />
       <workItem from="1608085107968" duration="499000" />
       <workItem from="1608140075797" duration="5525000" />
-      <workItem from="1608159012922" duration="5932000" />
+      <workItem from="1608159012922" duration="11272000" />
     </task>
     <task id="LOCAL-00001" summary="Feat: Added main.">
       <created>1603142942433</created>
@@ -384,7 +392,14 @@
       <option name="project" value="LOCAL" />
       <updated>1608161872559</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="FIX: Ricard-Agrawala implementation fix, when sending release, could not find connected node, parameter was null. Now, when establishing connection, node name is sent as well">
+      <created>1608165137684</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1608165137684</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -403,7 +418,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Feat: Added main." />
     <MESSAGE value="Feat: The direct clock class was created.&#10;The direct clock is a class that allows the Lamport algorithm to be deterministic.&#10;This class has the control of the timestamps of the system and not the ones of the requests of the system." />
     <MESSAGE value="Feat: Added message class&#10;&#10;This class will allow the communication between lightweight processes." />
     <MESSAGE value="Feat: The interfaces to be implemented by the Lamport nodes were created." />
@@ -428,7 +442,8 @@
     <MESSAGE value="FIX: reading object with ois error fixed" />
     <MESSAGE value="FEAT: isReady() heavyweight function implemented" />
     <MESSAGE value="FEAT: main heavyweight implementation, wait logic for heavyweight added + full execution with (only) lamport lightweights worked" />
-    <option name="LAST_COMMIT_MESSAGE" value="FEAT: main heavyweight implementation, wait logic for heavyweight added + full execution with (only) lamport lightweights worked" />
+    <MESSAGE value="FIX: Ricard-Agrawala implementation fix, when sending release, could not find connected node, parameter was null. Now, when establishing connection, node name is sent as well" />
+    <option name="LAST_COMMIT_MESSAGE" value="FIX: Ricard-Agrawala implementation fix, when sending release, could not find connected node, parameter was null. Now, when establishing connection, node name is sent as well" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -442,11 +457,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/Network/DedicatedConnection.java</url>
           <line>120</line>
           <option name="timeStamp" value="35" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/NewNetwork/NetworkManager.java</url>
-          <line>134</line>
-          <option name="timeStamp" value="50" />
         </line-breakpoint>
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.net.SocketException" package="java.net" />

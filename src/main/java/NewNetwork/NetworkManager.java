@@ -46,7 +46,7 @@ public class NetworkManager implements ConnectionCallback {
         this.nodesToConnect = 0;
         this.nodesConnected = 0;
         this.connections = new ArrayList<>();
-        this.isLightWeight = ourNode instanceof LightWeight;
+        this.isLightWeight = (ourNode instanceof LightWeight);
     }
 
     public boolean start() {
@@ -147,10 +147,13 @@ public class NetworkManager implements ConnectionCallback {
     public void notifyHeavyWeight() {
         if (heavyWeightConnection != null) {
             if (ourNode instanceof LightWeight) {
+                //System.out.println("(" + ourNode.getName() + ") Enviant notificacio a heavy...");
                 heavyWeightConnection.sendText("SERVICE-EXECUTED");
             } else {
                 heavyWeightConnection.sendText("TOKEN-ASSIGNATION");
             }
+        } else {
+            System.out.println("(" + ourNode.getName() + ") Could not notify heavy, it's null");
         }
     }
 
@@ -186,9 +189,11 @@ public class NetworkManager implements ConnectionCallback {
     @Override
     public void onConnectionSuccess(Connection connection) {
         try {
-            mutexConnections.acquire();
-            connections.add(connection);
-            mutexConnections.release();
+            if (!(connection instanceof LightToHeavyConnection) && !(connection instanceof HeavyToHeavyConnection)) {
+                mutexConnections.acquire();
+                connections.add(connection);
+                mutexConnections.release();
+            }
         } catch (InterruptedException e) {
             isRunning = false;
             e.printStackTrace();
@@ -239,15 +244,17 @@ public class NetworkManager implements ConnectionCallback {
             String connectedName = dis.readUTF();
             if (msg.equals("LIGHTWEIGHT")) {
                 if (isLightWeight) res = LightToLightConnection.getInstance(s, false, connections, ourNode, callback);
-                else res = HeavyToLightConnection.getInstance(s, false, ourNode, callback);
+                else {
+                    res = HeavyToLightConnection.getInstance(s, false, ourNode, callback);
+                }
+                Node connectedNode = nodeNetwork.getNodes().stream().filter(n -> n.getName().equals(connectedName)).findFirst().get();
+                res.setConnectedNode(connectedNode);
             } else {
                 if (isLightWeight) res = LightToHeavyConnection.getInstance(s, false, ourNode, callback);
                 else res = HeavyToHeavyConnection.getInstance(s, false, ourNode, callback);
             }
             System.out.println("(" + ourNode.getName() + ") New connection accepted: " + msg);
             dos.writeUTF("REPLY");
-            Node connectedNode = nodeNetwork.getNodes().stream().filter(n -> n.getName().equals(connectedName)).findFirst().get();
-            res.setConnectedNode(connectedNode);
             res.setStreams(oos, dos, dis, ois);
             return res;
         }
@@ -261,7 +268,6 @@ public class NetworkManager implements ConnectionCallback {
                     Socket socket = serverSocket.accept();
 
                     Connection res = checkConnectionType(socket);
-                    //Connection res = LightToLightConnection.getInstance(socket, connections, ourNode, callback);
                     if (res instanceof LightToLightConnection || res instanceof HeavyToLightConnection) {
                         mutexConnections.acquire();
                         connections.add(res);

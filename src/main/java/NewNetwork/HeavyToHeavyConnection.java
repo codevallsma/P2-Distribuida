@@ -50,6 +50,7 @@ public class HeavyToHeavyConnection extends Connection {
                 // to be implemented
                 break;
             case "HEAVYWEIGHT-READY":
+                System.out.println("(" + ourNode.getName() + ") Enviament ready rebut! -----------------");
                 this.callback.onHeavyReady();
                 break;
             case "TOKEN-REQUEST":

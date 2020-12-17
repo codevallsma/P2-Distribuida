@@ -48,6 +48,7 @@ public class LightToHeavyConnection extends Connection {
                 // to be implemented
                 break;
             case "SERVICE-START":
+                System.out.println("(" + ourNode.getName() + ") Service start rebut!");
                 callback.onInitService(true);
                 break;
             case "MESSAGE-RECEIVED":

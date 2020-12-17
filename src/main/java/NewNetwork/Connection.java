@@ -205,6 +205,8 @@ public abstract class Connection extends Thread {
      */
     public void sendText(String textToSend) {
         try {
+            dos.flush();
+            System.out.println("Enviant missatge: " + textToSend);
             dos.writeUTF(textToSend);
         } catch (IOException e) {
             System.out.println("(" + ourNode.getName() + ") Enviament de text fallit");

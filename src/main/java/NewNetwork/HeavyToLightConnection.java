@@ -41,6 +41,7 @@ public class HeavyToLightConnection extends Connection {
      */
     @Override
     protected void managedInputMessage(String message) throws IOException, ClassNotFoundException {
+        System.out.println("\n(" + ourNode.getName() + ") Missatge rebut: " + message);
         switch (message) {
             case "SESSION-IN":
                 // to be implemented
@@ -49,6 +50,7 @@ public class HeavyToLightConnection extends Connection {
             case "SERVICE-EXECUTED":
                 // when a lightweight finishes printing 10 times
                 dos.writeUTF("MESSAGE-RECEIVED");
+                this.callback.onNodeFinished();
                 // to be implemented
                 break;
             case "SERVICE-FINISHED":

@@ -26,6 +26,9 @@ public class LightWeightPrc implements NetworkCallback {
     protected boolean initService;
     protected CustomMutex mutex;
 
+    // Logic
+    protected boolean isRunning;
+
     protected List<Integer> dependencyList;
     protected int numNodes;
 
@@ -35,6 +38,7 @@ public class LightWeightPrc implements NetworkCallback {
         this.parentInfo = parentInfo;
         this.numNodes=parentInfo.getNodes().size();
         this.initService = false;
+        this.isRunning = false;
         this.networkManager = new NetworkManager(nodeInfo, parentInfo,this);
         this.mutex = mutexType == MutexType.LAMPORT ?
                 new LamportMutex(myId, numNodes, networkManager) :
@@ -48,7 +52,7 @@ public class LightWeightPrc implements NetworkCallback {
                 .collect(Collectors.toList());
 
         this.networkManager.startListening();
-        //this.networkManager.connectToHeavyWeight(parentInfo);
+        this.networkManager.connectToHeavyWeight(parentInfo);
         this.networkManager.setNodesToConnect(dependencyList.size());
 
         for (Integer nodeId: nodeInfo.getConnectedTo()) {
@@ -57,23 +61,25 @@ public class LightWeightPrc implements NetworkCallback {
     }
 
     public void doSomething(){
-        Utils.timeWait(1000);
-        initService = true; // While not having heavyweight
-        //while(true) {
+        Utils.timeWait(500);
+        //initService = true; // While not having heavyweight
+        isRunning = true;
+        while(isRunning) {
             while (!initService) {
              Utils.timeWait(1000);
+             if (initService) break;
             }
             this.mutex.requestCS();
             for (int i = 0; i < 10; i++) {
-                System.out.println("Iteració " + (i+1) + " , node = " + nodeInfo.getName());
-                this.mutex.accessCriticalZone();
+                System.out.println("Iteració " + (i+1) + " , node = " + nodeInfo.getName() + "\n");
+                Utils.timeWait(1000);
+                //this.mutex.accessCriticalZone();
             }
             this.mutex.releaseCS();
             this.initService = false;
-            //this.networkManager.notifyHeavyWeight();
-        //}
-        //Utils.timeWait(2000);
-        System.out.println("Ja he acabat i soc el node "+  nodeInfo.getName());
+            this.networkManager.notifyHeavyWeight();
+        }
+        Utils.timeWait(3000);
         this.networkManager.stopServer();
     }
 
@@ -95,7 +101,7 @@ public class LightWeightPrc implements NetworkCallback {
 
     @Override
     public void onInitService(boolean init) {
-        this.initService = init;
+        this.initService = true;
     }
 
     @Override

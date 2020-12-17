@@ -32,7 +32,7 @@ public class LamportMutex extends CustomMutex implements LamportInterface {
         }
     }
     @Override
-    public synchronized void releaseCS(){
+    public void releaseCS(){
         q.set(myId, INFINITY);
         Message msg = new Message("RELEASE", myId, v.getValue(myId));
         this.networkManager.sendBroadcastMessage(msg);
