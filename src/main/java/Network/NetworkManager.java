@@ -153,7 +153,7 @@ public class NetworkManager implements ConnectionCallback {
                 heavyWeightConnection.sendText("TOKEN-ASSIGNATION");
             }
         } else {
-            System.out.println("(" + ourNode.getName() + ") Could not notify heavy, it's null");
+            System.err.println("(" + ourNode.getName() + ") Could not notify heavy, it's null");
         }
     }
 
@@ -253,7 +253,7 @@ public class NetworkManager implements ConnectionCallback {
                 if (isLightWeight) res = LightToHeavyConnection.getInstance(s, false, ourNode, callback);
                 else res = HeavyToHeavyConnection.getInstance(s, false, ourNode, callback);
             }
-            System.out.println("(" + ourNode.getName() + ") New connection accepted: " + msg);
+            //System.out.println("(" + ourNode.getName() + ") New connection accepted: " + msg);
             dos.writeUTF("REPLY");
             res.setStreams(oos, dos, dis, ois);
             return res;

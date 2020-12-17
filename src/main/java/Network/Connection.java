@@ -132,7 +132,7 @@ public abstract class Connection extends Thread {
                 callback.onConnectionSuccess(this);
                 start();
             } catch (ConnectException exception){
-                System.out.println("(" + ourNode.getName() + ") No s'ha pogut establir connexió");
+                System.err.println("(" + ourNode.getName() + ") No s'ha pogut establir connexió");
                 //System.out.println("Peta desde " + ourNode.getNodeId() + "cap a " + connectedNode.getNodeId());
                 connected = false;
             } catch (IOException e) {
@@ -205,10 +205,9 @@ public abstract class Connection extends Thread {
     public void sendText(String textToSend) {
         try {
             dos.flush();
-            System.out.println("Enviant missatge: " + textToSend);
             dos.writeUTF(textToSend);
         } catch (IOException e) {
-            System.out.println("(" + ourNode.getName() + ") Enviament de text fallit");
+            System.err.println("(" + ourNode.getName() + ") Enviament de text fallit");
             isRunning = false;
             e.printStackTrace();
         }
@@ -221,7 +220,7 @@ public abstract class Connection extends Thread {
             this.oos.writeObject(objectToSend);
             oos.flush();
         } catch (IOException e) {
-            System.out.println("(" + ourNode.getName() + ") Enviament d'objecte fallit");
+            System.err.println("(" + ourNode.getName() + ") Enviament d'objecte fallit");
             isRunning = false;
             e.printStackTrace();
         }

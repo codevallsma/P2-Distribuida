@@ -28,17 +28,14 @@ public class RAMutex extends CustomMutex {
         v.tick();
         myts = v.getValue(0);
         // Broadcast Message
-        System.err.println("requestMessage");
         Message msg = new Message("REQUEST", myId, myts);
         networkManager.sendBroadcastMessage(msg);
-        System.out.println("(" + myId + ") Abans del acquire...");
         try {
             for (int i=0; i<numNodes;i++)
             okay.acquire();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("(" + myId + ") Despres del acquire...");
     }
     @Override
     public void releaseCS() {

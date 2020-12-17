@@ -49,7 +49,7 @@ public class LightToLightConnection extends Connection {
         //System.out.println("(" + ourNode.getName() + ") Object response from " + connectedNode.getName() + ": " + objectResponse.getSrc());
         callback.onMessageReceived(objectResponse);
         } catch  (Exception e) {
-            System.out.println("Excepcio en la lectura de l'objecte!");
+            System.err.println("Excepcio en la lectura de l'objecte!");
             e.printStackTrace();
         }
     }

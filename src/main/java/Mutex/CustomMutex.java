@@ -34,7 +34,7 @@ public abstract class CustomMutex {
     public abstract void handleMsg(Message m);
 
     public void accessCriticalZone() {
-        System.out.println("Sóc el procés lightweight "+ (this.myId + 1));
+        //System.out.println("Sóc el procés lightweight "+ (this.myId + 1));
         Utils.timeWait(1000);
     }
     public boolean isReady(){

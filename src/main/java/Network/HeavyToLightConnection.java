@@ -41,7 +41,7 @@ public class HeavyToLightConnection extends Connection {
      */
     @Override
     protected void managedInputMessage(String message) throws IOException, ClassNotFoundException {
-        System.out.println("\n(" + ourNode.getName() + ") Missatge rebut: " + message);
+        //System.out.println("\n(" + ourNode.getName() + ") Missatge rebut: " + message);
         switch (message) {
             case "SESSION-IN":
                 // to be implemented
