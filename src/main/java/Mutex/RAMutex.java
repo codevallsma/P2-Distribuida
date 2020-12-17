@@ -3,8 +3,8 @@ package Mutex;
 import Clock.Clock;
 import Clock.ClockType;
 import Model.Message;
-import NewNetwork.NetworkManager;
-import Utils.Utils;
+import Network.NetworkManager;
+
 import java.util.LinkedList;
 import java.util.concurrent.Semaphore;
 

@@ -1,4 +1,4 @@
-package NewNetwork;
+package Network;
 
 import DataParser.HeavyWeight;
 import DataParser.Node;

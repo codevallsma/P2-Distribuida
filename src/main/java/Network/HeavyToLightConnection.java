@@ -1,4 +1,4 @@
-package NewNetwork;
+package Network;
 
 import DataParser.Node;
 import Interfaces.NetworkCallback;

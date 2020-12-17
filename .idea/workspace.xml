@@ -85,7 +85,7 @@
       <recent name="Thread" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.MainHeavyWeight">
+  <component name="RunManager" selected="Application.MainLamport">
     <configuration name="MainHeavyWeight" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="MainHeavyWeight" />
       <module name="P2-Distribuida" />
@@ -137,15 +137,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -160,8 +158,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.MainLamport" />
         <item itemvalue="Application.MainRicardAgrawala" />
+        <item itemvalue="Application.MainLamport" />
         <item itemvalue="Application.MainHeavyWeight" />
         <item itemvalue="Application.MainNodeRicardAgrawala" />
         <item itemvalue="Application.MainNodeLamportNeo" />

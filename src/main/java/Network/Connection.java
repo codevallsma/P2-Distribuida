@@ -1,4 +1,4 @@
-package NewNetwork;
+package Network;
 
 import DataParser.LightWeight;
 import Interfaces.ConnectionCallback;
@@ -11,7 +11,6 @@ import java.io.*;
 import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.util.Vector;
 
 enum ConnectionType {
     LIGHT_TO_LIGHT,

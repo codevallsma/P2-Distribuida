@@ -3,11 +3,7 @@ import DataParser.HeavyWeight;
 import DataParser.LightWeight;
 import DataParser.Parser;
 import Mutex.MutexType;
-import Processes.LightWeight.LightWeightPrc;
-import Processes.LightWeight.LightweightProcess;
-
-import java.util.List;
-import java.util.stream.Collectors;
+import Processes.LightWeightProcess;
 
 public class MainNodeRicardAgrawala {
     public static void main(String[] args) {
@@ -17,7 +13,7 @@ public class MainNodeRicardAgrawala {
         HeavyWeight hw =nodeNetwork.getHeavyWeights().stream().filter(e -> e.getType().compareTo("Ricard-Agrawala")==0).findFirst().get();
         LightWeight lw = (LightWeight) hw.getNodes().get(nodeId);
         //List<HeavyWeight> hwToCoonnect = nodeNetwork.getHeavyWeights().stream().filter(e -> e.getType().compareTo("Ricard-Agrawala")!=0).collect(Collectors.toList());
-        LightWeightPrc process = new LightWeightPrc(nodeId, lw, hw, MutexType.RICARD_AGRAWALA);
+        LightWeightProcess process = new LightWeightProcess(nodeId, lw, hw, MutexType.RICARD_AGRAWALA);
         process.initBaseConnections();
         System.out.println("Esperant a estar ready...");
         while (!process.isReady()) {

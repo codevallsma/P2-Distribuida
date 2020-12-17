@@ -1,9 +1,9 @@
-package Processes.HeavyWeight;
+package Processes;
 
 import DataParser.*;
 import Interfaces.NetworkCallback;
 import Model.Message;
-import NewNetwork.NetworkManager;
+import Network.NetworkManager;
 import Utils.Utils;
 import Utils.Launch;
 

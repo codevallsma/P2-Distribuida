@@ -1,4 +1,4 @@
-package Processes.LightWeight;
+package Processes;
 
 import DataParser.HeavyWeight;
 import DataParser.LightWeight;
@@ -9,13 +9,13 @@ import Mutex.CustomMutex;
 import Mutex.LamportMutex;
 import Mutex.MutexType;
 import Mutex.RAMutex;
-import NewNetwork.NetworkManager;
+import Network.NetworkManager;
 import Utils.Utils;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class LightWeightPrc implements NetworkCallback {
+public class LightWeightProcess implements NetworkCallback {
 
     protected int myId;
     protected LightWeight nodeInfo;
@@ -32,7 +32,7 @@ public class LightWeightPrc implements NetworkCallback {
     protected List<Integer> dependencyList;
     protected int numNodes;
 
-    public LightWeightPrc(int id, LightWeight nodeInfo, HeavyWeight parentInfo, MutexType mutexType) {
+    public LightWeightProcess(int id, LightWeight nodeInfo, HeavyWeight parentInfo, MutexType mutexType) {
         this.myId = id;
         this.nodeInfo = nodeInfo;
         this.parentInfo = parentInfo;

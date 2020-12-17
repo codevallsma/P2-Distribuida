@@ -12,7 +12,7 @@ public class DirectClock implements Clock{
     public DirectClock(int myId, int numConnectedNodes) {
         this.clock = new ArrayList<Integer>(Collections.nCopies(numConnectedNodes, 0));
         this.myId = myId;
-        this.clock.set(myId,1);
+        this.clock.set(myId,myId);
     }
 
     public ArrayList<Integer> getClock() {

@@ -5,7 +5,7 @@ import Clock.ClockType;
 import Clock.DirectClock;
 import Clock.LamportClock;
 import Model.Message;
-import NewNetwork.NetworkManager;
+import Network.NetworkManager;
 import Utils.Utils;
 
 import java.util.ArrayList;
