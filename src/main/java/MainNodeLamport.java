@@ -1,11 +1,9 @@
 import DataParser.Data;
 import DataParser.HeavyWeight;
-import DataParser.Node;
+import DataParser.LightWeight;
 import DataParser.Parser;
-import Processes.LightWeight.LightweightProcess;
-
-import java.util.List;
-import java.util.stream.Collectors;
+import Mutex.MutexType;
+import Processes.LightWeightProcess;
 
 public class MainNodeLamport {
     public static long getPID() {
@@ -17,10 +15,14 @@ public class MainNodeLamport {
         int nodeId = Integer.parseInt(args[0]);
         Data nodeNetwork = Parser.parseJson("NetworkConfigLamport.json");
         HeavyWeight hw =nodeNetwork.getHeavyWeights().stream().filter(e -> e.getType().compareTo("Lamport")==0).findFirst().get();
-        List<HeavyWeight> hwToCoonnect = nodeNetwork.getHeavyWeights().stream().filter(e -> e.getType().compareTo("Lamport")!=0).collect(Collectors.toList());
-        LightweightProcess process = new LightweightProcess(nodeId,hw, hwToCoonnect);
-        process.start();
-        while (!process.isReady());
-        process.doSomethingLamport();
+        LightWeight lw = (LightWeight) hw.getNodes().get(nodeId);
+        LightWeightProcess process = new LightWeightProcess(nodeId, lw, hw, MutexType.LAMPORT);
+        process.initBaseConnections();
+        //System.out.println("Esperant a estar ready...");
+        while (!process.isReady()) {
+            Utils.Utils.timeWait(5000);
+        }
+        //System.out.println("Ready!-----");
+        process.doSomething();
     }
 }

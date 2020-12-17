@@ -1,36 +1,34 @@
 package Network;
 
-import DataParser.Data;
 import DataParser.HeavyWeight;
 import DataParser.LightWeight;
-import Interfaces.NetworkCallback;
 import DataParser.Node;
+import Interfaces.ConnectionCallback;
+import Interfaces.NetworkCallback;
 import Model.Message;
 import Utils.ThreadPoolManager;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Semaphore;
 
-import static java.lang.Thread.sleep;
-
-public class NetworkManager {
-
+public class NetworkManager implements ConnectionCallback {
     private final Semaphore mutexConnections = new Semaphore(1);
 
     // General info
-    private final Node nodeData;
+    private final Node ourNode;
     private final HeavyWeight nodeNetwork;
+    private boolean isLightWeight;
 
     // Connections
-    private Vector<DedicatedConnection> connections;
-    private List<DedicatedConnection> hwConnection;
-    private int numNodesToConnect;
+    private List<Connection> connections;
+    private Connection heavyWeightConnection;
+    private int nodesToConnect;
+    private int nodesConnected;
 
     // Communication
     private ServerSocket serverSocket;
@@ -41,52 +39,26 @@ public class NetworkManager {
     // Logic
     private boolean isRunning;
 
-    public NetworkManager(Node nodeData, HeavyWeight nodeNetwork, int numNodesToConnect, NetworkCallback callback) {
-        this.nodeData = nodeData;
+    public NetworkManager(Node ourNode, HeavyWeight nodeNetwork, NetworkCallback callback) {
+        this.ourNode = ourNode;
         this.nodeNetwork = nodeNetwork;
-        this.numNodesToConnect = numNodesToConnect;
         this.callback = callback;
-        this.connections = new Vector<>();
+        this.nodesToConnect = 0;
+        this.nodesConnected = 0;
+        this.connections = new ArrayList<>();
+        this.isLightWeight = (ourNode instanceof LightWeight);
     }
-    public NetworkManager(Node nodeData, HeavyWeight nodeNetwork, List<HeavyWeight> hwToConnect, int numNodesToConnect, NetworkCallback callback) {
-        this.nodeData = nodeData;
-        this.nodeNetwork = nodeNetwork;
-        this.numNodesToConnect = numNodesToConnect;
-        this.callback = callback;
-        this.connections = new Vector<>();
-        hwConnection = new ArrayList<>();
-        // if our node is a lightweight, we need to connect to the heavyweight
-        if(nodeData instanceof LightWeight){
-            for (HeavyWeight hw:
-                 hwToConnect) {
-                connectToNode(hw);
-            }
-        }
-    }
+
     public boolean start() {
         isRunning=true;
         List<Callable> threads = new ArrayList<>();
-        threads.add(new ConnectThread(nodeData));
-        threads.add(new ListeningThread(nodeData, numNodesToConnect, connections, callback));
+        //threads.add(new ListeningThread(nodeData, numNodesToConnect, connections, callback));
         List<Object> res = ThreadPoolManager.manage(threads);
         return true;
     }
-
-    public synchronized void sendBroadcastMessage(Message msg) {
-        try {
-            mutexConnections.acquire();
-            for (DedicatedConnection dc : connections) {
-                dc.sendTextAndObject(msg.getTag(), msg);
-            }
-            mutexConnections.release();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-    }
-    public synchronized void sendMessageToDedicatedConnection(int myId, int nodeId, int queueValue){
-        Message m = new Message("OKAY",myId, queueValue);
-        connections.stream().filter(e-> e.getsrcId() == nodeId).findFirst().get().sendTextAndObject("OKAY",m);
+    public void startListening() {
+        Thread t = new ListeningThread();
+        t.start();
     }
 
     public void stopServer(){
@@ -98,22 +70,98 @@ public class NetworkManager {
                 e.printStackTrace();
             }
         }
+
     }
 
-    private synchronized void connectToNode(Node connectedNodeInfo) {
-        DedicatedConnection ds= new DedicatedConnection(nodeData, connections, connectedNodeInfo, callback);
-        try {
-            if(connectedNodeInfo instanceof LightWeight) {
-                mutexConnections.acquire();
-                connections.add(ds);
-                mutexConnections.release();
-            } else {
-                hwConnection.add(ds);
+    public void connectToHeavyWeight(Node heavyweight) {
+        if (ourNode instanceof HeavyWeight) {
+            heavyWeightConnection = HeavyToHeavyConnection.getInstance(ourNode, heavyweight, callback);
+        } else {
+            heavyWeightConnection = LightToHeavyConnection.getInstance(ourNode, heavyweight, callback);
+        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                heavyWeightConnection.initConnection(NetworkManager.this);
             }
-            ds.startServerConnection();
+        }).start();
+    }
+
+    public void connectToNode(Node node) {
+        //System.out.println("(" + ourNode.getName() + ") Connecting to " + node.getName());
+        Connection ds;
+        if (node instanceof HeavyWeight) {
+            ds = LightToHeavyConnection.getInstance(ourNode, node, callback);
+        } else {
+            ds = LightToLightConnection.getInstance(ourNode, connections, node, callback);
+        }
+        ds.setDstId(((LightWeight)node).getNodeId());
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ds.initConnection(NetworkManager.this);
+            }
+        }).start();
+    }
+
+    public void sendBroadcastMessage(String msg) {
+        try {
+            mutexConnections.acquire();
+            for (Connection dc : connections) {
+                dc.sendText(msg);
+            }
+            mutexConnections.release();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+    }
+
+    public synchronized void sendBroadcastMessage(Message msg) {
+        try {
+            mutexConnections.acquire();
+            for (Connection dc : connections) {
+                dc.sendTextAndObject(msg.getTag(), msg);
+            }
+            mutexConnections.release();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public synchronized void sendMessageToDedicatedConnection(int myId, int nodeId, int queueValue){
+        Message m = new Message("OKAY",myId, queueValue);
+        connections.stream().filter(c -> {
+            if (c.connectedNode instanceof LightWeight) {
+                return ((LightWeight) c.connectedNode).getNodeId() == nodeId;
+            }
+            return false;
+        }).findFirst().get().sendTextAndObject("OKAY",m);
+    }
+
+    public void sendTextToHeavyWeight(String msg) {
+        this.heavyWeightConnection.sendText(msg);
+    }
+
+    public void notifyHeavyWeight() {
+        if (heavyWeightConnection != null) {
+            if (ourNode instanceof LightWeight) {
+                //System.out.println("(" + ourNode.getName() + ") Enviant notificacio a heavy...");
+                heavyWeightConnection.sendText("SERVICE-EXECUTED");
+            } else {
+                heavyWeightConnection.sendText("TOKEN-ASSIGNATION");
+            }
+        } else {
+            System.err.println("(" + ourNode.getName() + ") Could not notify heavy, it's null");
+        }
+    }
+
+    /******************************************************************************************** */
+    /*                                 GETTER's & SETTER's                                        */
+    /******************************************************************************************** */
+    public void setNodesToConnect(int nodesToConnect) {
+        this.nodesToConnect = nodesToConnect;
     }
 
     public int getConnectionsSize() {
@@ -128,6 +176,39 @@ public class NetworkManager {
         return 0;
     }
 
+    public boolean isHeavyWeightReady() {
+        boolean first_test = this.heavyWeightConnection != null;
+        boolean second_test = this.nodesConnected == this.nodesToConnect;
+        return first_test && second_test;
+    }
+
+    /******************************************************************************************** */
+    /*                               CONNECTION CALLBACK                                          */
+    /******************************************************************************************** */
+
+    @Override
+    public void onConnectionSuccess(Connection connection) {
+        try {
+            if (!(connection instanceof LightToHeavyConnection) && !(connection instanceof HeavyToHeavyConnection)) {
+                mutexConnections.acquire();
+                connections.add(connection);
+                mutexConnections.release();
+            }
+        } catch (InterruptedException e) {
+            isRunning = false;
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onConnectionFailure(Node nodeToConnect) {
+        // ...
+    }
+
+    @Override
+    public void onConnectionTypeKnown(Connection connection) {
+
+    }
 
     /******************************************************************************************** */
     /*                                 PRIVATE INNER CLASSES                                      */
@@ -149,43 +230,63 @@ public class NetworkManager {
         }
     }
 
-    private class ListeningThread implements Callable {
+    private class ListeningThread extends Thread {
 
-        private Node nodeData;
-        private int nodesToConnect;
-        private Vector<DedicatedConnection> connections;
-        private NetworkCallback callback;
+        private Connection checkConnectionType(Socket s) throws IOException {
+            Utils.Utils.timeWait(500);
+            ObjectOutputStream oos = new ObjectOutputStream(s.getOutputStream());
+            DataOutputStream dos = new DataOutputStream(s.getOutputStream());
+            DataInputStream dis = new DataInputStream(s.getInputStream());
+            ObjectInputStream ois = new ObjectInputStream(s.getInputStream());
 
-        public ListeningThread(Node nodeData, int nodesToConnect, Vector<DedicatedConnection> connections, NetworkCallback callback) {
-            this.nodeData = nodeData;
-            this.nodesToConnect = nodesToConnect;
-            this.connections = connections;
-            this.callback = callback;
+            Connection res;
+            String msg = dis.readUTF();
+            String connectedName = dis.readUTF();
+            if (msg.equals("LIGHTWEIGHT")) {
+                if (isLightWeight) res = LightToLightConnection.getInstance(s, false, connections, ourNode, callback);
+                else {
+                    res = HeavyToLightConnection.getInstance(s, false, ourNode, callback);
+                }
+                Node connectedNode = nodeNetwork.getNodes().stream().filter(n -> n.getName().equals(connectedName)).findFirst().get();
+                res.setConnectedNode(connectedNode);
+            } else {
+                if (isLightWeight) res = LightToHeavyConnection.getInstance(s, false, ourNode, callback);
+                else res = HeavyToHeavyConnection.getInstance(s, false, ourNode, callback);
+            }
+            //System.out.println("(" + ourNode.getName() + ") New connection accepted: " + msg);
+            dos.writeUTF("REPLY");
+            res.setStreams(oos, dos, dis, ois);
+            return res;
         }
 
         @Override
-        public Object call() {
+        public void run() {
             try {
-                serverSocket = new ServerSocket(nodeData.getPort());
-                while (nodesToConnect > 0) {
+                serverSocket = new ServerSocket(ourNode.getPort());
+                while (nodesToConnect > nodesConnected) {
                     //System.out.println("Waiting for a client...");
                     Socket socket = serverSocket.accept();
-                    System.out.println("Soc el node " + nodeData.getName() + " i sem conecten del port " +socket.getRemoteSocketAddress());
-                    System.out.println("New connection from node "+ nodeData.getName());
-                    DedicatedConnection dServer = new DedicatedConnection(socket, connections, nodeData, callback);
-                    mutexConnections.acquire();
-                    connections.add(dServer);
-                    mutexConnections.release();
-                    dServer.setRunningTrue();
-                    dServer.start();
-                    nodesToConnect--;
+
+                    Connection res = checkConnectionType(socket);
+                    if (res instanceof LightToLightConnection || res instanceof HeavyToLightConnection) {
+                        mutexConnections.acquire();
+                        connections.add(res);
+                        mutexConnections.release();
+                        nodesConnected++;
+                        //System.out.println("LightWeight connectat.");
+                    } else {
+                        heavyWeightConnection = res;
+                        //System.out.println("HeavyWeight's connectats!");
+                    }
+                    res.setRunningTrue();
+                    res.start();
                 }
+                System.out.println("Tots els nodes connectats");
             } catch (IOException e) {
                 System.err.println(e.getMessage());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            return true;
         }
     }
 }

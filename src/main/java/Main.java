@@ -1,16 +1,15 @@
 import Utils.Launch;
 import Utils.Utils;
+
 import java.io.IOException;
 
 public class Main {
     public static void main(String args[]){
-        //heavyWeight lamport
-        // Utils.getCommand("MainHeavyWeight","RICARD-AGRAWALA")
+        String[] commands = {
+                "mvn exec:java -Dexec.mainClass=MainSingleHeavyWeight -Dexec.args='Ricard-Agrawala'",
+                "mvn exec:java -Dexec.mainClass=MainSingleHeavyWeight -Dexec.args='Lamport'"};
         try {
-            String[] command= {
-                    Utils.getCommand("MainHeavyWeight","LAMPORT"),
-            };
-            Launch.launchProcesses(command);
+            Launch.launchProcesses(commands);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }

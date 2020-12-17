@@ -1,7 +1,7 @@
 package Interfaces;
 
 import DataParser.Node;
-import NewNetwork.Connection;
+import Network.Connection;
 
 public interface ConnectionCallback {
     void onConnectionSuccess(Connection connection);

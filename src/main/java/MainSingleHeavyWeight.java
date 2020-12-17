@@ -1,9 +1,8 @@
 import DataParser.Data;
 import DataParser.HeavyWeight;
 import DataParser.Parser;
-import Processes.HeavyWeight.HeavyweightProcess;
-import Utils.Launch;
-import Utils.Utils;
+import Processes.HeavyweightProcess;
+import Utils.*;
 
 import java.io.IOException;
 
@@ -13,11 +12,17 @@ public class MainSingleHeavyWeight {
         Data nodeNetwork = Parser.parseJson("NetworkConfigLamport.json");
         HeavyWeight hw = nodeNetwork.getHeavyWeights().stream().filter(e -> e.getType().compareTo(hwType) == 0).findFirst().get();
         HeavyWeight connectedTo = nodeNetwork.getHeavyWeights().stream().filter(e -> e.getType().compareTo(hwType) != 0).findFirst().get();
+
         if (hw != null && connectedTo != null) {
             HeavyweightProcess process = new HeavyweightProcess(hw, connectedTo, hw.getConnectToOther());
             process.initBaseConnections();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Launch.LaunchLightweights(hwType);
+                }
+            }).start();
             while (!process.isReady()) {
-                System.out.println("(" + hw.getName() + ") Waiting to be ready...");
                 Utils.timeWait(5000);
             }
             process.doSomething();

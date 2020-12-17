@@ -3,8 +3,8 @@ package Mutex;
 import Clock.Clock;
 import Clock.ClockType;
 import Model.Message;
-import NewNetwork.NetworkManager;
-import Utils.Utils;
+import Network.NetworkManager;
+
 import java.util.LinkedList;
 import java.util.concurrent.Semaphore;
 
@@ -12,7 +12,7 @@ public class RAMutex extends CustomMutex {
     public static final int INFINITY = 2147483647;
     private Clock v;
     private int myts;
-    private final Semaphore okay;
+    private Semaphore okay;
 
 
     public RAMutex(int id, int numNodes, NetworkManager manager) {
@@ -23,12 +23,11 @@ public class RAMutex extends CustomMutex {
     }
 
     @Override
-    public synchronized void requestCS() {
+    public void requestCS() {
         // Clock update
         v.tick();
         myts = v.getValue(0);
         // Broadcast Message
-        System.err.println("requestMessage");
         Message msg = new Message("REQUEST", myId, myts);
         networkManager.sendBroadcastMessage(msg);
         try {
@@ -39,7 +38,7 @@ public class RAMutex extends CustomMutex {
         }
     }
     @Override
-    public synchronized void releaseCS() {
+    public void releaseCS() {
         myts = INFINITY;
         while (!q.isEmpty()) {
             int pid = ((LinkedList<Integer>)q).removeFirst();
@@ -47,6 +46,7 @@ public class RAMutex extends CustomMutex {
             this.networkManager.sendMessageToDedicatedConnection(myId, pid, v.getValue(0));
             //networkManager.
         }
+        okay = new Semaphore(1);
     }
 
     @Override

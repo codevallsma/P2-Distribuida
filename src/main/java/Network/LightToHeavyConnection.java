@@ -1,11 +1,10 @@
-package NewNetwork;
+package Network;
 
 import DataParser.Node;
 import Interfaces.NetworkCallback;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.util.List;
 
 public class LightToHeavyConnection extends Connection {
 
@@ -48,7 +47,7 @@ public class LightToHeavyConnection extends Connection {
                 // to be implemented
                 break;
             case "SERVICE-START":
-                System.out.println("(" + ourNode.getName() + ") Service start rebut!");
+                //System.out.println("(" + ourNode.getName() + ") Service start rebut!");
                 callback.onInitService(true);
                 break;
             case "MESSAGE-RECEIVED":

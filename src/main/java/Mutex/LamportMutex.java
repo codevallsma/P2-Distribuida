@@ -1,14 +1,10 @@
 package Mutex;
 import Clock.Clock;
 import Clock.ClockType;
-import Clock.DirectClock;
 import Interfaces.LamportInterface;
 import Model.Message;
-import NewNetwork.NetworkManager;
+import Network.NetworkManager;
 import Utils.Utils;
-
-import java.util.ArrayList;
-import java.util.Collections;
 
 public class LamportMutex extends CustomMutex implements LamportInterface {
     private Clock v;
