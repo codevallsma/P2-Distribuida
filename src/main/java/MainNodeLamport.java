@@ -5,7 +5,7 @@ import DataParser.Parser;
 import Mutex.MutexType;
 import Processes.LightWeightProcess;
 
-public class MainNodeLamportNeo {
+public class MainNodeLamport {
     public static long getPID() {
         String processName =
                 java.lang.management.ManagementFactory.getRuntimeMXBean().getName();

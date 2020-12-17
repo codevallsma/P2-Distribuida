@@ -50,21 +50,17 @@ public class HeavyweightProcess implements NetworkCallback {
         while(isRunning) {
             Utils.timeWait(2000);
             while (!connectedIsReady) {
-                System.out.println("(" + ourData.getName() + ") Waiting for heavy to be ready...");
                 Utils.timeWait(1000);
                 if (connectedIsReady) break;
             }
             while(!hasToken) {
                 Utils.timeWait(1000);
             }
-            System.out.println("(" + ourData.getName() + ") Enviant Service Start...");
             this.networkManager.sendBroadcastMessage("SERVICE-START");
-            System.out.println("(" + ourData.getName() + ") Esperant als nodes...");
             while (finishedNodes < numNodes) {
                 Utils.timeWait(1000);
                 if (finishedNodes >= numNodes) break;
             }
-            System.out.println("(" + ourData.getName() + ") Nodes finalitzats...");
             finishedNodes = 0;
             hasToken = false;
             this.networkManager.notifyHeavyWeight();

@@ -132,7 +132,7 @@ public abstract class Connection extends Thread {
                 callback.onConnectionSuccess(this);
                 start();
             } catch (ConnectException exception){
-                System.err.println("(" + ourNode.getName() + ") No s'ha pogut establir connexió");
+                //System.err.println("(" + ourNode.getName() + ") No s'ha pogut establir connexió");
                 //System.out.println("Peta desde " + ourNode.getNodeId() + "cap a " + connectedNode.getNodeId());
                 connected = false;
             } catch (IOException e) {

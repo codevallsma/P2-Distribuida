@@ -21,6 +21,24 @@ public class Launch {
         }
 
     }
+    public static  void LaunchLightweights(String lightweight){
+        try {
+            if (lightweight.equals("Lamport")) {
+                String[] command = {
+                        Utils.getCommand("MainLamport", ""),
+                };
+                Launch.launchProcesses(command);
+            } else {
+                String[] command = {
+                        Utils.getCommand("MainRicardAgrawala", ""),
+                };
+                Launch.launchProcesses(command);
+            }
+
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void execute(String command, boolean wait) throws InterruptedException, IOException {
         OsCheck.OSType ostype= OsCheck.getOperatingSystemType();
