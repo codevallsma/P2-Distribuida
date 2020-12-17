@@ -111,6 +111,7 @@ public abstract class Connection extends Thread {
                 } else {
                     dos.writeUTF("HEAVYWEIGHT");
                 }
+                dos.writeUTF(ourNode.getName());
                 dos.flush();
                 new Thread(new Runnable() {
                     @Override
@@ -229,8 +230,16 @@ public abstract class Connection extends Thread {
         isRunning = true;
     }
 
+    public void setConnectedNode(Node connectedNode) {
+        this.connectedNode = connectedNode;
+    }
+
     public int getDstID() {
         return this.dstId;
+    }
+
+    public void setDstId(int id) {
+        this.dstId = id;
     }
 
 }

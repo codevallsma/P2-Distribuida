@@ -81,7 +81,7 @@ public class LightWeightPrc implements NetworkCallback {
         if (this.mutex instanceof LamportMutex) {
             return ((LamportMutex)this.mutex).isReady();
         }
-        return true;
+        return this.networkManager.getConnectionsSize() == (parentInfo.getNodes().size() - 1);
     }
 
     /* *************************************************************************** */

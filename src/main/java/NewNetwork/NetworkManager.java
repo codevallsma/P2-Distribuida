@@ -95,6 +95,7 @@ public class NetworkManager implements ConnectionCallback {
         } else {
             ds = LightToLightConnection.getInstance(ourNode, connections, node, callback);
         }
+        ds.setDstId(((LightWeight)node).getNodeId());
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -131,7 +132,12 @@ public class NetworkManager implements ConnectionCallback {
 
     public synchronized void sendMessageToDedicatedConnection(int myId, int nodeId, int queueValue){
         Message m = new Message("OKAY",myId, queueValue);
-        connections.stream().filter(e-> e.getDstID() == nodeId).findFirst().get().sendTextAndObject("OKAY",m);
+        connections.stream().filter(c -> {
+            if (c.connectedNode instanceof LightWeight) {
+                return ((LightWeight) c.connectedNode).getNodeId() == nodeId;
+            }
+            return false;
+        }).findFirst().get().sendTextAndObject("OKAY",m);
     }
 
     public void sendTextToHeavyWeight(String msg) {
@@ -230,6 +236,7 @@ public class NetworkManager implements ConnectionCallback {
 
             Connection res;
             String msg = dis.readUTF();
+            String connectedName = dis.readUTF();
             if (msg.equals("LIGHTWEIGHT")) {
                 if (isLightWeight) res = LightToLightConnection.getInstance(s, false, connections, ourNode, callback);
                 else res = HeavyToLightConnection.getInstance(s, false, ourNode, callback);
@@ -239,6 +246,8 @@ public class NetworkManager implements ConnectionCallback {
             }
             System.out.println("(" + ourNode.getName() + ") New connection accepted: " + msg);
             dos.writeUTF("REPLY");
+            Node connectedNode = nodeNetwork.getNodes().stream().filter(n -> n.getName().equals(connectedName)).findFirst().get();
+            res.setConnectedNode(connectedNode);
             res.setStreams(oos, dos, dis, ois);
             return res;
         }
