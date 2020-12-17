@@ -23,7 +23,7 @@ public class RAMutex extends CustomMutex {
     }
 
     @Override
-    public synchronized void requestCS() {
+    public void requestCS() {
         // Clock update
         v.tick();
         myts = v.getValue(0);
@@ -31,15 +31,17 @@ public class RAMutex extends CustomMutex {
         System.err.println("requestMessage");
         Message msg = new Message("REQUEST", myId, myts);
         networkManager.sendBroadcastMessage(msg);
+        System.out.println("(" + myId + ") Abans del acquire...");
         try {
             for (int i=0; i<numNodes;i++)
             okay.acquire();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        System.out.println("(" + myId + ") Despres del acquire...");
     }
     @Override
-    public synchronized void releaseCS() {
+    public void releaseCS() {
         myts = INFINITY;
         while (!q.isEmpty()) {
             int pid = ((LinkedList<Integer>)q).removeFirst();
@@ -65,6 +67,7 @@ public class RAMutex extends CustomMutex {
                 }
                 break;
             case "OKAY":
+                okay.release();
                 okay.release();
                 break;
         }
