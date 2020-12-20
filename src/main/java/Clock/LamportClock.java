@@ -15,6 +15,11 @@ public class LamportClock implements Clock{
         ticks++;
     }
 
+    @Override
+    public void tick(int sender, int value) {
+
+    }
+
     public int requestAction() {
         ticks++;
         return ticks; // may not be used, but need to return something anyway

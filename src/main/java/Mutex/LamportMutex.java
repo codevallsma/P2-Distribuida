@@ -8,9 +8,13 @@ import Utils.Utils;
 
 public class LamportMutex extends CustomMutex implements LamportInterface {
     private Clock v;
+    private int acksReceived;
+
+
     public LamportMutex(int myId, int numNodes, NetworkManager networkManager) {
         super(myId, numNodes, ClockType.DIRECT_CLOCK ,networkManager);
         this.v = this.clock;
+        this.acksReceived = 0;
     }
 
     /**
@@ -23,6 +27,12 @@ public class LamportMutex extends CustomMutex implements LamportInterface {
         Message msg = new Message("REQUEST",myId, this.q.get(myId));
         //broadcast
         this.networkManager.sendBroadcastMessage(msg);
+        System.out.println("(" + myId + ") Waiting acks...\n");
+        while (acksReceived < this.numNodes-1) {
+            Utils.timeWait(1000);
+        }
+        System.out.println("(" + myId + ") Acks received...\n");
+        acksReceived = 0;
         while (!okCS()) {
             Utils.timeWait(1000);
         }
@@ -52,6 +62,9 @@ public class LamportMutex extends CustomMutex implements LamportInterface {
                 }
             }
         }
+        for (int i = 0; i < q.size(); i++) {
+            System.out.println("(" + i + ") Q timestamp: " + q.get(i));
+        }
         //System.out.println("Return true of okCS()");
         return true;
     }
@@ -70,7 +83,11 @@ public class LamportMutex extends CustomMutex implements LamportInterface {
         switch (msg.getTag()){
             case "REQUEST":
                 this.q.set(msg.getSrc(), timestamp);
-                //send ack back
+                this.networkManager.sendMessageToConnection(myId, "ACK", v.getValue(myId), msg.getSrc());
+                break;
+            case "ACK":
+                this.v.tick(msg.getSrc(), msg.getTimestamp());
+                acksReceived++;
                 break;
             case "RELEASE":
                 this.q.set(msg.getSrc(), LamportMutex.INFINITY);

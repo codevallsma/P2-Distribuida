@@ -61,7 +61,7 @@ public class LightWeightProcess implements NetworkCallback {
     }
 
     public void doSomething(){
-        Utils.timeWait(500);
+        //Utils.timeWait(Utils.getRandomNumberInRange(500, 2000));
         //initService = true; // While not having heavyweight
         isRunning = true;
         while(isRunning) {

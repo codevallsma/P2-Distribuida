@@ -43,7 +43,7 @@ public class RAMutex extends CustomMutex {
         while (!q.isEmpty()) {
             int pid = ((LinkedList<Integer>)q).removeFirst();
             //TODO: index is useless
-            this.networkManager.sendMessageToDedicatedConnection(myId, pid, v.getValue(0));
+            this.networkManager.sendMessageToConnection(myId, "OKAY", v.getValue(0), pid);
             //networkManager.
         }
         okay = new Semaphore(1);
@@ -58,9 +58,11 @@ public class RAMutex extends CustomMutex {
                 if ((myts == INFINITY)
                         || (timeStamp < myts)
                         || ((timeStamp == myts) && (m.getSrc() < myId))) {
-                    this.networkManager.sendMessageToDedicatedConnection(myId, m.getSrc(), v.getValue(0));
+                    this.networkManager.sendMessageToConnection(myId, "OKAY", v.getValue(0), m.getSrc());
                     //sendMsg();
                 } else {
+                    System.out.println("Asked (" + myId + ") Timestamp: " + myts);
+                    System.out.println("Requested (" + m.getSrc() + ") Timestamp: " + m.getTimestamp());
                     q.add(m.getSrc());
                 }
                 break;

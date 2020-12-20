@@ -130,11 +130,11 @@ public class NetworkManager implements ConnectionCallback {
 
     }
 
-    public synchronized void sendMessageToDedicatedConnection(int myId, int nodeId, int queueValue){
-        Message m = new Message("OKAY",myId, queueValue);
+    public synchronized void sendMessageToConnection(int src, String tag, int value, int dst){
+        Message m = new Message(tag, src, value);
         connections.stream().filter(c -> {
             if (c.connectedNode instanceof LightWeight) {
-                return ((LightWeight) c.connectedNode).getNodeId() == nodeId;
+                return ((LightWeight) c.connectedNode).getNodeId() == dst;
             }
             return false;
         }).findFirst().get().sendTextAndObject("OKAY",m);
@@ -281,7 +281,7 @@ public class NetworkManager implements ConnectionCallback {
                     res.setRunningTrue();
                     res.start();
                 }
-                System.out.println("Tots els nodes connectats");
+                //System.out.println("Tots els nodes connectats");
             } catch (IOException e) {
                 System.err.println(e.getMessage());
             } catch (InterruptedException e) {
