@@ -6,15 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="82822f8e-c25e-4606-abf6-32b297a2304f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Clock/Clock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Clock/Clock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Clock/DirectClock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Clock/DirectClock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Clock/LamportClock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Clock/LamportClock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Mutex/CustomMutex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Mutex/CustomMutex.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Mutex/LamportMutex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Mutex/LamportMutex.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Mutex/RAMutex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Mutex/RAMutex.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Network/NetworkManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/NetworkManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Processes/LightWeightProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Processes/LightWeightProcess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Utils/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utils/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Processes/HeavyweightProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Processes/HeavyweightProcess.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +81,7 @@
       <option name="ALTERNATIVE_JRE_PATH" value="11" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="Main" />
-      <module name="P2-Distribuida" />
+      <module name="P2" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -138,17 +130,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="Application.MainSingleHeavyWeight" />
       <item itemvalue="Application.Main" />
@@ -178,7 +159,7 @@
       </list>
     </option>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="false" />
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -416,12 +397,13 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Feat: Added message class&#10;&#10;This class will allow the communication between lightweight processes." />
@@ -450,6 +432,36 @@
     <MESSAGE value="FIX: Ricard-Agrawala implementation fix, when sending release, could not find connected node, parameter was null. Now, when establishing connection, node name is sent as well" />
     <MESSAGE value="FEAT: All executions merged into one. Project finished." />
     <option name="LAST_COMMIT_MESSAGE" value="FEAT: All executions merged into one. Project finished." />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="2539" y="197" width="671" height="692" key="#Main" timestamp="1608482050342">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2539" y="197" width="671" height="692" key="#Main/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1608482050342" />
+    <state x="2020" y="100" width="1720" height="880" key="DiffContextDialog" timestamp="1608482952033">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2020" y="100" width="1720" height="880" key="DiffContextDialog/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1608482952033" />
+    <state width="1874" height="297" key="GridCell.Tab.0.bottom" timestamp="1608482263095">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="297" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1608482263095" />
+    <state width="1874" height="297" key="GridCell.Tab.0.center" timestamp="1608482263095">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="297" key="GridCell.Tab.0.center/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1608482263095" />
+    <state width="1874" height="297" key="GridCell.Tab.0.left" timestamp="1608482263094">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="297" key="GridCell.Tab.0.left/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1608482263094" />
+    <state width="1874" height="297" key="GridCell.Tab.0.right" timestamp="1608482263095">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="297" key="GridCell.Tab.0.right/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1608482263095" />
+    <state x="2648" y="460" width="454" height="167" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1608482026021">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2648" y="460" width="454" height="167" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1608482026021" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

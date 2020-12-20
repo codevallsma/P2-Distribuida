@@ -98,31 +98,4 @@ public class HeavyweightProcess implements NetworkCallback {
     public boolean isReady() {
         return this.networkManager.isHeavyWeightReady();
     }
-
-
-    private static void launchSons(String className){
-        try {
-            String[] command = {Utils.getCommand(className, "")};
-            Launch.launchProcesses(command);
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Main for heavyweights
-     * @param args: Args[0] -> filename
-     */
-    public static void main(String[] args) {
-
-        Data d = Parser.parseJson(args[0]);
-        //heavyWeight lamport
-        if (args[0].compareTo("Mutex") == 0) {
-            launchSons("MainLamport");
-            //HeavyweightProcess hwp = HeavyweightProcess();
-        } else  {
-            //heavyWeight ricardAgrawala
-            launchSons("MainRicardAgrawala");
-        }
-    }
 }
