@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="82822f8e-c25e-4606-abf6-32b297a2304f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Mutex/RAMutex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Mutex/RAMutex.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/NetworkConfigLamport.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/NetworkConfigLamport.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Processes/HeavyweightProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Processes/HeavyweightProcess.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,6 +78,8 @@
   </component>
   <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="11" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="P2" />
       <method v="2">
@@ -140,8 +141,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
-        <item itemvalue="Application.MainRicardAgrawala" />
         <item itemvalue="Application.MainLamport" />
+        <item itemvalue="Application.MainRicardAgrawala" />
         <item itemvalue="Application.MainNodeRicardAgrawala" />
       </list>
     </recent_temporary>
@@ -433,58 +434,34 @@
     <option name="LAST_COMMIT_MESSAGE" value="FEAT: All executions merged into one. Project finished." />
   </component>
   <component name="WindowStateProjectService">
-    <state x="2539" y="211" width="671" height="692" key="#MainHeavyWeight" timestamp="1608197699676">
+    <state x="2539" y="197" width="671" height="692" key="#Main" timestamp="1608482050342">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="2539" y="211" width="671" height="692" key="#MainHeavyWeight/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1608197699676" />
-    <state x="2539" y="211" width="671" height="692" key="#MainLamport" timestamp="1608197793595">
+    <state x="2539" y="197" width="671" height="692" key="#Main/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1608482050342" />
+    <state x="2020" y="100" width="1720" height="880" key="DiffContextDialog" timestamp="1608482952033">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="2539" y="211" width="671" height="692" key="#MainLamport/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1608197793595" />
-    <state x="2539" y="211" width="671" height="692" key="#MainRicardAgrawala" timestamp="1608197805727">
+    <state x="2020" y="100" width="1720" height="880" key="DiffContextDialog/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1608482952033" />
+    <state width="1874" height="297" key="GridCell.Tab.0.bottom" timestamp="1608482263095">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="2539" y="211" width="671" height="692" key="#MainRicardAgrawala/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1608197805727" />
-    <state x="2179" y="250" width="1651" height="614" key="CommitChangelistDialog2" timestamp="1608202153203">
+    <state width="1874" height="297" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1608482263095" />
+    <state width="1874" height="297" key="GridCell.Tab.0.center" timestamp="1608482263095">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="2179" y="250" width="1651" height="614" key="CommitChangelistDialog2/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1608202153203" />
-    <state x="2231" y="110" width="1536" height="901" key="DiffContextDialog" timestamp="1608202136464">
+    <state width="1874" height="297" key="GridCell.Tab.0.center/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1608482263095" />
+    <state width="1874" height="297" key="GridCell.Tab.0.left" timestamp="1608482263094">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="2231" y="110" width="1536" height="901" key="DiffContextDialog/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1608202136464" />
-    <state width="1874" height="288" key="GridCell.Tab.0.bottom" timestamp="1608203384337">
+    <state width="1874" height="297" key="GridCell.Tab.0.left/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1608482263094" />
+    <state width="1874" height="297" key="GridCell.Tab.0.right" timestamp="1608482263095">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="288" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1608203384337" />
-    <state width="1874" height="288" key="GridCell.Tab.0.center" timestamp="1608203384337">
+    <state width="1874" height="297" key="GridCell.Tab.0.right/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1608482263095" />
+    <state x="2648" y="460" width="454" height="167" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1608482026021">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="288" key="GridCell.Tab.0.center/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1608203384337" />
-    <state width="1874" height="288" key="GridCell.Tab.0.left" timestamp="1608203384336">
-      <screen x="1920" y="0" width="1920" height="1080" />
-    </state>
-    <state width="1874" height="288" key="GridCell.Tab.0.left/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1608203384336" />
-    <state width="1874" height="288" key="GridCell.Tab.0.right" timestamp="1608203384337">
-      <screen x="1920" y="0" width="1920" height="1080" />
-    </state>
-    <state width="1874" height="288" key="GridCell.Tab.0.right/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1608203384337" />
-    <state x="2475" y="278" width="800" height="558" key="Vcs.Push.Dialog.v2" timestamp="1608202156273">
-      <screen x="1920" y="0" width="1920" height="1080" />
-    </state>
-    <state x="2475" y="278" width="800" height="558" key="Vcs.Push.Dialog.v2/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1608202156273" />
-    <state x="2536" y="381" key="com.intellij.ide.util.TipDialog" timestamp="1608201837693">
-      <screen x="1920" y="0" width="1920" height="1080" />
-    </state>
-    <state x="2536" y="381" key="com.intellij.ide.util.TipDialog/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1608201837693" />
-    <state x="2648" y="473" width="464" height="167" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1608199069245">
-      <screen x="1920" y="0" width="1920" height="1080" />
-    </state>
-    <state x="2648" y="473" width="464" height="167" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1608199069245" />
-    <state x="2525" y="284" width="710" height="538" key="find.popup" timestamp="1608200798435">
-      <screen x="1920" y="0" width="1920" height="1080" />
-    </state>
-    <state x="2525" y="284" width="710" height="538" key="find.popup/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1608200798435" />
+    <state x="2648" y="460" width="454" height="167" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1608482026021" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

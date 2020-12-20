@@ -15,7 +15,7 @@ public class MainNodeRicardAgrawala {
         //List<HeavyWeight> hwToCoonnect = nodeNetwork.getHeavyWeights().stream().filter(e -> e.getType().compareTo("Ricard-Agrawala")!=0).collect(Collectors.toList());
         LightWeightProcess process = new LightWeightProcess(nodeId, lw, hw, MutexType.RICARD_AGRAWALA);
         process.initBaseConnections();
-        System.out.println("Esperant a estar ready...");
+        //System.out.println("Esperant a estar ready...");
         while (!process.isReady()) {
             Utils.Utils.timeWait(5000);
         }

@@ -21,6 +21,13 @@ public abstract class CustomMutex {
     protected int numNodes;
     protected NetworkManager networkManager;
 
+    /**
+     *
+     * @param myId
+     * @param numNodes: Numero de nodes total (inclos el que te una instancia d'aquest mutex)
+     * @param type
+     * @param networkManager
+     */
     CustomMutex(int myId, int numNodes, ClockType type, NetworkManager networkManager) {
         this.myId = myId;
         this.numNodes = numNodes;
