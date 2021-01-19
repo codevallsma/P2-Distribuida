@@ -13,7 +13,17 @@ public class DirectClock implements Clock{
         this.clock = new ArrayList<Integer>(Collections.nCopies(numConnectedNodes, 0));
         for (int i = 0; i < clock.size(); i++) clock.set(i, 0);
         this.myId = myId;
-        this.clock.set(myId,1);
+        //this.clock.set(myId, myId*10);
+
+        // A1 -> a2 ->a0
+
+        if (myId == 1){
+            this.clock.set(myId,1);
+        } else if (myId ==0){
+            this.clock.set(myId,0);
+        } else if(myId ==2 ){
+            this.clock.set(myId,2);
+        }
     }
 
     public ArrayList<Integer> getClock() {
@@ -40,7 +50,15 @@ public class DirectClock implements Clock{
 
     public void receiveAction(int sender, int sentValue){
         this.clock.set(sender, Integer.max(sentValue, this.clock.get(sender)) );
-        this.clock.set(myId, Integer.max(sentValue, this.clock.get(myId)) + 1 );
+        //this.clock.set(myId, Integer.max(sentValue, this.clock.get(myId))+1);
+
+        if (myId == 1){
+            this.clock.set(myId, Integer.max(sentValue, this.clock.get(myId)+2));
+        } else if (myId ==0){
+            this.clock.set(myId, Integer.max(sentValue, this.clock.get(myId)+1));
+        } else if(myId ==2 ){
+            this.clock.set(myId, Integer.max(sentValue, this.clock.get(myId)+3));
+        }
         //if(Integer.max(sentValue, this.clock.get(myId)) != LamportMutex.INFINITY){
         //}else{
         //    this.clock.set(myId,LamportMutex.INFINITY);
