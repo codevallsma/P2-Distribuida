@@ -5,16 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="82822f8e-c25e-4606-abf6-32b297a2304f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Clock/Clock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Clock/Clock.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Clock/DirectClock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Clock/DirectClock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Clock/LamportClock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Clock/LamportClock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Mutex/CustomMutex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Mutex/CustomMutex.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Mutex/LamportMutex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Mutex/LamportMutex.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Mutex/RAMutex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Mutex/RAMutex.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Network/NetworkManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/NetworkManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Processes/LightWeightProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Processes/LightWeightProcess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Utils/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utils/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Processes/HeavyweightProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Processes/HeavyweightProcess.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -178,7 +172,7 @@
       </list>
     </option>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="false" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -215,6 +209,18 @@
       <workItem from="1608140075797" duration="5525000" />
       <workItem from="1608159012922" duration="11272000" />
       <workItem from="1608201837388" duration="799000" />
+      <workItem from="1608481612797" duration="4776000" />
+      <workItem from="1608569269590" duration="11000" />
+      <workItem from="1610405737699" duration="7751000" />
+      <workItem from="1610491798383" duration="4406000" />
+      <workItem from="1610547229284" duration="1795000" />
+      <workItem from="1610716263104" duration="644000" />
+      <workItem from="1610723673674" duration="601000" />
+      <workItem from="1610724285254" duration="5000" />
+      <workItem from="1610740978908" duration="122000" />
+      <workItem from="1610972418355" duration="2320000" />
+      <workItem from="1611003386845" duration="243000" />
+      <workItem from="1611080182765" duration="2971000" />
     </task>
     <task id="LOCAL-00001" summary="Feat: Added main.">
       <created>1603142942433</created>
@@ -409,7 +415,7 @@
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -463,6 +469,11 @@
           <url>file://$PROJECT_DIR$/src/main/java/Network/DedicatedConnection.java</url>
           <line>120</line>
           <option name="timeStamp" value="35" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Network/HeavyToHeavyConnection.java</url>
+          <line>56</line>
+          <option name="timeStamp" value="47" />
         </line-breakpoint>
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.net.SocketException" package="java.net" />
