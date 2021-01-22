@@ -22,6 +22,7 @@ public class LamportMutex extends CustomMutex implements LamportInterface {
      */
     @Override
     public void requestCS() {
+
         //updating our clock of requests to the new value
         q.set(myId,v.requestAction());
         Message msg = new Message("REQUEST",myId, this.q.get(myId));
@@ -29,7 +30,7 @@ public class LamportMutex extends CustomMutex implements LamportInterface {
         this.networkManager.sendBroadcastMessage(msg);
         System.out.println("(" + myId + ") Waiting acks...\n");
         while (acksReceived < this.numNodes-1) {
-            Utils.timeWait(1000);
+            Utils.timeWait(500);
         }
         System.out.println("(" + myId + ") Acks received...\n");
         acksReceived = 0;
@@ -50,7 +51,7 @@ public class LamportMutex extends CustomMutex implements LamportInterface {
      */
     public boolean okCS() {
         //System.out.println("(" + myId + ") Q size: " + q.size()) ;
-        //System.out.println("My value: " + this.q.get(myId));
+        System.out.println("My value: " + this.q.get(myId));
         for(int i =0; i < q.size(); i++){
             if(i!=myId) {
                 //System.out.println("compare value to: " + this.q.get(i));

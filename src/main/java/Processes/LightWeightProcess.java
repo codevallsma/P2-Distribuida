@@ -63,10 +63,17 @@ public class LightWeightProcess implements NetworkCallback {
     public void doSomething(){
         //Utils.timeWait(Utils.getRandomNumberInRange(500, 2000));
         //initService = true; // While not having heavyweight
+
         isRunning = true;
         while(isRunning) {
             while (!initService) {
-             Utils.timeWait(1000);
+                if (myId == 1){
+                    Utils.timeWait(100);
+                } else if (myId ==0){
+                    Utils.timeWait(600);
+                } else if(myId ==2 ){
+                    Utils.timeWait(300);
+                }
              if (initService) break;
             }
             this.mutex.requestCS();
@@ -79,7 +86,7 @@ public class LightWeightProcess implements NetworkCallback {
             this.initService = false;
             this.networkManager.notifyHeavyWeight();
         }
-        Utils.timeWait(3000);
+        Utils.timeWait(1500);
         this.networkManager.stopServer();
     }
 

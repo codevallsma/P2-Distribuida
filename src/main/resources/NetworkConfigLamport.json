@@ -3,13 +3,13 @@
     {
      "type": "Lamport",
      "ip": "127.0.0.1",
-     "port": 55000,
+     "port": 50000,
      "name": "HeavyWeight Lamport",
      "connectToOther": true,
       "nodes":[
         {
           "ip": "127.0.0.1",
-          "port": 55001,
+          "port": 50001,
           "nodeId": 0,
           "name": "A1",
           "connectedTo": [
@@ -19,7 +19,7 @@
         },
         {
           "ip": "127.0.0.1",
-          "port": 55002,
+          "port": 50002,
           "nodeId": 1,
           "name": "A2",
           "connectedTo": [
@@ -28,7 +28,7 @@
         },
         {
           "ip": "127.0.0.1",
-          "port": 55003,
+          "port": 50003,
           "nodeId": 2,
           "name": "A3",
           "connectedTo": []
@@ -38,13 +38,13 @@
     {
       "type": "Ricard-Agrawala",
       "ip": "127.0.0.1",
-      "port": 54000,
+      "port": 51000,
       "name": "HeavyWeight Ricard-Agrawala",
       "connectToOther": false,
       "nodes":[
         {
           "ip": "127.0.0.1",
-          "port": 54001,
+          "port": 51001,
           "nodeId": 0,
           "name": "B1",
           "connectedTo": [
@@ -53,7 +53,7 @@
         },
         {
           "ip": "127.0.0.1",
-          "port": 54002,
+          "port": 51002,
           "nodeId": 1,
           "name": "B2",
           "connectedTo": []

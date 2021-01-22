@@ -18,11 +18,11 @@ public class DirectClock implements Clock{
         // A1 -> a2 ->a0
 
         if (myId == 1){
-            this.clock.set(myId,1);
-        } else if (myId ==0){
             this.clock.set(myId,0);
+        } else if (myId ==0){
+            this.clock.set(myId,10);
         } else if(myId ==2 ){
-            this.clock.set(myId,2);
+            this.clock.set(myId,5);
         }
     }
 
@@ -53,9 +53,9 @@ public class DirectClock implements Clock{
         //this.clock.set(myId, Integer.max(sentValue, this.clock.get(myId))+1);
 
         if (myId == 1){
-            this.clock.set(myId, Integer.max(sentValue, this.clock.get(myId)+2));
-        } else if (myId ==0){
             this.clock.set(myId, Integer.max(sentValue, this.clock.get(myId)+1));
+        } else if (myId ==0){
+            this.clock.set(myId, Integer.max(sentValue, this.clock.get(myId)+7));
         } else if(myId ==2 ){
             this.clock.set(myId, Integer.max(sentValue, this.clock.get(myId)+3));
         }

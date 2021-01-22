@@ -17,7 +17,7 @@ public class MainNodeRicardAgrawala {
         process.initBaseConnections();
         //System.out.println("Esperant a estar ready...");
         while (!process.isReady()) {
-            Utils.Utils.timeWait(5000);
+            Utils.Utils.timeWait(2000);
         }
         process.doSomething();
     }
